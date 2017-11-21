@@ -1,0 +1,17 @@
+.mui-bar-nav{
+	background:#2768B7;
+}
+/*考试标题的字体颜色和大小*/
+.mui-title{
+	font-size:15px ;
+	color: #FFFFFF;
+}
+.examine1{
+	margin-left: 15px;
+}
+.mui-checkbox input[type=radio]:before, .mui-radio input[type=radio]:before{
+	font-size: 18px;
+	color: #007AFF;
+	
+	
+}	

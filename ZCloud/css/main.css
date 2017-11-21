@@ -1,0 +1,149 @@
+
+
+.mui-bar-nav{
+	background-color: #2768b7;	
+	
+}
+/*首页标题的字体颜色和大小*/
+.mui-title{
+	font-size:15px ;
+	color: #FFFFFF;
+	
+
+
+}
+/*首页底部的字体的大小和颜色*/
+.mui-tab-label{
+	font-size: 24px;
+
+}
+/*图片播放下方的小圆点样式及选中时的颜色*/
+.mui-slider-indicator .mui-indicator
+{
+    display: inline-block;
+
+    width: 6px;
+    height: 6px;
+    margin: 1px 6px;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 0 0px 0px ;
+            box-shadow: 0 0 0px 0px ;
+}
+.mui-slider-indicator .mui-active.mui-indicator
+{
+    background: #286AB8;
+}
+/*零售实操等的字体样式*/
+#mui-view-fonts{
+	font-size: 12px;
+	margin-top:0px ;
+	
+}
+.mui-col-xs-3{
+	margin-bottom: 8px;
+	margin-top: 8px;
+	
+}
+/*企业新闻*/
+#mui-news-fonts{
+	font-size: 12px;
+	 margin-bottom:-15px;
+	 
+	/*font-size: 0.7rem;
+	margin-bottom:-15px;
+*/
+}
+.news-title{
+	color: #0e0e0e;
+	margin-top:-3px;
+}
+
+.new-total{
+	color: #0f0f0f;
+	margin-top: 9px;
+	font-size: 16px;
+}
+.news-title-image{
+	width: 0.5%;
+	background-color:#2769b7;
+	height: 12px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 10px;
+}
+/*各个标题的右箭头*/
+.mui-navigate-right{
+	font-size: 12px;
+	margin-top: -1px;
+}
+#news-fonts{
+	color: #d34a66;
+	
+}
+/*正文字体样式*/
+.mui-content{
+	font-family:"Hiragino Sans GB";
+	
+}
+/*热门课程图片*/
+.mui-grid-view{
+	border-top: none;
+}
+.mui-table-view.mui-grid-view.mui-grid-view-image{
+	padding: 0 0 10px 0;
+	
+}
+/*企业新闻中的右箭头*/
+.mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+	
+}
+
+.mui-title-fonts{
+	margin-top: 9px;
+	margin-left:-9px ;
+	
+}
+/*热门课程等直播视频图片下方的字体*/
+#mui-viedo-fonts{
+	font-size: 12px;
+}
+.news-title-total{
+	line-height: 10px;
+}
+
+
+   .mui-bar-nav ~ .mui-content {
+        padding-top: 44px;
+    }
+    .mui-bar-footer ~ .mui-content {
+        padding-bottom: 44px;
+    }
+    .mui-bar-tab ~ .mui-content {
+        padding-bottom: 50px;
+    }
+    
+/*首页轮播图片大小*/
+.mui-slider .mui-slider-group .mui-slider-item>a:not(.mui-control-item) {
+	width: 100%;
+	
+}
+.hh {
+	overflow: hidden;
+}
+.hh a img {
+	width: 100%;
+	height: 5.625rem;
+}
+/*企业新闻*/
+/*.mui-table-view-cell>a:not(.mui-btn){
+	text-overflow:inherit;
+}
+*/
+/*热门课程等下方的图片大小*/
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object{
+	height:4.5555rem ;
+}

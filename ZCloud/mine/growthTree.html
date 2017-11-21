@@ -1,0 +1,168 @@
+<!doctype html>
+<html style="height: 100%;">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/Live.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<style type="text/css">
+			.mask{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				background-color: #000;
+				opacity: 0.3;
+				display: none;
+			}
+			.tree_tip{
+				position: fixed;
+				z-index: 11;
+				display: none;
+			}
+			.tree_tip div:nth-of-type(1){
+				position: fixed;
+			    top: 39%;
+			    text-align: center;
+			    width: 100%;
+			    left: 10%;
+			}
+			.tree_tip div:nth-of-type(1) img{
+				width: 50%;
+			}
+			.tree_tip div:nth-of-type(2){
+				position: fixed;
+			    width: 100%;
+			    top: 55%;
+			    text-align: center;
+			}
+			.tree_tip div:nth-of-type(2) img{
+				width: 40%;
+			}
+			.tree_tip div:nth-of-type(3){
+				position: fixed;
+			    width: 100%;
+			    left: 24%;
+    			top: 64%;
+			}
+			.tree_tip div:nth-of-type(3) img{
+				width: 43%;
+			}
+			.tree_tip div:nth-of-type(4){
+	    		position: fixed;
+			    top: 80%;
+			    width: 100%;
+			    text-align: center;;
+			}
+			.tree_tip div:nth-of-type(4) img{
+				width: 50%;
+			}
+		</style>
+	</head>
+	<body class="bodyBG">
+		<header id="header" class="mui-bar mui-bar-transparent">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="font-size: 22px;padding: 3%;padding-top: 26px;color: #fff;padding-right: 30px;padding-bottom: 20px;"><span style="font-size: 15px;">返回</span></a>
+		</header>
+		<div id="treeDiv">
+			<div class="stage">第一阶段小树苗,下一阶段还需200学分</div>
+			<div class="integ">+100</div>
+			<div class="growthTree"><img src="../img/growthTree/image_1.png"/></div>
+		</div>
+		<div class="TreeDown" style="z-index: 11;"><img src="../img/growthTree/icon_1.png"/></div>
+		<div class="tree_tip">
+			<div><img src="../img/growthTree/icon_4.png" alt="" /></div>
+			<div><img class="del" src="../img/growthTree/10.png" alt="" /></div>
+			<div><img src="../img/growthTree/icon_5.png" alt="" /></div>
+			<div><img src="../img/growthTree/icon_3.png" alt="" /></div>
+		</div>
+		<div class="mask"></div>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script>
+			mui.plusReady(function(){
+				var per = JSON.parse(plus.storage.getItem("person"));
+				var credit = per.credit;
+				var signData = {
+					"credit" : credit,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(treeAddress,{
+					method:"query",
+					credit:credit,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawall(data.data);
+						$(document).ready(function(){
+							var screenWidth=$(window).width();
+							var StageWidth=$(".stage").width();
+							var integWidth=$(".integ").width();
+							var TreeDownWidth=$(".TreeDown").width();
+							var stageLeft=(screenWidth-StageWidth)/2;
+							var integLeft=(screenWidth-integWidth)/2;
+							var TreeDownLeft=(screenWidth-TreeDownWidth)/2;
+							$(".stage").css("left",stageLeft);
+							$(".integ").css("left",integLeft);
+							$(".TreeDown").css("left",TreeDownLeft);
+						})
+					}
+				},'json');
+//				指导页
+				var guide_1=plus.storage.getItem("guide_tree");
+				if(guide_1!="is_True"){
+					$(".tree_tip,.mask").css("display","block");
+				}
+				$(".del").on("tap",function(){
+					$(".tree_tip,.mask").css("display","none");
+					plus.storage.setItem("guide_tree","is_True");
+				});
+			});
+			function drawall(all){
+				var all = JSON.parse(JSON.stringify(all));
+				var treeDiv = $("#treeDiv");
+				var per = JSON.parse(plus.storage.getItem("person"));
+				var credit = per.credit;
+				treeDiv.empty();
+				var cha = all.creditllist2.tcredit-credit;
+				treeDiv.append(
+					"<div class=\"stage\">第一阶段小树苗,下一阶段还需"+cha+"学分</div>"+
+					"<div class=\"integ\">+"+cha+"</div>"+
+					"<div class=\"growthTree\"><img src=\"../img/growthTree/"+all.creditllist.timage+"\"/></div>"
+				);
+			}
+			document.getElementsByClassName("TreeDown")[0].addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'growthTree-Detail.html',
+					id: 'growthTree-Detail.html'
+				});
+			});
+			$(document).ready(function(){
+				var screenWidth=$(window).width();
+				var StageWidth=$(".stage").width();
+				var integWidth=$(".integ").width();
+				var TreeDownWidth=$(".TreeDown").width();
+				var stageLeft=(screenWidth-StageWidth)/2;
+				var integLeft=(screenWidth-integWidth)/2;
+				var TreeDownLeft=(screenWidth-TreeDownWidth)/2;
+				$(".stage").css("left",stageLeft);
+				$(".integ").css("left",integLeft);
+				$(".TreeDown").css("left",TreeDownLeft);
+			})
+		</script>
+	</html>

@@ -1,0 +1,678 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<link rel="stylesheet" href="../css/zy.media.min.css">
+		<script src="../js/zy.media.min.js"></script>
+		<script  type="text/javascript">
+
+		
+			/*void plus.screen.lockOrientation("portrait-primary");*///仅支持竖屏
+		function speak(sendSid){
+			if(sendSid == "-1"){
+				mui.alert("请选择你要发送内容的圈子","提示");
+			}else{
+				mui.openWindow({
+					url:'circle_send.html',
+					id:'circle_send.html',
+					extras:{
+					   sid : sendSid
+					},
+					waiting:{
+				        autoShow:true,//自动显示等待框，默认为true
+					    title:'正在加载...'//等待对话框上显示的提示内容
+					}
+				});	
+			}
+		}
+		</script>
+		<style type="text/css">
+			.div_triangle{
+				    margin-left: 4px;
+				    margin-right: 4px;
+					border-left: 4px solid transparent;
+				    border-right: 4px solid transparent;
+				 	border-top: 6px solid #FFFFFF;		 
+			}	
+			.div_left{			
+				height: auto;
+				padding-left: 10px;
+				float: left;			
+			}
+			.div_left_img{
+				border-radius: 50%;
+				overflow: hidden;
+				float: right;				
+			}
+			.div_right{	
+				width: 79%;
+				height: auto;
+				float: left;
+			}
+			.div_right_img{					
+				width: 30%;
+				height: 43%;
+				margin-top: 3%;
+				margin-left: 3%;
+				float: left;
+				}
+
+			.div_title{
+				width:100%;
+				height: 85%;
+				font-size: 16px;			
+				float: left;overflow:auto;
+			}
+			.div_unionTitle{
+				width: 20% ;
+				height: 23%;			
+				margin-left: 4%;
+				margin-top: 3%;
+				border-radius:5px 5px 5px 5px;
+				background-color: #E5E5E5;
+				float: left;
+				text-align: center;
+				text-overflow:ellipsis;
+				padding-top: 6px;
+				overflow: hidden;
+				font-size: 14px;
+				white-space:nowrap;
+			}
+			.line{
+				width: 100%;
+				height:100%;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				border-bottom: 1px solid #DCDCDC;
+				float: left;
+			}
+			#openPopover div span{
+				font-size: 16px;
+			}
+			#openPopover div span:nth-of-type(2){
+				font-size: 0;
+			}
+		/*border: 1px solid red;*/
+		</style>
+	</head>
+
+	<body style="height: 100%;background-color: #FFFFFF;" id="bodys">
+		<header class="mui-bar mui-bar-nav"style="height:60px;float: left;"  >
+		  <a href="#popover" id="openPopover" class="mui-btn mui-btn-primary mui-btn-block" style="float: left;width:90%;height:50px;background-color: transparent;border: transparent;">
+			<div style="margin-top: 20px;font-size: 0;">
+				<span id="vtitle">全部</span>
+				<span class="div_triangle" ></span>
+				<span>v社区</span>
+			</div>
+		  </a>
+		  <div style="width: 8%;height: 22px;margin-top: 30px;margin-left: 93%;"><img onclick="javascript:speak(sid)" id="jump"  src="../img/circle/icon_5.png" style="height: 100%;"></div>
+		</header>
+		<div id="box" style="margin-top: 65px;">
+		<!--<div class="div_left">
+			<div class="div_left_img">
+				<img src="../img/circle/head-portrait.png" style="width: 100%;height: 10%;" />
+			</div>
+		</div>
+		<div class="div_right">
+			<div style="width: 55%;height: 5%;font-size: 15px;float: left;">
+				<span style="float: left;margin-top: 1%;margin-left: 5%;">张小米ABC</span>
+				<img src="../img/circle/icon_vip.png"  style="height: 3%;width:20%;float: left;margin-left: 2%;margin-top: 2%;"/>
+			</div>
+			<div style="width: 40%;height: 5%;font-size: 13px;float: right;">
+				<span style="float: right;margin-top: 1%;color: #2768B7;">缤纷销客</span>
+			</div>
+			<div style="width: 100%;height: 4%;font-size: 13px;float: left;margin-top: 2%;">
+				<span style="float: left;color: #939393;margin-left: 3%;">06-20 11:50</span>
+				<span style="float: left;color: #939393;margin-left: 2%;">来自</span>
+				<span style="float: left;color: #939393;margin-left: 2%;">Iphone7</span>
+			</div>
+			<div style="width: 100%;height: auto;font-size: 15px;float: left;margin-top: 10px;">
+				<span style="float: left;margin-top: 1%;margin-left: 3%;overflow: hidden;height: 20px;">永辉网上商城正式上线啦！
+					
+				</span>
+			</div>	
+			<div style="width: 100%;height: auto;font-size: 15px;float: left;">
+				<div class="div_right_img"><img src="../img/circle/def_1.png" style="width: 100%;height: 15%;"></div>
+				<div class="div_right_img"><img src="../img/circle/def_1.png" style="width: 100%;height: 15%;"></div>
+				<div class="div_right_img"><img src="../img/circle/def_1.png" style="width: 100%;height: 15%;"></div>
+				<div class="div_right_img"><img src="../img/circle/def_1.png" style="width: 100%;height: 15%;"></div>
+				<div class="div_right_img"><img src="../img/circle/def_1.png" style="width: 100%;height: 15%;"></div>
+				<div class="div_right_img"><img src="../img/circle/def_1.png" style="width: 100%;height: 15%;"></div>
+			</div>
+			<div style="width: 100%;height: 5%;font-size: 13px;float: right; margin-top: 10px;">
+				<div style="margin-left: 2%;width: auto;height: 100%;float: left;color: #6a6a6a;">
+					30分钟前
+				</div>
+				<div style="width: auto;height: 100%;float: right;">
+					<span><img onclick="javascript:abc(1);" width="40px" src="../img/circle/icon_3.png" style="vertical-align:middle;" /></span>
+					&nbsp;
+					<span style="color: #6a6a6a;">150</span>
+				</div>
+				<div style="margin-right: 10px;width: auto;height: 100%;float: right;">
+					<span><img width="40px" src="../img/circle/icon_2s.png" style="vertical-align:middle;"/></span>
+					&nbsp;
+					<span style="color: #6a6a6a;">150</span>
+				</div>
+		</div>
+		<div class="line"></div>
+		</div>-->
+	</div>
+
+		
+		
+	<!--隱藏部分-->
+	<div id="popover" class="mui-popover" style="width: 100%;height: 180px;margin-left: 5px;margin-top: -8px;overflow: auto; position: absolute;">
+	 	<div style="width:100%;height: 10%;font-size: 16px;margin-top: 2%;float: left;">
+	 		<span style="margin-left: 3%;font-size: 14px;">分类v社区</span>
+	 	</div>
+	 	<div  id="unionTitle"  class="div_title">
+	 		
+	 	</div>
+	</div>
+
+
+
+
+		
+
+		
+		<script src="../js/mui.min.js">
+			mui.init();
+		</script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript">		
+			var sid = -1;
+			var pernr = JSON.parse(plus.storage.getItem("person"));
+			var pageSize =10;
+			var pageNo = 1;
+			mui.init({
+  				pullRefresh : {
+   				container:"#box",
+    			down : {
+      				style:'circle',
+      				color:'#2BD009', 
+      				height:'50px',
+      				range:'100px', 
+     				offset:'0px', 
+      				auto: true,
+      				callback : pullfresh
+   				},
+    			 up : {
+      				 height:'50px',//可选.默认50.触发上拉加载拖动距离
+     				 auto:true,//可选,默认false.自动上拉加载一次
+      				 contentrefresh : '正在加载...',//可选，正在加载状态时，上拉加载控件上显示的标题内容
+     				 contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+     				 callback :loading//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+   					}
+  				}
+			});
+			function loading() {
+				pageNo =pageNo+1;
+				var signData = {
+					"pageNo" : pageNo,
+					"pageSize" : pageSize,
+					"sid" : sid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(comcontentAddress,{
+					method:"queryall",
+					sid: sid,
+					pageNo:pageNo,
+					pageSize:pageSize,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawload(data.data);
+					}
+				},'json');
+				mui('#box').pullRefresh().endPullupToRefresh();
+			}
+			
+			function drawload(all){		
+				var box = $("#box");
+				//判断数量
+				var all =JSON.parse(JSON.stringify(all));
+				mui.each(all,function(index,item){
+					index = index + (pageSize*pageNo);
+					var unixTimestamp = new Date(item.cdateTime);
+					if(index != 0){
+						box.append("<div class=\"line\"></div>");
+					}
+					box.append(
+					"<div class=\"div_left\">"+
+							"<div class=\"div_left_img\">"+
+							"<img style=\"width: 50px;height: 50px;border-radius: 50%;\" src=\""+ serverIp +"avatar/" + item.avatar + " \"/>"+
+						"</div>"+
+					"</div>"+
+					"<div  class=\"div_right\">"+
+						"<div style=\"width: 55%;height: 5%;font-size: 15px;float: left;\">"+
+							"<span style=\"float: left;margin-top: 1%;margin-left: 5%;\">"+item.name+"</span>"+
+								"<img src=\"../img/circle/icon_vip.png\"  style=\"height: 3%;width:20%;float: left;margin-left: 2%;margin-top: 2%;\"/>"+
+						"</div>"+
+					"<div style=\"width: 40%;height: 5%;font-size: 13px;float: right;\">"+
+						"<span style=\"float: right;margin-top: 1%;color: #2768B7;\">"+item.sid+"</span>"+
+					"</div>"+
+					"<div onclick=\"javascript:abc("+item.id+","+index+");\" style=\"width: 100%;height: auto;font-size: 15px;float: left;margin-top: 10px;\">"+
+						"<span style=\"float: left;margin-top: 1%;margin-left: 3%;overflow: hidden;\">"+item.ctext+"</span>"+
+					"</div>"+
+					"<div id=\"box1"+index+"\" style=\"width: 100%;height: auto;font-size: 15px;float: left;\">"+
+					"</div>"+
+					"<div style=\"width: 100%;margin-top: 10px; height: 5%;font-size: 13px;float: right;\">"+
+						"<div style=\"margin-left: 2%;width: auto;height: 100%;float: left;color: #939393;\">"+
+							unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+
+				        "</div>"+
+						"<div style=\"width: auto;height: 100%;float: right;\">"+
+							"<img id=\"comment"+index+"\" width=\"40px\" src=\"../img/circle/icon_3.png\" onclick=\"javascript:abc("+item.id+","+index+");\" style=\"vertical-align:middle;\"/>"+
+							"<span id=\"praise2"+index+"\" style=\"color: #6a6a6a;\"></span>"+
+						"</div>"+
+						"<div style=\"margin-right: 10px;width: auto;height: 100%;float: right;\">"+
+							"<img id=\"aprise"+index+"\" width=\"40px\" onclick=\"javascript:upaprise("+item.id+","+index+");\" src=\"../img/circle/icon_2.png\" style=\"vertical-align:middle;\"/>"+
+							"<span id=\"praise"+index+"\" style=\"color: #6a6a6a;\"></span>"+
+						"</div>"+
+					"</div>"+
+				"</div>"
+				);
+				var box1 = $("#box1"+index);
+				box1.empty();
+				if(!isNull(item.cimages)){
+					var image = item.cimages.split(",");
+					for (var i = 0; i< image.length-1; i++) {
+						box1.append("<div class=\"div_right_img\"><img style=\"width: 100%;height: 15%;\" src=\""+ serverIp +"images/" + image[i] + " \"/></div>");
+					}
+				}
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				var signData = {
+					"cid" : item.id,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(comcontentAddress,{
+						method:"queryp",
+						cid:item.id,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+				},function(data){
+					if(data.result){
+						var temp = JSON.parse(JSON.stringify(data.data));
+						$("#praise"+index).empty();
+						$("#praise"+index).append(temp.count);
+						mui.each(temp.tpriselist,function(index2,item2){
+							if(item2.name == pernr.name){
+								document.getElementById("aprise"+index).src="../img/circle/icon_2s.png";
+							}else{
+								document.getElementById("aprise"+index).src="../img/circle/icon_2.png";
+							}
+						});
+						$("#praise2"+index).empty();
+						$("#praise2"+index).append(temp.count1);
+						mui.each(temp.commentlistList,function(index3,item3){
+							if(item3!=null){
+								document.getElementById("comment"+index).src="../img/circle/icon_3s.png";
+							}
+						});
+					}
+				},'json');
+			});
+		}
+			function pullfresh() {
+				pageNo = 1;
+     			//业务逻辑代码，比如通过ajax从服务器获取新数据；   				
+					var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							drawall(data.data);
+						}
+					},'json');
+				
+     			//注意，加载完新数据后，必须执行如下代码，注意：若为ajax请求，则需将如下代码放置在处理完ajax响应数据之后
+    			 //没有更多内容了，endPulldown 传入true， 不再执行下拉刷新
+    			 pageNo = 1;
+    			 mui('#box').pullRefresh().endPulldown();
+			}
+
+			mui.plusReady(function() {
+					var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							drawall(data.data);
+						}
+					},'json');
+					
+					var signData = {
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(uninAddress,{
+						method:"query",
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){			
+							drawTitle(data.data);
+						}
+					},'json');
+			});
+			function drawall(all){		
+				var box = $("#box");
+				//判断数量
+				var all =JSON.parse(JSON.stringify(all));
+				box.empty();
+				mui.each(all,function(index,item){
+					var unixTimestamp = new Date(item.cdateTime);
+					if(index!=0){
+						box.append("<div class=\"line\"></div>");
+					}
+					box.append(
+						"<div class=\"div_left\">"+
+							"<div class=\"div_left_img\">"+
+							"<img style=\"width: 50px;height: 50px;border-radius: 50%;\" src=\""+ serverIp +"avatar/" + item.avatar + " \"/>"+
+						"</div>"+
+						"</div>"+
+					"<div class=\"div_right\">"+
+						"<div style=\"width: 55%;height: 5%;font-size: 15px;float: left;\">"+
+							"<span style=\"float: left;margin-top: 1%;margin-left: 5%;\">"+item.name+"</span>"+
+								"<img src=\"../img/circle/icon_vip.png\"  style=\"height: 3%;width:20%;float: left;margin-left: 2%;margin-top: 2%;\"/>"+
+						"</div>"+
+					"<div style=\"width: 40%;height: 5%;font-size: 13px;float: right;\">"+
+						"<span style=\"float: right;margin-top: 1%;color: #2768B7;\">"+item.sid+"</span>"+
+					"</div>"+
+					"<div onclick=\"javascript:abc("+item.id+","+index+");\" style=\"width: 100%;height: auto;font-size: 15px;float: left; margin-top: 10px;\">"+
+						"<span style=\"float: left;margin-top: 1%;margin-left: 3%;overflow: hidden;\">"+item.ctext+"</span>"+
+					"</div>"+
+					"<div id=\"box1"+index+"\" style=\"width: 100%;height: auto;font-size: 15px;float: left;\">"+
+					"</div>"+
+					"<div style=\"width: 100%;margin-top: 10px; height: 5%;font-size: 13px;float: right;\">"+
+						"<div style=\"margin-left: 2%;width: auto;height: 100%;float: left;color: #939393;\">"+
+							unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+
+				        "</div>"+
+						"<div style=\"width: auto;height: 100%;float: right;\">"+
+							"<img id=\"comment"+index+"\" width=\"40px\" src=\"../img/circle/icon_3.png\" onclick=\"javascript:abc("+item.id+","+index+");\" style=\"vertical-align:middle;\"/>"+
+							"<span id=\"praise2"+index+"\" style=\"color: #6a6a6a;\"></span>"+
+						"</div>"+
+						"<div style=\"margin-right: 10px;width: auto;height: 100%;float: right;\">"+
+							"<img id=\"aprise"+index+"\" width=\"40px\" onclick=\"javascript:upaprise("+item.id+","+index+");\" src=\"../img/circle/icon_2.png\" style=\"vertical-align:middle;\"/>"+
+							"<span id=\"praise"+index+"\" style=\"color: #6a6a6a;\"></span>"+
+						"</div>"+
+					"</div>"+
+				"</div>"
+				);
+				var box1 = $("#box1"+index);
+				box1.empty();
+				if(!isNull(item.cimages)){
+					var image = item.cimages.split(",");
+					for (var i = 0; i< image.length-1; i++) {
+						box1.append("<div class=\"div_right_img\"><img style=\"width: 80px;height: 90px;\" src=\""+ serverIp +"images/" + image[i] + " \"/></div>");
+					}
+				}/*else if(!isNull(item.cvideo)){
+					zymedia('video');
+					box1.append("<video width='213px' height='160px'  id=\"video\" style=\"box-sizing:initial;webkit-box-sizing: initial;\" >"+
+		       						 "<source id=\"source\" src=\"http://39.108.154.64/video/1502251391863_10318.mp4\">"+
+	   							 "</video>"
+	   				);
+				}*/
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				var signData = {
+					"cid" : item.id,
+					"usid" : pernr.pernr,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(comcontentAddress,{
+						method:"queryp",
+						cid:item.id,
+						usid:pernr.pernr,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+				},function(data){
+					if(data.result){
+						var temp = JSON.parse(JSON.stringify(data.data));
+						$("#praise"+index).empty();
+						$("#praise"+index).append(temp.count);
+						mui.each(temp.tpriselist,function(index2,item2){
+							if(item2.name == pernr.name){
+								document.getElementById("aprise"+index).src="../img/circle/icon_2s.png";
+							}else{
+								document.getElementById("aprise"+index).src="../img/circle/icon_2.png";
+							}
+						});
+						$("#praise2"+index).empty();
+						$("#praise2"+index).append(temp.count1);
+						mui.each(temp.commentlistList,function(index3,item3){
+							if(item3!=null){
+								document.getElementById("comment"+index).src="../img/circle/icon_3s.png";
+							}
+						});
+					}
+				},'json');
+			});
+
+		}
+			function abc(cid,index){
+				mui.openWindow({
+							url: 'circle_comment.html',
+							id: 'circle_comment.html',
+							extras:{
+				      		 	cid : cid
+				   			},
+				   			waiting:{
+			      				autoShow:true,//自动显示等待框，默认为true
+				      			title:'正在加载...'//等待对话框上显示的提示内容
+				    		}
+						});		
+			}
+			
+			
+			function isNull(data){ 
+				return (data == "" || data == undefined || data == null) ? true : false; 
+			}
+				
+			function drawTitle(all){
+				var unionTitle = $("#unionTitle");
+				unionTitle.empty();
+				var all=JSON.parse(JSON.stringify(all));
+				unionTitle.append(
+					"<div class=\"div_unionTitle\" id=\"allV\"  onclick=\"queryAllV(allV)\" >"+
+	 					"<span>全部v社区</span>"+
+	 				"</div>"	
+				);
+				mui.each(all.unionlist,function(index,item){
+						unionTitle.append("<div class=\"div_unionTitle\"  id=\"utitle"+index+"\"  onclick=\"select("+item.id+",\'"+item.stitle+"\',\'utitle"+index+"\')\">"+
+ 			       			 				"<span>"+item.stitle+"</span>"+
+ 										  "</div>")
+				});			
+			}
+			
+			//查询全部		
+			function queryAllV(allName){
+				sid=-1;
+				pageNo = 1;
+				$("#vtitle").empty().append("全部");
+				$(".div_unionTitle").each(function(){
+					this.style.color = 'black';
+				});
+				allName.style.color = '#2768b7';
+				var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							drawall(data.data);
+						}
+				},'json');
+			}		
+			
+					
+			function select(sid1,stitle,titleID){
+				sid=sid1;
+				pageNo = 1;
+				$(".div_unionTitle").each(function(){
+					this.style.color = 'black';
+				})				
+				var titleColor = document.getElementById(titleID);
+				titleColor.style.color = '#2768b7';			
+				document.getElementById("box").innerHTML = "";	
+				var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawall(data.data);
+						$("#vtitle").empty().append(stitle);
+					}
+				},'json');
+			}
+
+				function upaprise(cid,index){
+					var pernr = JSON.parse(plus.storage.getItem("person"));
+					var cuid = pernr.pernr;
+					var signData = {
+						"cid" : cid,
+						"cuid" : cuid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+							method:"thumbup",
+							cid:cid,
+							cuid:cuid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.data == 1){
+							document.getElementById("aprise"+index).src="../img/circle/icon_2s.png";
+						}else{
+							document.getElementById("aprise"+index).src="../img/circle/icon_2.png";
+						}
+						if(data.result){
+							/*location.reload();*/
+							var signData = {
+								"cid" : cid,
+								"usid" : pernr.pernr,
+								"token" : token,
+								"timeInMillis" : getTimestamp()
+							};
+							var signature = getSignature(signData);
+							var signature_md5 = md5(md5(signature));
+							mui.post(comcontentAddress,{
+							method:"queryp",
+							cid:cid,
+							usid:pernr.pernr,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+							},function(data){
+								if(data.result){
+									var temp = JSON.parse(JSON.stringify(data.data));
+									$("#praise"+index).empty();
+									$("#praise"+index).append(temp.count);
+									
+									$("#praise2"+index).empty();
+							$("#praise2"+index).append(temp.count1);
+							mui.each(temp.commentlistList,function(index3,item3){
+								if(item3!=null){
+									document.getElementById("comment"+index).src="../img/circle/icon_3s.png";
+								}
+							});
+								}
+							},'json');
+						}	
+						},'json'
+					);
+				}
+		</script>
+		<script type="text/javascript">
+			window.addEventListener("pageflowrefresh",function(e){
+				location.reload();
+			});
+		</script>
+
+	</body>
+
+</html>

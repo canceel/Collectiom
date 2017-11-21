@@ -1,0 +1,497 @@
+{
+  "examples/hot_course_content.html": {
+    "resources": [
+      "img/hot_course_content/def_1.png",
+      "js/h.js",
+      "js/iphone-inline-video.browser.js",
+      "css/hot_course.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "examples/abstract_bottom.html",
+      "css/zy.media.min.css",
+      "js/zy.media.min.js",
+      "js/jquery.min.js",
+      "img/hot_course/icon_4.png",
+      "img/hot_course/icon_2.png",
+      "img/hot_course_content/frame.png",
+      "img/hot_course/icon_3.png",
+      "img/hot_course/icon_5.png",
+      "img/hot_course/head_1.png",
+      "img/hot_course/head_2.png",
+      "img/hot_course/icon_6.png",
+      "img/hot_course/icon_1.png",
+      "css/hot_course_content.css",
+      "js/dateFormat.js",
+      "js/zc_utils.js",
+      "js/md5.js"
+    ],
+    "refer": [
+      "examples/examine.html",
+      "examples/PPT.html",
+      "examples/abstract_bottom.html",
+      "examples/teacher.html"
+    ]
+  },
+  "examples/abstract.html": {
+    "resources": [
+      "img/hot_course/head_1.png",
+      "img/hot_course/icon_5.png",
+      "img/hot_course/head_2.png",
+      "img/hot_course/icon_6.png",
+      "img/hot_course/icon_4.png",
+      "img/hot_course/icon_1.png",
+      "img/hot_course/icon_2.png",
+      "img/hot_course_content/frame.png",
+      "img/hot_course/icon_3.png",
+      "css/abstract.css",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "examples/abstract_bottom.html": {
+    "resources": [
+      "examples/abstract.html"
+    ],
+    "refer": [
+      "examples/abstract.html"
+    ]
+  },
+  "examples/examine.html": {
+    "refer": [
+      "examples/examine_bottom.html"
+    ],
+    "resources": []
+  },
+  "examples/examine_bottom.html": {
+    "resources": [
+      "examples/examine_content.html"
+    ],
+    "refer": [
+      "examples/examine_content.html"
+    ]
+  },
+  "examples/examine_content.html": {
+    "resources": [
+      "img/examine/icon_1.png",
+      "css/examine.css",
+      "fonts/mui.ttf",
+      "img/examine/icon_2.png",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "login.html": {
+    "resources": [
+      "js/h.js",
+      "img/login/bj.png",
+      "img/login/icon_2.png",
+      "js/mui.min.js",
+      "img/login/logo.png",
+      "css/mui.min.css",
+      "js/zc_utils.js",
+      "img/login/icon_1.png",
+      "js/md5.js"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "mine/mine.html": {
+    "resources": [
+      "img/min/icon_details.png",
+      "img/min/icon_7.png",
+      "img/min/Head.png",
+      "img/min/icon_10.png",
+      "img/min/icon_4.png",
+      "img/min/icon_5.png",
+      "img/min/frame_conew2.png",
+      "img/min/icon_9.png",
+      "img/min/icon_6.png",
+      "img/min/icon_1.png",
+      "img/min/icon_2.png",
+      "img/min/icon_8.png",
+      "img/min/icon_3.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/zc_utils.js",
+      "js/md5.js"
+    ],
+    "refer": [
+      "mine/assessing.html",
+      "mine/numintegral.html",
+      "mine/medal.html",
+      "mine/collection.html",
+      "mine/for.html",
+      "mine/degree.html",
+      "mine/viewhistory.html"
+    ]
+  },
+  "index.html": {
+    "resources": [
+      "js/iconfont.js",
+      "img/main/icon_11.png",
+      "img/main/icon_10.png",
+      "examples/home_father.html",
+      "css/main.css",
+      "img/main/icon_9_s.png",
+      "css/iconfont.css",
+      "img/main/icon_10_s.png",
+      "img/main/icon_9.png",
+      "img/main/icon_11_s.png",
+      "js/h.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "mine/mine.html",
+      "examples/home_father.html",
+      "examples/circle.html"
+    ]
+  },
+  "examples/home_father.html": {
+    "resources": [
+      "examples/home_page.html",
+      "js/h.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/main.css"
+    ],
+    "refer": [
+      "examples/home_page.html"
+    ]
+  },
+  "examples/home_page.html": {
+    "resources": [
+      "img/main/def_3.png",
+      "img/main/icon_5.png",
+      "img/main/def_5.png",
+      "js/jquery.min.js",
+      "fonts/mui.ttf",
+      "img/main/def_2.png",
+      "img/main/def_8.png",
+      "img/main/icon_4.png",
+      "img/main/icon_8.png",
+      "img/main/btn_3.png",
+      "img/main/def_1.png",
+      "img/main/def_6.png",
+      "img/main/icon_3.png",
+      "img/main/icon_6.png",
+      "img/main/def_9.png",
+      "img/main/def_4.png",
+      "img/main/icon_7.png",
+      "img/main/icon_1.png",
+      "img/main/def_7.png",
+      "img/main/icon_2.png",
+      "js/zc_utils.js",
+      "js/md5.js",
+      "css/main.css",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "examples/retail_operation.html",
+      "examples/hot_course_father.html",
+      "banner/banner_content.html",
+      "examples/link_frame.html",
+      "examples/good_class_father.html"
+    ]
+  },
+  "examples/circle.html": {
+    "resources": [
+      "img/circle/def_4.png",
+      "img/circle/icon_vip.png",
+      "img/circle/icon_4s.png",
+      "img/circle/def_5.png",
+      "img/circle/icon_3.png",
+      "img/circle/def_3.png",
+      "img/circle/icon_5.png",
+      "img/circle/def_6.png",
+      "img/circle/head-portrait.png",
+      "img/circle/icon_2s.png",
+      "img/circle/def_2.png",
+      "img/circle/def_1.png",
+      "js/h.js",
+      "css/main.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/dateFormat.js",
+      "js/zc_utils.js",
+      "css/retail_operation.css",
+      "js/md5.js",
+      "img/circle/icon_4.png",
+      "img/circle/icon_2.png",
+      "img/circle/icon_3s.png",
+      "js/iphone-inline-video.browser.js",
+      "css/zy.media.min.css",
+      "css/hot_course_content.css",
+      "css/hot_course.css",
+      "js/zy.media.min.js"
+    ],
+    "refer": [
+      "examples/circle_send.html",
+      "examples/hot_course_content.html",
+      "examples/circle_comment.html"
+    ]
+  },
+  "examples/retail_operation.html": {
+    "resources": [
+      "img/retail_operation/icon_search.png",
+      "css/retail_operation.css",
+      "examples/fresh_column.html",
+      "img/retail_operation/def_2.png",
+      "img/retail_operation/def_1.png",
+      "img/retail_operation/icon_1.png",
+      "img/retail_operation/def_4.png",
+      "img/retail_operation/icon_2.png",
+      "img/retail_operation/def_3.png",
+      "img/retail_operation/def_5.png",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "js/dateFormat.js",
+      "js/zc_utils.js",
+      "js/md5.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "examples/fresh_column.html",
+      "examples/food_supplies.html",
+      "examples/public_sharing.html",
+      "examples/catering_processing.html",
+      "examples/hot_course_father.html"
+    ]
+  },
+  "examples/fresh_column.html": {
+    "resources": [
+      "img/retail_operation/def_2.png",
+      "img/retail_operation/def_1.png",
+      "img/retail_operation/icon_1.png",
+      "img/retail_operation/def_4.png",
+      "img/retail_operation/icon_2.png",
+      "img/retail_operation/def_3.png",
+      "img/retail_operation/def_5.png"
+    ],
+    "refer": []
+  },
+  "examples/teacher.html": {
+    "resources": [
+      "img/tea/icon_1.png",
+      "img/tea/icon_3.png",
+      "fonts/mui.ttf",
+      "css/teacher.css",
+      "img/tea/icon_6s.png",
+      "img/tea/icon_4.png",
+      "img/tea/icon_5.png",
+      "img/tea/icon_2.png"
+    ],
+    "refer": []
+  },
+  "mine/numintegral.html": {
+    "resources": [
+      "img/min/icon_back.png",
+      "css/main.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/zc_utils.js",
+      "fonts/mui.ttf",
+      "css/retail_operation.css",
+      "js/jquery.min.js",
+      "js/dateFormat.js",
+      "js/md5.js"
+    ],
+    "refer": []
+  },
+  "mine/assessing.html": {
+    "resources": [
+      "img/min/icon_back.png",
+      "js/dateFormat.js",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/zc_utils.js",
+      "js/md5.js",
+      "css/main.css",
+      "css/retail_operation.css"
+    ],
+    "refer": []
+  },
+  "mine/medal.html": {
+    "resources": [
+      "img/medal/frame.png",
+      "img/medal/icon_9.png",
+      "img/medal/icon_6.png",
+      "img/medal/icon_2.png",
+      "img/medal/icon_1.png",
+      "img/medal/icon_5.png",
+      "img/medal/icon_7.png",
+      "img/medal/bj.png",
+      "img/medal/icon_3.png",
+      "img/medal/icon_8.png",
+      "img/medal/icon_4.png",
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "img/min/icon_back.png",
+      "css/retail_operation.css",
+      "js/jquery.min.js",
+      "js/zc_utils.js",
+      "css/main.css",
+      "js/md5.js"
+    ],
+    "refer": []
+  },
+  "mine/collection.html": {
+    "resources": [
+      "img/min/icon_back.png",
+      "img/min/image_1.png",
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "css/retail_operation.css",
+      "js/zc_utils.js",
+      "js/md5.js",
+      "js/dateFormat.js"
+    ],
+    "refer": []
+  },
+  "mine/degree.html": {
+    "resources": [
+      "img/degree/icon_8.png",
+      "img/degree/icon_5.png",
+      "img/degree/icon_4.png",
+      "img/degree/icon_2.png",
+      "img/degree/icon_7.png",
+      "img/degree/icon_6.png",
+      "img/degree/icon_3.png",
+      "img/degree/icon_1.png",
+      "img/degree/icon_9.png",
+      "img/medal/frame.png",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "img/medal/bj.png",
+      "js/jquery.min.js",
+      "css/main.css",
+      "js/zc_utils.js",
+      "css/retail_operation.css",
+      "js/md5.js"
+    ],
+    "refer": []
+  },
+  "mine/viewhistory.html": {
+    "resources": [
+      "img/viewhistory/icon_1.png"
+    ],
+    "refer": []
+  },
+  "examples/hot_course_father.html": {
+    "resources": [
+      "img/hot_course/icon_audio.png",
+      "img/hot_course/icon_play.png",
+      "css/hot_course.css",
+      "img/hot_course/icon_read.png",
+      "img/hot_course/icon_video.png",
+      "img/hot_course/bj.png",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/app.css",
+      "js/dateFormat.js",
+      "js/zc_utils.js",
+      "js/md5.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "examples/hot_course_content.html"
+    ]
+  },
+  "mine/for.html": {
+    "resources": [
+      "img/min/icon_back.png"
+    ],
+    "refer": []
+  },
+  "examples/link_frame.html": {
+    "resources": [
+      "js/h.js",
+      "img/retail_operation/icon_search.png",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "js/dateFormat.js",
+      "js/md5.js",
+      "css/mui.min.css",
+      "css/retail_operation.css"
+    ],
+    "refer": []
+  },
+  "banner/banner_content.html": {
+    "resources": [
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/news.css",
+      "img/news_content/icon_1.png",
+      "js/dateFormat.js",
+      "img/news_content/icon_3.png",
+      "img/news_content/icon_share.png",
+      "img/news_content/icon_4.png",
+      "js/zc_utils.js",
+      "img/news_content/icon_2.png",
+      "js/md5.js"
+    ],
+    "refer": []
+  },
+  "examples/circle_send.html": {
+    "resources": [
+      "js/h.js",
+      "img/circle_send/frame.png",
+      "img/circle_send/icon_2.png",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "img/circle_send/frame_send.png",
+      "css/mui.min.css",
+      "img/circle_send/icon_1.png",
+      "img/circle_send/icon_3.png",
+      "js/zc_utils.js",
+      "js/md5.js"
+    ],
+    "refer": []
+  },
+  "examples/circle_comment.html": {
+    "resources": [
+      "img/circle_send/icona_1.png",
+      "img/circle_send/Head-portrait.png",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/zc_utils.js",
+      "css/retail_operation.css",
+      "js/dateFormat.js",
+      "js/md5.js",
+      "js/h.js"
+    ],
+    "refer": []
+  },
+  "examples/good_class_father.html": {
+    "resources": [
+      "js/h.js",
+      "css/mui.min.css",
+      "css/retail_operation.css",
+      "examples/good_class.html"
+    ],
+    "refer": [
+      "examples/good_class.html"
+    ]
+  },
+  "examples/good_class.html": {
+    "resources": [
+      "js/dateFormat.js"
+    ]
+  }
+}

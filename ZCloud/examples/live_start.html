@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<style>
+			body{
+				background: white;
+			}
+			img {
+				width: 100%;
+			}
+			.StartLive{
+				background-color: #185491;
+			    float: right;
+			    color: #fff;
+			    font-size: 13px;
+			    border-radius: 20px;
+			    padding: 1px 11px;
+			    margin-top: 28px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">开始直播</h1>    
+			<span onclick="returnDownloadUtils()" id="apply" class="StartLive">发送至电脑</span>
+		</header>
+		<div style="margin-top: 80px;">
+			<div>
+				<span>直播地址:</span><span id="live_url"></span>
+				<button onclick="copyToClip('url')" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">
+					复制
+				</button>
+			</div>
+			<div style="margin-top: 15px;">
+				<span>直播秘钥:</span><span id="live_code"></span>
+				<button onclick="copyToClip('code')" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">
+					复制
+				</button>
+			</div>
+		</div>
+		<div>
+			<div class="markdown-body">
+				<h1 id="h1-u63A8u6D41u5DE5u5177u4F7Fu7528u6307u5357"><a name="推流工具使用指南" class="reference-link"></a><span class="header-link octicon octicon-link"></span>推流工具使用指南</h1>
+				<h2 id="h2-obs-"><a name="OBS 操作指南" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS 操作指南</h2>
+				<h4 id="h4--obs-"><a name="什么是OBS？" class="reference-link"></a><span class="header-link octicon octicon-link"></span>什么是OBS？</h4>
+				<p>Open Broadcaster Software 是一款好用的互联网流媒体直播内容输入作软件。</p>
+				<h4 id="h4-obs-"><a name="OBS使用是否收费？" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS使用是否收费？</h4>
+				<p>不收费，这个程序和它的源代码都是免费的。</p>
+				<h4 id="h4-obs-"><a name="OBS都支持哪些操作系统？" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS都支持哪些操作系统？</h4>
+				<p>支持 OS X，Windows，Linux操作系统。适用于多种直播场景。满足大部分直播行为的操作需求。</p>
+				<h3 id="h3-obs-"><a name="OBS推流工具下载" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS推流工具下载</h3>
+				<p>请到OBS官网下载最新软件
+					<a href="https://obsproject.com/download" title="OBS官方下载">OBS官方下载</a>
+				</p>
+				<h3 id="h3-obs-"><a name="OBS通用设置" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS通用设置</h3>
+				<p>1. 设置。</p>
+				<p> <img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1478494858701/%E6%97%A0%E6%A0%87%E9%A2%98.png" alt="obs"></p>
+				<p>如有直播录制需求，因直播时网络环境较复杂，建议进行直播时本地进行录制备份。</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1478494967356/%E6%97%A0%E6%A0%87%E9%A2%98.png" alt="obs"></p>
+				<p>2. 串流设置</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479871153898/new_page_1.png" alt="串流设置"></p>
+				<p>实际 Mac版OBS的流密钥与Windows版播放路径/串码流（如果存在）中的内容不会显示明文即：</p>
+				<p>以上面的推流地址为例，参数设置为：</p>
+				<p>FMS URL / URL： <code>rtmp://video-center.alivecdn.com/AppName</code></p>
+				<p>播放路径/串码流（如果存在）/ 流秘钥: <code>StreamName?vhost=live.aliyun.com</code></p>
+				<p>如您开启了鉴权，则鉴权参数也一并放在 Mac版OBS的流密钥与Windows版播放路径/串码流（如果存在）中。</p>
+				<p>3. 分辨率设置</p>
+				<p>输出分辨率就是你想让观众看到的画面分辨率，分辨率决定着画面的清晰成都，越高画面越清晰。</p>
+				<p>FPS是视频帧率，它控制视频观看视频流畅，普通视频帧率有24-30帧，低于16帧画面看起来有卡顿感。而游戏对帧率要求比较高，一般小于30帧游戏会显得不连贯。</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479882925187/DingTalk20161123143345.png" alt="分辨率设置"></p>
+				<p>常见视频分辨率与比例对照表</p>
+				<table>
+					<thead>
+						<tr>
+							<th>比例</th>
+							<th>分辨率</th>
+							<th>比例</th>
+							<th>分辨率</th>
+							<th>比例</th>
+							<th>分辨率</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>4:03</td>
+							<td>2048x1536 <br>1600x1200 <br>1400x1050 <br>1152×864 <br>1024x768 <br>800x600 <br>640x480</td>
+							<td>16:9</td>
+							<td><br>1920x1080 <br>1600×900 <br>280x720</td>
+							<td>16:10</td>
+							<td><br>2560x1600 <br>1920x1200 <br>1680x1050 <br>1440x900 <br>1280x800 <br>1366x768 <br>960x600 <br>800x480</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>4. 输出设置</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1478495199099/%E6%97%A0%E6%A0%87%E9%A2%98.png" alt="obs"></p>
+				<p>5. 减少直播延迟设置</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1486978281672/%E5%85%B3%E9%94%AE%E5%B8%A7%E9%97%B4%E9%9A%94.png" alt="关键帧间隔设置"></p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1486978299287/%E6%B5%81%E5%BB%B6%E8%BF%9F.png" alt="流延迟设置"></p>
+				<h3 id="h3-obs-"><a name="OBS常见操作设置介绍" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS常见操作设置介绍</h3>
+				<h4 id="h4-u76F4u64ADu6765u6E90u8BBEu7F6Eu4ECBu7ECD"><a name="直播来源设置介绍" class="reference-link"></a><span class="header-link octicon octicon-link"></span>直播来源设置介绍</h4>
+				<p>OBS工具支持简单的内容快速编辑，剪辑，场景、来源素材快速切换的操作，可以对直播活动进行快速简单的内容编辑。</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479713638382/DingTalk20161121151517.png" alt="直播来源"></p>
+				<p>1. 图像：适用于单张图像直播</p>
+				<p>2. 图像幻灯片放映：可循环或者顺序多张播放图片，适用于会议 ，教育类课件直播.</p>
+				<p>3. 视频捕捉设备：实时动态捕捉摄像设备，可将摄像后的画面进行直播。常见场景有娱乐秀场，视频会议等。</p>
+				<p>4. 音频输入捕获：可进行纯音频直播。</p>
+				<p>5. 显示捕获：可实时动态捕捉您电脑桌面的操作，电脑桌面中所有的操作均执行直播。</p>
+				<p>6. 窗口捕获：可根据您选择的窗口进行实时动态捕获，使用窗口捕获的好处是直播仅显示您当前窗口的内容，其他窗口不会进行直播捕获。适用于软件讲解或操作指引类的直播。</p>
+				<p>7. 游戏捕获：允许对指定来源的游戏进行直播。适用于大小游戏的实况直播。</p>
+				<p>8. 媒体源：可上传本地视频，并本地点播视频文件进行直播化处理。</p>
+				<p>9. 文本：实时添加文字在直播窗口中。</p>
+				<p>10. VLC视频源：可添加多条点播视频文件进行直播，可设置视频顺序及播放行为。</p>
+				<p>11. BrowserSource：可实时展示一个网络页面。</p>
+				<blockquote>
+					<p>场景与来源内容可根据实际需要进行切换，叠加展示。</p>
+				</blockquote>
+				<p><br></p>
+				<h4 id="h4-u5DE5u4F5Cu5BA4u6A21u5F0Fu4ECBu7ECD"><a name="工作室模式介绍" class="reference-link"></a><span class="header-link octicon octicon-link"></span>工作室模式介绍</h4>
+				<p>工作室模式提供给用户可对当前直播的内容进行实时编辑的操作的界面。</p>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479714308101/DingTalk20161121154448.png" alt="工作室模式"></p>
+				<ul>
+					<li>
+						<p>左边画面为素材准备界面，右侧画面为直播显示画面，当左侧画面素材准备好，可在画面操作区进行操作控制在。</p>
+					</li>
+					<li>
+						<p>先设置画面转换模式。</p>
+					</li>
+				</ul>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479714519053/DingTalk20161121154812.png" alt="工作是模式设置"></p>
+				<ul>
+					<li>
+						<p>画面需要进行切换时，分别执行过渡动画设置。</p>
+					</li>
+					<li>
+						<p>快速过渡动画可在场景过渡中设置。</p>
+					</li>
+				</ul>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479715098430/DingTalk20161121155743.png" alt="工作室模式设置"></p>
+				<h3 id="h3-obs-"><a name="OBS使用常见问题" class="reference-link"></a><span class="header-link octicon octicon-link"></span>OBS使用常见问题</h3>
+				<p>1、为什么使用OBS做直播推流有卡顿，丢帧的现象？</p>
+				<ul>
+					<li>
+						<p>OBS有丢帧监测数据，发现有丢帧现象时，首先检查带宽资源是否够用，上传速度是否满足直播需求。同时尝试适当降低视频分辨率。</p>
+					</li>
+					<li>
+						<p>查看你的CPU是否耗费较高。电脑配置过低，电脑资源被沾满，也会影响视频的流畅度。</p>
+					</li>
+				</ul>
+				<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/45212/cn_zh/1479871818932/DingTalk20161123112933.png" alt="丢帧"></p>
+				<p>更多问题可以查看论坛</p>
+				<p>OBS论坛讨论：
+					<a href="http://www.xspliter.com/forum-74-1.html">http://www.xspliter.com/forum-74-1.html</a>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.plusReady(function() {
+			var per = JSON.parse(plus.storage.getItem("person"));
+			$("#live_url").html(liveStreamAddress);
+			$("#live_code").html(per.pernr + liveCode);
+		});
+		
+		function copyToClip(input){
+			var value = "";
+			if(input == "url"){
+				value = $("#live_url").html();
+			}else if(input == "code"){
+				value = $("#live_code").html();
+			}
+			switch ( plus.os.name ) {
+		        case "Android":
+		        	var Context = plus.android.importClass("android.content.Context");
+				    var main = plus.android.runtimeMainActivity();
+				    var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+				    plus.android.invoke(clip,"setText",value);
+		        break;
+		        case "iOS":
+			        var UIPasteboard  = plus.ios.importClass("UIPasteboard");
+					var generalPasteboard = UIPasteboard.generalPasteboard();
+					// 设置/获取文本内容:
+					generalPasteboard.setValueforPasteboardType(value, "public.utf8-plain-text");
+					var value = generalPasteboard.valueForPasteboardType("public.utf8-plain-text");   
+		        break;
+		        default:
+		        	toast("复制成功!", 2000);
+		        break;
+		    }
+		}
+		
+		function returnDownloadUtils(){
+			plus.runtime.openURL("https://itunes.apple.com/cn/app/%E6%98%93%E6%8E%A8%E6%B5%81-%E6%B3%9B%E7%94%A8%E5%9E%8B%E7%9B%B4%E6%92%AD%E5%B7%A5%E5%85%B7/id1185568023?mt=8", null, "");
+		}
+	</script>
+</html>

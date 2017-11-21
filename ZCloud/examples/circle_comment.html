@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<style type="text/css">
+			.div_head{		
+				width: 100%;
+				height: 8%;		
+				position: fixed;
+				background-color: #2768b7;
+				float: left;
+			}
+			.div_content{				
+				width: 100%;
+				height: 82%;
+				float: left;
+				position: fixed;
+				margin-top: 55px;
+				overflow: auto;
+			}
+			.div_content_module{
+				border-bottom: 1px solid #E5E5E5;			
+				display: flex;
+				display: -webkit-flex;
+			}
+			.div_left{
+			    padding-left: 10px;
+			    padding-top: 10px;
+			}
+			.div_left_img{	
+				overflow: hidden;
+				float: right;	
+				width: 70px;
+				height: 50px;
+				padding-left: 10px;
+    			padding-right: 10px;
+			}
+			.div_right{
+				flex: 1;
+				-webkit-flex: 1;
+			}
+			.div_content_bottom{				
+				width: 100%;
+				height: 50%;
+				float: left;
+			}
+			/*.div_bottom{
+				border: 1px solid transparent;
+				position: fixed;
+				bottom: 14px;
+				width: 100%;
+				height: 8%;
+				float: left;
+			}*/
+		.qqFace { background: #fff; padding: 2px; border: 1px #dfe6f6 solid; }
+		.qqFace table td { padding: 0px; }
+		.qqFace table td img { cursor: pointer; border: 1px #fff solid;margin: 5px; }
+		.qqFace table td img:hover { border: 1px #0066cc solid; }
+		</style>
+	</head>
+
+	<body style="height: 100%;background-color: #FFFFFF;" id="bodys">
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">所有评论</h1>    
+		</header>
+		<!--内容框-->
+		<div class="div_content"  id="contentModule">
+			<!--每个用户评论框-->
+			
+		</div>
+
+		<!--底部-->
+
+		<div class="div_bottom">		
+			<span class="comment_send">
+				<div id="send_content" contenteditable="true"></div>
+				<input class="input" id="comment" type="text" style="display: none;"/>
+				<span id="sendTO">发送</span>				
+			</span>
+			<span class="emotion"><img src="../img/circle_send/icon.png" alt="" /></span>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.qqFace.js"></script>
+		<script type="text/javascript">
+			mui.init({				
+					beforeback: function(){
+					var self = plus.webview.currentWebview();
+					var scroll_Top = self.height;
+					var divPage = self.pageNo;
+					var cid = self.cid;	
+			　　　　   //获得父页面的webview
+			        var main = plus.webview.getWebviewById("circle-New.html");
+			　　　　    //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(main, "loading",{
+			        	height:scroll_Top,
+			        	divPage:divPage,
+			        	cid: cid
+			        });
+			        //返回true,继续页面关闭逻辑
+			        return true;
+   			 	}
+			})
+		</script>
+		
+		<script>
+			mui.plusReady(function(){
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				var cuid = pernr.pernr;
+				var self = plus.webview.currentWebview();
+				var cid = self.cid;
+				var signData = {
+					"cid" : cid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(comcontentAddress,{
+						method:"queryp",
+						cid:cid,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+				},function(data){
+						if(data.result){
+							drawALLContent(data.data);
+						}
+					},'json'
+				);
+								
+				var signData = {
+					"pernr":cuid,
+					"cid":cid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(comcontentAddress,{
+						method:"readComment",
+						pernr:cuid,
+						cid:cid,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+				},function(data){
+					
+				},'json');
+				
+				
+				function drawALLContent(all){
+					var contentModule = $("#contentModule");
+					contentModule.empty();
+					var all =JSON.parse(JSON.stringify(all));
+					mui.each(all.commentlistList,function(index,item){
+						var unixTimestamp = new Date(item.cdateTime);
+						contentModule.append(
+											"<div class=\"div_content_module\">"+
+											"<div class=\"div_left\">"+
+												"<div class=\"div_left_img\">"+
+													"<img style=\"width: 50px;height: 50px;\" src=\""+ serverIp +"avatar/" + item.avatar + " \"/>"+
+												"</div>"+									
+											"</div>"+
+											"<div class=\"div_right\">"+
+												"<div style=\"margin-top: 14px;\">"+
+													"<span>"+item.name+"</span>"+
+												"</div>"+
+												"<div style=\"margin-top: 4px;\">"+
+													"<span style=\"font-size: 75%;color: #787878;\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</span>"+
+												"</div>"+
+												"<div class=\"div_content_bottom\" onclick=\"javascript:reply(\'"+item.name+"\');\">"+	
+													"<div style=\" height: auto;width:95%;margin-top: 8px;\">"+
+														"<p><span style=\"font-size: 16px;color: #000000;\">"+item.ctext+"</span></p>"+
+													"</div>"+
+												"</div>"+
+											"</div>"+
+											"</div>"
+										);			
+									});
+				}
+				function isNull(data){ 
+					return (data == "" || data == undefined || data == null) ? true : false; 
+				}
+				document.getElementById("sendTO").addEventListener("tap",function () {
+					var ctext = $("#send_content").html();
+					$("#comment,#send_content").blur();
+					$("#comment,#send_content").html("");
+					if(isNull(ctext)){
+						toast('评论失败，内容不能为空', 2000);
+						return false;
+					}else{
+						plus.nativeUI.showWaiting("提交中,耐心等待",{padlock: true});
+						var signData = {
+							"cid" : cid,
+							"cuid" : cuid,
+							"ctext" : ctext,
+							"token" : token,
+							"timeInMillis" : getTimestamp()
+						};
+						var signature = getSignature(signData);
+						var signature_md5 = md5(md5(signature));
+						mui.post(comcontentAddress,{
+							method:"setComment",
+							cid:cid,
+							cuid:cuid,
+							ctext:ctext,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+						},function(data){
+							if(data.result){	
+								var signData = {
+									"cid" : cid,
+									"usid" : cuid,
+									"token" : token,
+									"timeInMillis" : getTimestamp()
+								};
+								var signature = getSignature(signData);
+								var signature_md5 = md5(md5(signature));
+								mui.post(comcontentAddress,{
+									method:"queryp",
+									cid:cid,
+									usid:pernr.pernr,
+									token:token,
+									timeInMillis:getTimestamp(),
+									signature:signature_md5
+								},function(data){
+									if(data.result){
+										var temp = JSON.parse(JSON.stringify(data.data));
+										$("#contentModule").empty();
+										mui.each(temp.commentlistList,function(index3,item3){
+											var signData = {
+												"cid" : cid,
+												"token" : token,
+												"timeInMillis" : getTimestamp()
+											};
+											var signature = getSignature(signData);
+											var signature_md5 = md5(md5(signature));
+											mui.post(comcontentAddress,{
+												method:"queryp",
+												cid:cid,
+												token:token,
+												timeInMillis:getTimestamp(),
+												signature:signature_md5
+											},function(data){
+												if(data.result){
+													drawALLContent(data.data);
+												}
+											},'json'
+										);
+									});
+								}
+							},'json');
+							toast('评论成功!', 2000);
+							plus.nativeUI.closeWaiting(); 
+						}
+					},'json')}
+				});
+			});
+			function reply(name){
+					var text = document.getElementById("comment");
+					text.value="@"+name+" ";
+			}
+		</script>
+<script type="text/javascript">
+
+$(function(){
+
+	$('.emotion').qqFace({
+
+		id : 'facebox', 
+
+		assign:'comment', 
+
+		path:'../arclist/'	//表情存放的路径comment
+
+	});
+	
+//	$("#sendTO").click(function(){
+//
+//		var str = $("#comment").val();
+//	
+//
+//	});
+});
+
+//查看结果
+
+function replace_em(str){
+
+	str = str.replace(/\</g,'&lt;');
+
+	str = str.replace(/\>/g,'&gt;');
+
+	str = str.replace(/\n/g,'<br/>');
+
+	str = str.replace(/\[em_([0-9]*)\]/g,'<img src="../arclist/$1.gif" border="0" />');
+	 
+	return str;
+
+}
+
+</script>
+	</body>
+
+</html>

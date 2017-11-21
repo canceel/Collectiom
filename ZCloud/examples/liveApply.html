@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/integral_mall.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">直播申请</h1>    
+		</header>
+		
+		<section style="margin-top: 55px;padding: 10px;background-color: #fff;">
+			<textarea id="textarea" rows="5" placeholder="说出你想开通直播的原因或想直播的内容"></textarea>
+			<button id="sub" type="button" class="mui-btn mui-btn-primary mui-btn-block" style="background: #2768b7;">提交申请</button>
+		</section>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				var allDIV = document.getElementById("sub");
+				allDIV.addEventListener("tap",function () {
+					var text = $("#textarea").val();
+					if(isNull(text)){
+						toast('提交失败，内容不能为空', 2000);
+						return false;
+					}else{
+						var per = JSON.parse(plus.storage.getItem("person"));
+						auid = per.pernr;
+						var signData = {
+							"auid" : auid,
+							"text": text,
+							"token" : token,
+							"timeInMillis" : getTimestamp()
+						};
+						var signature = getSignature(signData);
+						var signature_md5 = md5(md5(signature));
+						mui.post(liveAddress,{
+							method:"apply",
+							auid:auid,
+							text:text,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+						},function(data){
+							if(data.result){
+								plus.nativeUI.toast("提交成功，审核中!",{ duration:5000, type:'div' });
+								mui.back();
+							}else{
+								plus.nativeUI.toast("提交失败，请稍后再试！",{ duration:5000, type:'div' });
+								mui.back();
+							}
+						},'json');
+					}
+				});
+			});
+			function isNull(data){ 
+				return (data == "" || data == undefined || data == null) ? true : false; 
+			}
+		</script>
+	</html>

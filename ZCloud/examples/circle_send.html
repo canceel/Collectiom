@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="../js/remjs.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/md5.js"></script>
+		<script type="text/javascript" src="../js/h.js"></script>
+		<style type="text/css">
+			html,body{
+				background-color: #fff;
+			}
+			.head{
+				width: 100%;
+				height: 70px;
+				background-color: #2768B7;
+			}
+			.div_send{	
+				text-align:center;
+				width:40px;
+				height:23px;
+				background: url(../img/circle_send/frame.png);
+				background-size: 100% 100%;
+				float: right;
+				margin-right: 5%;
+			}
+			.div_content_title{		
+				border-bottom: 1px solid #E5E5E5;
+				height:130px;
+				width: 100%;			
+			}
+			.div_content{			
+				width: 94%;	
+				margin-top: 2%;	
+				margin-left: 3%;	
+			}
+		
+			input::-webkit-input-placeholder{
+				color: #323232;
+			}
+			.div_img{				
+				width: 100%;
+				height: 30%;			
+			}
+			.div_img img{
+				display: inline-block;
+				width: 3.2rem!important;
+				height: 3.2rem!important;
+			}
+			.div_img_content1{			
+				width: 31%;
+				height:45%;
+				float: left;	
+				margin-left: 2%;			
+				overflow:hidden
+			}		
+			.div_img_send{
+				width: 32%;
+				margin-left: 2%;
+				float: left;	
+				padding-top: 6px;				
+			}
+			.div_below{	
+				width: 100%;
+				height: 14%;		
+				float:  left;	
+			}
+			.div_below_img{
+				border-bottom:1px solid #E5E5E4;
+			    padding-bottom: 10px;
+    			padding-top: 10px;
+    		    display: flex;
+    		    display: -webkit-flex;
+    			justify-content: space-between;	
+    			-webkit-justify-content: space-between;			
+			}
+			.del {  
+                position: absolute;  
+                top:1px;  
+                right: 1px;   
+                display: block;        
+            	line-height: 1;  
+                cursor: pointer;  
+                color:black;  
+            }  
+            .remove{
+            	background-image: url(../img/circle/icon_2.png);
+            	width: 12px;
+            	height: 12px;
+            }
+		</style>
+	</head>
+
+	<body>
+		<header  class="head" >
+	     <div style="width: 100%;height: 30px;margin-top: 35px;float: left;">
+		  	<div  style="float: left;margin-left: -1%;">
+		  	   <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: transparent;">
+		  			<span style="color: #FFFFFF;font-size: 16px;" >
+		  				取消
+		  			</span>
+		  		</a>
+		  	</div>		
+		  	<div style="margin-left: 27%;float: left;"><span style="color: #FFFFFF;font-size: 16px;">发圈子</span></div>
+		 	<button  id="sendContent" class="mui-btn mui-btn-success mui-btn-outlined" style="width: 56px;float: right;right: 10px;padding: 2px;padding-left: 0;bottom: 1px;padding-right: 0;color: #fff;border:1px solid #fff">发送</button>
+		 </div> 
+		</header>
+	
+		<div class="div_content_title">
+			<textarea id="text" type="text" placeholder="发表新圈子..." style="text-align:left;border:none;width: 100%;height: 100%;background-color: transparent;color: #323232;"></textarea>			
+		</div>
+		<div class="div_content">
+			<div  class="div_img"   id='F_CKJLBS'>
+				<input type="hidden" id="ckjl.id" name="ckjl.id" value="429">   				   
+                                
+			</div>				
+			<div style="border-bottom: 1px solid #F3F3F3;width: 100%;height:14%;float: left;padding-bottom: 5px;">
+				<div class="div_img_send"  id="F_CKJLB" onclick="showActionSheet(this);"><img src="../img/circle_send/frame_send.png" style="width: 100%;height: 100%;float: left;"></div>
+			</div>				
+			<!--<div class="div_below">
+				<div class="div_below_img">
+					<div style="margin-left: 2%;display: flex;align-items: center;">
+						<img src="../img/circle_send/icon_1.png" style="width:20px;height: 20px;" />
+						<span style="font-size: 15px;padding-left: 3px;">图片</span>		
+					</div>	
+					<div>
+						<img src="../img/circle_send/icon_3.png" style="width: 13px;height: 23px;" />
+					</div>
+				</div>	
+				<div class="div_below_img">
+					<div style="margin-left: 2%;display: flex;align-items: center;">
+						<img src="../img/circle_send/icon_2.png" style="width:20px;height: 20px;" />
+						<span style="font-size: 15px;padding-left: 3px;">视频</span>
+					</div>	
+				    <div>
+				 		<img src="../img/circle_send/icon_3.png" style="width: 13px;height: 23px;" />
+				    </div>
+				</div>	
+			</div>--> 
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			
+		</script>
+<script>  
+	//图片集合
+	var imgArray = new Array();
+    var procinstid = 0;  
+    //初始化页面执行操作  
+    function plusReady() {  
+        //Android返回键监听事件  
+        plus.key.addEventListener('backbutton',function(){  
+            myclose();  
+        },false);  
+    }  
+    if (window.plus) {  
+        plusReady();  
+    } else {  
+        document.addEventListener('plusready', plusReady, false);  
+    }  
+    
+    	function getBase64Image(img) {   	
+            var w = img.width; 
+            var h = img.height; 
+            var scale = w / h; 
+            w = 600 || w;              //480  你想压缩到多大，改这里
+            h = w / scale;
+			var canvas = document.createElement("canvas"); 
+            var ctx = canvas.getContext("2d"); 
+            $(canvas).attr({width : w, height : h});
+            ctx.drawImage(img, 0, 0, w, h); /*绘图*/ 
+            var dataURL = canvas.toDataURL("image/jpeg",  0.92); 
+            return dataURL.replace("data:image/jpeg;base64,", ""); 
+    	}
+       
+  		function showImgDetail (imgId,imgkey,id,src) {
+        	var imgNum = document.getElementsByName("imgNum");
+        	var count = imgNum.length;
+        	if(count>5){
+        		toast("最多上传6张图片",2000);
+        	}else{
+        		var html = "";
+	            html +='<div  id="Img'+imgId+imgkey+'" class="div_img_content1" name="imgNum" >';   
+	            html +='	<img id=\"' + id + '\" name="photos" style="width:100%;height:100%;"  src=\"'+src+'\"/>';
+	            html +='    <span class="del" onclick="delImg(\''+imgId+'\',\''+imgkey+'\','+id+');">';         
+            	html +='        <div class="remove"></div>';      
+            	html +='    </span>';   
+	            html +='</div>';  
+	            $("#"+imgkey+"S").append(html); 
+        	}
+        }  
+         
+        function pushAllImage(){
+        	plus.nativeUI.showWaiting("提交中,耐心等待",{padlock: true}); 
+  	      	var imageObject = new Image(); 
+        	$("img[name=photos]").each(function(){
+        		imageObject.src = $(this).attr("src");
+        		imgArray.push(getBase64Image(imageObject));
+        	});
+        	plus.nativeUI.closeWaiting(); 
+        	return JSON.stringify(imgArray);
+        }
+
+        //选取图片的来源，拍照和相册  
+        function showActionSheet(conf){  
+              var divid = conf.id;  
+              var actionbuttons=[{title:"拍照"},{title:"相册选取"}];  
+              var actionstyle={title:"选择照片",cancel:"取消",buttons:actionbuttons};  
+              plus.nativeUI.actionSheet(actionstyle, function(e){  
+                    if(e.index==1){  
+                        getImage(divid);  
+                    }else if(e.index==2){  
+                        galleryImg(divid);  
+                    }  
+              } );  
+        }  
+        function galleryImg(divid){
+        		plus.gallery.pick( function(e){
+        		var zm=0;
+        		setTimeout(file,200);
+	    	    function file(){
+	    	    	plus.io.resolveLocalFileSystemURL(e.files[zm], function(entry) {
+					         compressImage(entry.toLocalURL(),entry.name,divid); 
+				    }, function(e) {
+					   plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+				    });
+				    zm++;
+				    if(zm<e.files.length){
+				    	setTimeout(file,200);
+				    }
+	    	    }
+    	         
+                }, function ( e ) {
+    	           console.log( "取消选择图片" );
+                },{filename: "_doc/camera/",
+                   filter:"image",
+                   multiple:true
+                });
+         }
+        // 拍照  
+        function getImage(divid) {  
+            var cmr = plus.camera.getCamera();  
+            cmr.captureImage(function(p) {  
+                //alert(p);//_doc/camera/1467602809090.jpg  
+                plus.io.resolveLocalFileSystemURL(p, function(entry) {  
+                    compressImage(entry.toLocalURL(),entry.name,divid);  
+                }, function(e) {  
+                    plus.nativeUI.toast("读取拍照文件错误：" + e.message);  
+                });  
+            }, function(e) {  
+            }, {  
+                filename: "_doc/camera/",
+                index: 1  
+            });  
+        }  
+        //压缩图片  
+        function compressImage(url,filename,divid){
+        	plus.nativeUI.showWaiting("小云正在压缩图片",{padlock: true});
+           	var name="_doc/upload/"+divid+"-"+filename;//_doc/upload/F_ZDDZZ-1467602809090.jpg     
+         	plus.zip.compressImage({
+                    src:url,//src: (String 类型 )压缩转换原始图片的路径  
+                    dst:name,//压缩转换目标图片的路径  
+                    quality:100,//quality: (Number 类型 )压缩图片的质量.取值范围为1-100  
+                    overwrite:true,//overwrite: (Boolean 类型 )覆盖生成新文件  
+                    width:"60%",
+		            height:"60%"
+                },  
+                function(event) {   
+                    var path = name;//压缩转换目标图片的路径  
+                    saveimage(event.target,divid,filename,path); 
+                    plus.nativeUI.closeWaiting(); 
+
+                },function(error) {  
+                    plus.nativeUI.toast("压缩图片失败，请稍候再试");  
+                    plus.nativeUI.closeWaiting(); 
+            }); 
+            
+        }  
+        //保存信息到本地  
+        /**  
+         *   
+         * @param {Object} url  图片的地址  
+         * @param {Object} divid  字段的名称  
+         * @param {Object} name   图片的名称  
+         */  
+        function saveimage(url,divid,name,path){  
+    	    var  state=0;  
+            var wt = plus.nativeUI.showWaiting();   
+            name=name.substring(0,name.indexOf("."));//图片名称：1467602809090  
+            var id = document.getElementById("ckjl.id").value;  
+            var itemname=id+"img-"+divid;//429img-F_ZDDZ  
+            var itemvalue=plus.storage.getItem(itemname);  
+            if(itemvalue==null){  
+                itemvalue="{"+name+","+path+","+url+"}";//{IMG_20160704_112614,_doc/upload/F_ZDDZZ-IMG_20160704_112614.jpg,file:///storage/emulated/0/Android/data/io.dcloud...../doc/upload/F_ZDDZZ-1467602809090.jpg}  
+            }else{    
+                itemvalue=itemvalue+"{"+name+","+path+","+url+"}";  
+            }  
+            plus.storage.setItem(itemname, itemvalue);  
+            showImgDetail(name,divid,id,url);
+            wt.close();
+        }  
+</script>  
+
+<!--发送圈文-->
+<script type="text/javascript">
+		document.getElementById("sendContent").addEventListener('tap',function(){			
+			$("#sendContent").attr("disabled", true);
+			var url = $("img[name=photos]").attr("src");
+			var self = plus.webview.currentWebview();
+			var sid = self.sid;
+			var cimages = pushAllImage();
+			var ctext = document.getElementById("text").value;
+			var person = JSON.parse(plus.storage.getItem("person"));
+			var cuser = person.pernr;
+			var signData = {
+				"sid":sid,
+				"ctext":ctext,
+				"cimages":cimages,
+				"cvideo":"",
+				"cuser":cuser,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			if(ctext == "" && url == null ){
+				toast("请输入圈文内容",2000);
+				plus.nativeUI.closeWaiting();  
+				$("#sendContent").attr("disabled", false);
+			}else{					
+				plus.nativeUI.showWaiting("提交中,耐心等待",{padlock: true}); 
+				mui.ajax(comcontentAddress,{
+					data:{
+						method:"addContent",
+						sid:sid,
+						ctext:ctext,
+						cimages:cimages,
+						cvideo:"",
+						cuser:cuser,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5,
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；     
+					success:function(data){
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.result){
+							toast("发送成功",2000);
+							var main = plus.webview.getWebviewById("circle-New.html");
+							mui.fire(main, "pageflowrefresh" );
+							mui.back();
+							plus.nativeUI.closeWaiting();
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						plus.nativeUI.closeWaiting(); 
+						$("#sendContent").attr("disabled", false);
+						toast("服务器繁忙，请重试",2000);
+						window.location.reload();
+					}
+				})			
+	   		}	
+    	})
+</script>
+
+</body>
+
+</html>

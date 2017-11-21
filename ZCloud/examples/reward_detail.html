@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/teacher.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				background-color: #fff;
+			}
+			section{
+				margin-top: 55px;
+			}
+			ul{
+			    padding-left: 0;
+    			margin-left: 18px;
+    			margin-right: 18px;	
+			}
+			li{
+				list-style-type: none;
+				display: flex;
+				display: -webkit-flex;
+				position: relative;
+				padding-top: 10px;
+    			padding-bottom: 8px;
+    			cursor:pointer;
+			}
+			li:after{
+				content: "";
+				height: 1px;
+				width: 100%;
+				background-color: #E7E7E7;
+			    position: absolute;
+    			bottom: 0;	
+    			left: 0;
+			}
+			.reward_img img{
+				width: 50px;
+			    height: 50px;
+			    overflow: hidden;	
+			}
+			.reward_name{
+			    flex: 2;
+    			align-self: center;
+    			padding-left: 10px;	
+			}
+			.reward_name div:nth-of-type(1),.reward_money div:nth-of-type(1){
+				color: #242424;
+				font-size: 15px;
+			}
+			.reward_name div:nth-of-type(2),.reward_money div:nth-of-type(2){
+				color: #979797;
+				font-size: 13px;
+			}
+			.reward_money{
+			    flex: 1;
+    			align-self: center;
+    			text-align: end;	
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"style="margin-top: 15px;padding-right: 30px;"></a>
+		    <h1 class="mui-title"style="margin-top: 15px;font-weight: 300;">打赏明细</h1>
+		</header>
+		<section>
+			<ul>
+				<li>
+					<div class="reward_img"><img src="../img/hot_course_content/head_1.png" alt="" /></div>
+					<div class="reward_name">
+						<div>王小丽</div>
+						<div>2017-10-10 10:10</div>
+					</div>
+					<div class="reward_money">
+						<div>￥<span>5.00</span></div>
+						<div>已入账</div>
+					</div>
+				</li>
+			</ul>
+		</section>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</body>
+
+</html>

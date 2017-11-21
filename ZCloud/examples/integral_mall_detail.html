@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/integral_mall.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">商品详情</h1>    
+		</header>
+		
+		<section>
+			<div id="imgDIV">
+				
+			</div>
+			<div class="bgW">
+				<div id="titleDIV" class="color38 ml10 " style="font-size: 14px;padding-top: 6px;padding-bottom: 3px;">彩色iPhone7金属数据线</div>
+				<div id="scorDIV" class="colorR ml10" style="font-size: 14px;padding-bottom: 6px;">12000积分</div>
+			</div>
+			<div class="bgW mt5">
+				<div class="ptb7 ml10 color38" style="font-size: 14px;">商品介绍</div>
+				<div id="context" class="commodity">
+					
+				</div>
+			</div>
+			<footer id="exchange" class="exchange">立即兑换</footer>
+		</section>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			var num=null;
+			var sum = null;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var shopid = self.shopid;
+				var signData = {
+						"sid" : shopid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"shopItem",
+							sid:shopid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							all(data.data);
+						}
+					},'json');	
+			});
+			function all(all){
+				var all = JSON.parse(JSON.stringify(all));
+				$("#imgDIV").empty().append("<img class=\"w100\"  style=\"margin-top:55px;display:inherit;max-height:160px;\" src=\""+ serverIp +"images/" +all.shopItem.icover + "\"/>");
+				$("#titleDIV").text(all.shopItem.iname);
+				$("#scorDIV").text(all.shopItem.iscore+"积分");
+				$("#context").empty().text(all.shopItem.icontent);
+				num = all.shopItem.iscore;
+				sum = all.shopItem.istock
+			}
+			document.getElementById("exchange").addEventListener('tap',function(){
+				var self = plus.webview.currentWebview();
+				var shopid = self.shopid;
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				if(pernr.score >= num && sum>0){
+					mui.openWindow({
+      				url:'integral_mall_order.html',
+      				id:'integral_mall_order.html',
+      				extras:{
+				      		 	shopid : shopid
+				   			},
+				   			waiting:{
+			      				autoShow:true,//自动显示等待框，默认为true
+				      			title:'正在加载...'//等待对话框上显示的提示内容
+				    		}
+      				});
+				}else{
+					alert("您的积分不够或者该商品已兑换完毕！");
+				}			
+     		});
+		</script>
+	</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/integral_mall.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<style>
+			
+		</style>
+	
+	</head>
+	<body class="bgW">
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">订单详情</h1>    
+		</header>
+		
+		<secion>
+			<div class="bgW ptb10" style="margin-top: 55px;display: flex;">
+				<div id="imgDIV" class="orderImg">
+					
+				</div>
+				<div class="orderDetail">
+					<div id="titleDIV" style="color:#323232;"></div>
+					<div style="color: #6b6b6b;font-size: 13px;"><span></span></div>
+					<div id="scorDIV" class="colorR"><!--12000积分--></div>
+				</div>
+			</div>
+			<div style="background-color:#efeff4;height: 5px;"></div>
+			<div class="mt5" style="padding-bottom: 10px;margin-bottom: 10px;">
+				<form class="ml10" action="">
+					<div class="ptb10" style="font-size: 14px;color: #2b2b2b;">配送信息</div>
+					<div class="mui-input-row username">
+				        <label>姓名：</label>
+				    	<input id="oname" type="text" class="mui-input-clear" style="width: 73%;">
+				    </div>
+				    <div class="mui-input-row username">
+				        <label>电话：</label>
+				    	<input id="ophone" type="number" class="mui-input-clear" style="width: 73%;">
+				    </div>
+				    <div class="mui-input-row username">
+				        <label>详细地址：</label>
+				    	<input id="oaddress" type="text" class="mui-input-clear" style="width: 73%;">
+				    </div>
+				</form>
+			</div>
+		</secion>
+				 
+		<button id="sub" class="exchange">确认提交</button>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+				var self = plus.webview.currentWebview();
+				var shopid = self.shopid;
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				var signData = {
+						"sid" : shopid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"shopItem",
+							sid:shopid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							var all = JSON.parse(JSON.stringify(data.data));
+							$("#titleDIV").text(all.shopItem.iname);
+							$("#scorDIV").text(all.shopItem.iscore+"积分");
+							$("#imgDIV").empty().append("<img  width='100px' height='80px' src=\""+ serverIp +"images/" +all.shopItem.icover + "\"/>");
+						}
+				},'json');	
+				document.getElementById("sub").addEventListener('tap',function(){
+				$("#sub").attr("disabled", true); 
+				var oname = $("#oname").val();
+				var ophone = $("#ophone").val();
+				var oaddress = $("#oaddress").val();
+					if(isNull(oname)){
+					toast("姓名不能为空！",1000);
+					$("#sub").attr("disabled", false); 
+					return false;
+				}else if(isNull(ophone)){
+					toast("电话不能为空！",1000);
+					$("#sub").attr("disabled", false); 
+					return false;
+				}else if(isNull(oaddress)){
+					toast("地址不能为空！",1000);
+					$("#sub").attr("disabled", false); 
+					return false;
+				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(ophone))){
+					toast("请输入正确手机号!",1000);
+					$("#sub").attr("disabled", false); 
+					return false;
+				}
+				var signData = {
+						"oitemId": shopid,
+						"ouid" :  pernr.pernr,
+						"oname" : oname,
+						"ophone" : ophone,
+						"oaddress" : oaddress,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"order",
+							oitemId:shopid,
+							ouid:pernr.pernr,
+							oname:oname,
+							ophone:ophone,
+							oaddress:oaddress,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							toast("兑换成功！",2000);
+							mui.back();
+			
+						}
+					},'json');
+			});
+		});
+			function isNull(data){ 
+				return (data == "" || data == undefined || data == null) ? true : false; 
+			}
+		</script>
+	</html>

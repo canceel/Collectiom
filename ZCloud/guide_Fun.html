@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,body{
+				height: 100%;
+				width: 100%;
+			}
+			.guide_next{
+				text-align: center;
+			}
+			.guide_next img{
+				width: 140px;
+			}
+		</style>
+	</head>
+
+	<body style="background-image: url(img/main/9.png);background-repeat: no-repeat;background-size: 100% 100%;">
+		<div class="guide_next">
+			<img src="img/main/image_2.png" id="forgot"/>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>	
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<script>
+			$(document).ready(function(){
+				var Window_height=$("body").height();
+				$(".guide_next").css("padding-top",Window_height/1.7);
+				document.getElementById("forgot").addEventListener('tap',function(){
+	     			mui.openWindow({
+		      			url:'index.html',
+		      			id:'index.html',
+	      			});
+				});
+			});
+			mui.plusReady(function(){
+				plus.storage.setItem("cook","a");
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/search.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+	</head>
+	<body>
+		<div id="search_Bar"><img src="../img/retail_operation/icon_search_1.png"/><input id="a" class="search" type="text" placeholder="搜索你感兴趣的内容"/><span id="return" class="search_cancel">返回</span><button id = "searchBtn" class="search_button">搜索</button></div>
+		<div class="retail_operation_content1" id="retail_1" style="">
+			<!--<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<div  class="contentOut">
+						<img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_1.png"style="height: 85px;max-width: 110px;padding-bottom:0px;">
+						<div class="mui-media-body">
+							<p class="font-first-line">当生鲜行业遇上互联网</p>
+							<p class='mui-ellipsis-2 font-second-line'>根据用户需求为商品添加多城市覆盖，精确定到"省、市、区（县）",就近安排</p>
+							<p class="TimeStyle">
+								<img src="../img/retail_operation/icon_1.png" class="img-first-size"/>
+								<span  class="font-third-size">2017-05-08 </span>
+								<img src="../img/retail_operation/icon_2.png" class="img-second-size"/>
+								<span class="font-fourth-size">21003</span>
+                            </p>								
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div  class="contentOut">
+						<img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_1.png"style="height: 85px;max-width: 110px;padding-bottom:0px;">
+						<div class="mui-media-body">
+							<p class="font-first-line">当生鲜行业遇上互联网</p>
+							<p class='mui-ellipsis-2 font-second-line'>根据用户需求为商品添加多城市覆盖，精确定到"省、市、区（县）",就近安排</p>
+							<p class="TimeStyle">
+								<img src="../img/retail_operation/icon_1.png" class="img-first-size"/>
+								<span  class="font-third-size">2017-05-08 </span>
+								<img src="../img/retail_operation/icon_2.png" class="img-second-size"/>
+								<span class="font-fourth-size">21003</span>
+                            </p>								
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div  class="contentOut">
+						<img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_1.png"style="height: 85px;max-width: 110px;padding-bottom:0px;">
+						<div class="mui-media-body">
+							<p class="font-first-line">当生鲜行业遇上互联网</p>
+							<p class='mui-ellipsis-2 font-second-line'>根据用户需求为商品添加多城市覆盖，精确定到"省、市、区（县）",就近安排</p>
+							<p class="TimeStyle">
+								<img src="../img/retail_operation/icon_1.png" class="img-first-size"/>
+								<span  class="font-third-size">2017-05-08 </span>
+								<img src="../img/retail_operation/icon_2.png" class="img-second-size"/>
+								<span class="font-fourth-size">21003</span>
+                            </p>								
+						</div>
+					</div>
+				</li>
+			</ul>-->
+		</div>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript">
+		mui.init();
+	</script>
+	<script>
+		var type = null;
+		mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			var extList = self.extList;
+			type = self.type;
+			if(extList.length>0){
+				drawExternal(extList);
+			}else{
+				toast("没有相关内容",1000);
+			}		
+		});
+		
+		function drawExternal(externallist){
+					var course_content_list = $("#retail_1");		
+					mui.each(externallist,function(index,item){		
+						var retail_totalDiv=$("<div/>").addClass("retail_operation_content1").attr("name",item.id).click(function(){
+							mui.openWindow({
+								url: 'show_external_content.html',
+								id: 'show_external_content.html',
+								extras:{
+				       				 eid:item.id,
+				       				 cover:item.ecover
+				   				},
+				   				waiting:{
+			      					autoShow:true,//自动显示等待框，默认为true
+				      				title:'正在加载...'//等待对话框上显示的提示内容
+				   				 }
+							});
+						});
+						var retail_ul=$("<ul>").addClass("mui-table-view");
+						var retail_li=$("<li/>").addClass("mui-table-view-cell mui-media");
+						var retail_wrapDiv = $("<div/>").attr("href","javascript:openContent()");
+						var retail_Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ecover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px",
+					 	});
+//					 	价格样式
+//					 	var retail_prdiv=$("<div/>").addClass('class_price_out');
+//					 	var retail_primg=$("<img>").attr("src","../img/retail_operation/icon_02.png");
+//					 	var retail_prdivPe=$("<div/>").addClass("class_price_pre").html("原价1.99");
+//					 	var retail_prdivNow=$("<div/>").addClass("class_price_now").html("0.00");
+//					 	var retail_prspan=$("<span/>").addClass("money_logo").html("￥");
+						 /*div包含3个p标签*/
+					 	var retail_rDiv = $("<div/>").addClass('mui-media-body');
+					 	var retail_pTitle = $("<p/>").addClass('font-first-line').html(item.etitle);
+					 	var retail_pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line');
+					 	retail_rDiv.append(retail_pTitle).append(retail_pContent);
+						/*最后一个p标签分别包含2个img和2个span*/
+					 	var retail_pChunk = $("</p>").addClass("TimeStyle");
+					 	var retail_iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 	var retail_tt = new Date(item.ecreateTime);
+					 	var retail_time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(retail_tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 	var retail_iconImg2 = $("<img/>").addClass('img-second-size').attr("src","../img/retail_operation/icon_2.png");
+					 	var retail_num=$("<span/>").addClass('font-fourth-size').html(item.ctr);
+					 	retail_pChunk.append(retail_iconImg1).append(retail_time).append(retail_iconImg2).append(retail_num);
+					 	retail_rDiv.append(retail_pChunk);
+					 	
+//					 	retail_prdivNow.append(retail_prspan);
+//					 	retail_prdiv.append(retail_primg).append(retail_prdivPe).append(retail_prdivNow);
+//					 	retail_wrapDiv.append(retail_prdiv);
+					 	
+					 	retail_wrapDiv.append(retail_Img);
+					 	retail_wrapDiv.append(retail_rDiv);
+					 	retail_li.append(retail_wrapDiv);
+						retail_ul.append(retail_li);
+						retail_totalDiv.append(retail_ul);
+						course_content_list.append(retail_totalDiv);
+					});
+				
+		}
+		
+		document.getElementById("searchBtn").addEventListener('tap',function(){
+			var text = $("#a").val();
+			mui.post(searchAddress,{
+					method:"queryExternal",
+					content:text,
+					type:type
+				},function(data){
+					if(data.result){
+						$("#retail_1").empty();
+						if(data.data.length > 0){
+							drawExternal(data.data);
+						}else{
+							toast("没有相关内容",1000);
+						}				
+					}
+				},'json');
+		})
+				
+//			搜索行
+		$(document).ready(function(){
+			$(".search").bind("input porpertychange",function(){ 
+				var search_val=$(".search").val();
+				if(search_val!==""){
+					$(".search_button").css("display","block");
+					$(".search_cancel").css("display","none");
+				}else{
+					$(".search_button").css("display","none");
+					$(".search_cancel").css("display","block");
+				}
+			})
+		});
+		document.getElementById("return").addEventListener('tap',function(){
+			mui.back();
+		})
+	</script>
+	</body>	
+
+</html>

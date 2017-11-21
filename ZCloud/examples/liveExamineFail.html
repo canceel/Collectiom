@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/Live.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<style>
+			html,body{
+				height: 100%;
+			}
+		</style>
+	
+	</head>
+	<body class="examineFailBG">
+		<div class="examinFailStation"><img src="../img/liveList/icon_2.png"/><span>审核失败</span></div>
+		<div class="examineFailTxt">抱歉，您的审核未通过！</div>
+		<div class="examineFailContent">工作年限未达到直播要求，如有疑问请致电：88888888</div>
+		<div onclick="javascript:mui.back();" class="return">返回上页</div>
+	</body>
+		<script src="../js/mui.min.js">
+			mui.init();
+		</script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript">
+			//		每日弹窗的宽高计算
+		(function(){
+			var screenHeight=$(window).height();
+			var screenWidth=$(window).width();
+			var left=(screenWidth-160)/2;
+			var txtWidth=$(".examinFailStation span").width();
+			var txtLeft=(screenWidth-txtWidth)/2;
+			$(".examinFailStation img").css({"left":left});
+			$(".examinFailStation span").css({"left":txtLeft});
+		})()
+//		每日弹窗的宽高计算结束
+		</script>
+	</html>

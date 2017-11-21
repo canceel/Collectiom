@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+</head>
+<body>
+<!--首页底部部分-->
+	<nav class="mui-bar mui-bar-tab" id="tabMain">
+	    <a class="mui-tab-item mui-active" id="home" >
+ 			<img class="mui-icon" id="home_bar_icon"  src="img/main/icon_9_s.png"></img>
+	        <span class="mui-tab-label">首页</span>
+	    </a>
+	    <a class="mui-tab-item" id="Live" href="#">
+	        <img class="mui-icon" id="Live_bar_icon" src="img/main/icon_12.png"></img>
+	        <span class="mui-tab-label">直播</span>
+	    </a>
+	    <a class="mui-tab-item" id="circle" href="#">
+	        <img class="mui-icon" id="circle_bar_icon" src="img/main/icon_10.png"></img>
+	        <span class="mui-tab-label">圈子</span>
+	    </a>
+	    <a class="mui-tab-item" id="mine" href="#">
+	        <img class="mui-icon" id="mine_bar_icon" src="img/main/icon_11.png"></img>
+	        <span class="mui-tab-label">我的</span>
+	    </a>
+	</nav>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/h.js"></script>
+	<script type="text/javascript" src="js/iconfont.js" ></script>
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    	/*插件初始化*/
+      	mui.init({
+      		/*将子页面(home_father.html,circle.html;mine.html)追加到父窗口(index.html)*/
+      		subpages:[{
+      			url:'examples/home_father.html',
+      			id:'home_father.html',
+      			styles:{
+					top:'0px',
+      				bottom:'51px',
+      				width: "100%"
+      			}
+      		},{
+      			url:'examples/circle-New.html',
+      			id:'circle-New.html',
+      			styles : {
+	            	left   : '200%',
+	                top    : '0px',
+	                bottom : '51px',
+	                width  : "100%"
+            	}
+      		},{
+      			url:'examples/liveList.html',
+      			id:'liveList.html',
+      			styles : {
+	            	left   : '300%',
+	                top    : '0px',
+	                bottom : '51px',
+	                width  : "100%"
+            	}
+      		},{
+      			url:'mine/mine.html',
+      			id:'mine.html',
+      			styles : {
+	            	left   : '400%',
+	                top    : '0px',
+	                bottom : '51px',
+	                width  : "100%"
+            	}
+      		}]
+      	});
+      	h("#home").tap(function(){changSub(1);changeBarIcon(1);});
+      	h("#Live").tap(function(){changSub(2);changeBarIcon(2);});
+      	h("#circle").tap(function(){changSub(3);changeBarIcon(3);});
+      	h("#mine").tap(function(){changSub(4);changeBarIcon(4);});
+      	function changSub(index){
+		    var sub1 = plus.webview.getWebviewById('home_father.html');
+		    var sub2 = plus.webview.getWebviewById('liveList.html');
+		    var sub3 = plus.webview.getWebviewById('circle-New.html');
+		    var sub4 = plus.webview.getWebviewById('mine.html');
+		    sub1.setStyle({left: (1 - index) * 100 + "%"});
+		    sub2.setStyle({left: (2 - index) * 100 + "%"});
+		    sub3.setStyle({left: (3 - index) * 100 + "%"});
+		    sub4.setStyle({left: (4 - index) * 100 + "%"});
+}
+
+	function changeBarIcon(index) {
+		switch(index) {
+			case 1:
+				h("#home_bar_icon").attr('src', 'img/main/icon_9_s.png');
+				h("#circle_bar_icon").attr('src', 'img/main/icon_10.png');
+				h("#mine_bar_icon").attr('src', 'img/main/icon_11.png');
+				h("#Live_bar_icon").attr('src', 'img/main/icon_12.png');
+				break;
+			case 2:
+				h("#Live_bar_icon").attr('src', 'img/main/icon_12_s.png');
+				h("#mine_bar_icon").attr('src', 'img/main/icon_11.png');
+				h("#circle_bar_icon").attr('src', 'img/main/icon_10.png');
+				h("#home_bar_icon").attr('src', 'img/main/icon_9.png');
+				break;
+			case 3:
+				h("#circle_bar_icon").attr('src', 'img/main/icon_10_s.png');
+				h("#home_bar_icon").attr('src', 'img/main/icon_9.png');
+				h("#mine_bar_icon").attr('src', 'img/main/icon_11.png');
+				h("#Live_bar_icon").attr('src', 'img/main/icon_12.png');
+				break;
+			case 4:
+				h("#mine_bar_icon").attr('src', 'img/main/icon_11_s.png');
+				h("#circle_bar_icon").attr('src', 'img/main/icon_10.png');
+				h("#home_bar_icon").attr('src', 'img/main/icon_9.png');
+				h("#Live_bar_icon").attr('src', 'img/main/icon_12.png');
+				break;
+			default:
+				break;
+		}
+	}
+	
+		/*页面初始化*/
+      	mui.plusReady(function(){
+			mui.oldback = mui.back;
+			var clickNum = 0;
+			mui.back = function(event){
+			    clickNum++;
+			    if(clickNum > 1){
+			        plus.runtime.quit();
+			    }else{
+			        mui.toast("再按一次退出应用",1000);
+			    }
+			    setTimeout(function(){
+			        clickNum = 0
+			    },1000);
+			        return false;
+			}
+      	});
+
+
+      	/*头部与状态栏一致的颜色*/
+      	document.addEventListener('plusready',function(){
+		        plus.navigator.setStatusBarBackground("#2768b7");
+		  },false);
+		 
+   
+
+	</script>
+
+
+	
+</body>
+</html>

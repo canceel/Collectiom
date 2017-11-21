@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<style>
+			body{
+				background: white;
+			}
+			img {
+				width: 100%;
+			}
+			.StartLive{
+				background-color: #185491;
+			    float: right;
+			    color: #fff;
+			    font-size: 13px;
+			    border-radius: 20px;
+			    padding: 1px 11px;
+			    margin-top: 28px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">开始直播</h1>    
+		</header>
+		<div style="margin-top: 80px;">
+			<div>
+				<span>直播地址:</span><span id="live_url"></span>
+				<button onclick="copyToClip('url')" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">
+					复制
+				</button>
+			</div>
+			<div style="margin-top: 15px;">
+				<span>直播秘钥:</span><span id="live_code"></span>
+				<button onclick="copyToClip('code')" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">
+					复制
+				</button>
+			</div>
+			<div style="margin-top: 15px;">
+				<span>工具下载:</span><span>易推流</span><br>
+				<button onclick="returnDownloadUtils()" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">
+					点击下载
+				</button>
+			</div>
+		</div>
+		<div>
+			<img src="../img/live/live_phone.jpg" style="width: 100%;height: auto;"/>
+		</div>
+		<div>
+			
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.plusReady(function() {
+			var per = JSON.parse(plus.storage.getItem("person"));
+			$("#live_url").html(liveStreamAddress);
+			$("#live_code").html(per.pernr + liveCode);
+		});
+		
+		function copyToClip(input){
+			var value = "";
+			if(input == "url"){
+				value = $("#live_url").html();
+			}else if(input == "code"){
+				value = $("#live_code").html();
+			}
+			switch ( plus.os.name ) {
+		        case "Android":
+		        	var Context = plus.android.importClass("android.content.Context");
+				    var main = plus.android.runtimeMainActivity();
+				    var clip = main.getSystemService(Context.CLIPBOARD_SERVICE);
+				    plus.android.invoke(clip,"setText",value);
+		        break;
+		        case "iOS":
+			        var UIPasteboard  = plus.ios.importClass("UIPasteboard");
+					var generalPasteboard = UIPasteboard.generalPasteboard();
+					// 设置/获取文本内容:
+					generalPasteboard.setValueforPasteboardType(value, "public.utf8-plain-text");
+					var value = generalPasteboard.valueForPasteboardType("public.utf8-plain-text");   
+		        break;
+		        default:
+		        	break;
+		    }
+			toast("复制成功!", 2000);
+		}
+		
+		function returnDownloadUtils(){
+			switch ( plus.os.name ) {
+		        case "Android":
+		        	toast("该工具暂不支持Android进行下载!")
+		        break;
+		        case "iOS":
+			        plus.runtime.openURL("https://itunes.apple.com/cn/app/%E6%98%93%E6%8E%A8%E6%B5%81-%E6%B3%9B%E7%94%A8%E5%9E%8B%E7%9B%B4%E6%92%AD%E5%B7%A5%E5%85%B7/id1185568023?mt=8", null, "");
+		        break;
+		        default:
+		        	break;
+		    }
+		}
+	</script>
+</html>

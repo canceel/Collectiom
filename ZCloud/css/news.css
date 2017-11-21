@@ -1,0 +1,25 @@
+/*底部弹出框*/
+#sheet2{
+/*background-color: #161616;*/
+/*margin-left: -18px;*/
+}
+.mui-popover.mui-popover-action{
+	bottom: 0px;
+	
+}
+/*去掉遮罩层，让弹出的菜单能够显示*/
+.mui-backdrop{
+	z-index: -1;
+	
+}
+.mui-popover.mui-popover-action .mui-table-view{
+	margin: 0px;
+
+}
+/*新闻详情内容页的段落字体大小*/
+.new-content{
+	margin-left: 24px;
+	color:#292929;
+	font-size: 12px;
+	margin-top:-15px;
+}

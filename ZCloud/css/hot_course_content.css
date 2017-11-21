@@ -1,0 +1,185 @@
+.mui-control-item{
+	background-color: #FFFFFF;
+}
+
+.sub{
+	/*font-size:14px;
+	margin:10px;
+	color:#FF0000;*/
+}
+/*考核*/
+#examine{
+	display: none;
+}
+/*PPT*/
+#PPT{
+	display: none;
+}
+/*详情框*/
+#abstract_img{
+	height: 20px;margin-top: 25px;float: right;
+}
+/*详情*/
+#details{
+	margin-right: -35px;
+	color: #2768B7;
+	margin-top: 13px;
+	font-size: 12px;
+}
+/*产品保鲜订阅专栏*/
+.font-food{
+	font-size: 14px;color: #000000;
+}
+/*320221前的图片样式*/
+#img1{
+	height: 10px;
+}
+/*105*/
+#img2{
+	height: 10px;margin-left: 15px;
+}
+#img3{
+	height: 15px;margin-left: 20px;float: right;
+}
+#img4{
+	height: 15px;margin-left: 25px;float: right;
+}
+#img5{
+	height: 15px;margin-left: 30px;float: right;
+}
+/*打赏字体*/
+.font-reward{
+	
+	text-align:center;float: left;margin-left: -3px;font-size: 14px;color: #000000;margin-top: -10px;
+}
+/*打赏字体后的图像*/
+.reward{
+	height: 25px;padding-top: -6px;
+}
+.reward_forward{
+	margin-right: 2px;font-size: 12px;color: #000000;padding-top: -6px;
+}
+/*全部评论字体*/
+.font-styles{
+	font-size: 14px;
+	margin-top:10px;
+	margin-bottom:10px;
+	
+}
+/*头像+我来说几句*/
+.comment_first{
+	display: inline-block;
+}
+/*全部评论下方的头像*/
+#comment_img{
+	height: 30px;display:inline-block;
+}
+/*input的div*/
+.comment_input{
+	margin-top: -30px; 
+	margin-left: 10px;
+}
+/*我来说*/
+#comment_font{
+	width:17.5rem;
+	height: 32px;
+	margin-left: 40px;
+	text-align: center;
+	font-size: 14px;
+	margin-top: -10px;
+}
+/*李晓梅头像*/
+#coment_img_1{
+	height: 30px;margin-top: 12px;
+}
+/*李晓梅字体*/
+.comment_font_first{
+	color: #212121;
+	font-size: 14px;
+	margin-bottom:3px;
+	color: #2768b7;
+	margin-top: 6px;
+}
+/*一个小时前*/
+.comment_font_second{
+	font-size: 12px;color: #7e7e7e;
+}
+/*1个小时前下方的内容*/
+.comment_font_third{
+	font-size: 12px;color: #212121;margin-top: -8px;margin-bottom: 2px;margin-right: 10px;
+}
+/*点赞图像*/
+#comment_img_first{
+	margin-top: -35px;height: 15px;float: right;margin-right: 6px;
+}
+/*点赞人数*/
+#comment_font_span{
+	margin-top: -35px;
+	font-size: 12px;
+	margin-right: 28px;
+	color: #000000;
+}
+/*第二个点赞的图像*/
+#comment_img_second{
+	margin-top: -35px;height: 15px;float: right;margin-left: 3rem;
+}
+#comment_font_second{
+	margin-top: -35px;
+	font-size: 12px;
+	margin-right: 28px;
+	color: #000000;
+}
+/*赞赏讲师底部宽度*/
+.mui-bar-tab .mui-tab-item{
+	height: 38px;
+}
+#comment_list>div>img,.comment_first>img{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+/*讲师简介*/
+.Introduction{
+    position: absolute;
+    background-color: #fff;
+    top: 0;
+    z-index: 11;
+    padding-top: 6px;
+    padding-bottom: 18px;
+    font-size: 17px;
+    display: none;	
+}
+.Introduction p{
+	padding-left: 40px;
+	padding-right: 20px;
+	margin-bottom: 3px;
+}
+.Introduction div{
+	padding-left: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.Introduction span{
+	padding-left: 40px;
+	padding-right: 20px;
+	font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #8f8f94;	
+    margin-left: 6px;
+    margin-right: 6px;
+    display: inline-block;
+    color: #4a4a4a;
+}
+.Introduction_cancel img{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 23px;
+    padding: 10px;	
+    top: 0px;
+}
+#abstract{
+	position: relative;
+}

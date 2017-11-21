@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+		<link rel="stylesheet" href="../css/hot_course.css" />
+		<link rel="stylesheet" href="../css/hot_course_content.css" />
+		<link rel="stylesheet" href="../css/Live.css" />
+		<script src="../js/iphone-inline-video.browser.js"></script>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://g.alicdn.com/de/prismplayer/1.9.9/skins/default/index-min.css">
+   	 	<script src="http://g.alicdn.com/de/prismplayer/1.9.9/prism-h5-min.js"></script>
+    	<script src='../js/jmessage-sdk-web.2.3.1.min.js'></script>
+    	<script>
+		    function InitPlayer(pernr){
+			    var player = new prismplayer({
+			        id: "J_prismPlayer",    // 容器id
+			        source: "http://live-test.fzggyp.com/ZCloud/" + pernr + ".m3u8",  // 视频url 支持互联网可直接访问的视频地址
+			        playsinline:true,
+			        autoplay: true,       // 自动播放
+			        width: "100%",        // 播放器宽度
+			        height: "35%",      // 播放器高度
+			        skinLayout:[{"name":"bigPlayButton","align":"blabs","x":30,"y":80},
+			                {"name":"controlBar","align":"blabs","x":0,"y":0,"children":[{"name":"playButton","align":"tl","x":15,"y":26},
+			                {"name":"fullScreenButton","align":"tr","x":20,"y":25},
+			                {"name":"streamButton","align":"tr","x":20,"y":23}]},
+			                {"name":"fullControlBar","align":"tlabs","x":0,"y":0,"children":[{"name":"fullNormalScreenButton","align":"tr","x":24,"y":13}]}]
+			    });
+		    }
+    	</script>
+		<style>
+			body{
+				background: #FFFFFF;
+			}
+			video::-webkit-media-controls {
+			  display:none !important;
+			}
+		</style>
+	</head>
+	<body style="height: auto;" scroll="no">
+	<div >
+		<div class="video" style="background-color: #FFFFFF;position: relative;z-index:10;position: fixed;top:0;width: 100%;">
+	    	<div id='J_prismPlayer' class='prism-player' webkit-playsinline></div>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left liveBack" style="top:0 ;padding-top:7%;padding-left:15px;padding-right:30px;padding-bottom:30px;font-size: 20px;position: absolute;"></a>
+		</div>
+		<div class="Communication mui-scroll-wrapper" id="scroll1">
+			<div class="mui-scroll Send_content" id="dom_id">
+				<div class="Now_much">当前在线人数: <span>99999</span><img class="USERCOUNT" src="../img/liveList/close.png" alt="" /></div>
+				<div class="viewer">欢迎<span class="viewerEnter" id="welcome">天橙网络</span>进入直播间</div>
+				<!--<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>
+				<div class="viewerSpeek"><span class="viewerName">1小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div>
+				<div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>
+				<div class="viewerSpeek"><span class="viewerName">2小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>
+				<div class="viewerSpeek"><span class="viewerName">3小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>
+				<div class="viewerSpeek"><span class="viewerName">4小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>
+				<div class="viewerSpeek"><span class="viewerName">5小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>
+				<div class="viewerSpeek"><span class="viewerName">6小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerSpeek"><span class="viewerName">7123123</span>:<span class="viewerContent">拿冠军拿冠军</span></div>
+				<div class="viewerSpeek"><span class="viewerName">5小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>				<div class="viewerSpeek"><span class="viewerName">5小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>				<div class="viewerSpeek"><span class="viewerName">5小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>				<div class="viewerSpeek"><span class="viewerName">5小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>
+				<div class="viewerTask"><span>天橙网络</span>完成任务，获得了礼物</div>				<div class="viewerSpeek"><span class="viewerName">5小狗效果</span>:<span class="viewerContent">拿冠军拿冠军</span></div><div class="viewer">欢迎<span class="viewerEnter">天橙网络</span>进入直播间</div>-->
+			</div>
+			<div class="gift_Top">
+				<div class="SendGift">
+					<!--<div class="liveGift" style="display: none;">
+						<div class="giveGift">
+							<div><img src="../img/liveList/head_gift.png" alt="" /></div>
+							<div><span>某某某</span>送了<span>飞机</span></div>
+							<div><img src="../img/liveList/gift_big_1.png" alt="" /></div>
+						</div>
+						<div class="giftMuch"><img src="../img/liveList/X.png"/><img src="../img/liveList/1.png"/></div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bgW viewerSpeekIng div_bottom">
+		<input class="review" id="comment" type="text" placeholder="说点什么吧..." /><div onclick="sendGroupMsg()" class="SendButton">发送</div>
+		<span>
+			<span><img  src="../img/liveList/icon_4.png"/></span><span><img onclick="liveChoice()" src="../img/liveList/icon_3.png"/></span>
+		</span>
+	</div>
+	<div class="giftSort">
+		<ul>
+			<li>
+				<div><img src="../img/liveList/gift_1.png"/></div>
+				<div class="giftName">芝麻甜甜圈</div>
+				<div class="giftCost"><span>50</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_2.png"/></div>
+				<div class="giftName">芝士蛋糕</div>
+				<div class="giftCost"><span>100</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_3.png"/></div>
+				<div class="giftName">新鲜草莓</div>
+				<div class="giftCost"><span>150</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_4.png"/></div>
+				<div class="giftName">草莓冰淇淋</div>
+				<div class="giftCost"><span>200</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_5.png"/></div>
+				<div class="giftName">人气气球</div>
+				<div class="giftCost"><span>250</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_6.png"/></div>
+				<div class="giftName">幸运礼貌</div>
+				<div class="giftCost"><span>300</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_7.png"/></div>
+				<div class="giftName">巧克力礼盒</div>
+				<div class="giftCost"><span>350</span>积分</div>
+			</li>
+			<li>
+				<div><img src="../img/liveList/gift_8.png"/></div>
+				<div class="giftName">电子吉他</div>
+				<div class="giftCost"><span>400</span>积分</div>
+			</li>
+		</ul>
+		<div class="giftBottom">
+			<div class="liveIntegral">当前积分:<span>1000</span></div>
+			<div class="liveSend">发送</div>
+		</div>
+	</div>
+	<div class="mask dn" onclick="mask()"></div>
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+	    <script type="text/javascript">
+	    	
+	    	var person;
+	    	var rid;
+	    	var JIM = new JMessage();
+	    	var gid;
+	    	var ruid;
+	        mui.plusReady(function() {
+	        	var self = plus.webview.currentWebview();
+	        	rid = self.rid;
+				gid = self.gid;
+				ruid = self.ruid;
+	        	person = JSON.parse(plus.storage.getItem("person"));
+	        	$("#welcome").html(person.name);
+	        	toast(ruid,3000);
+	        	InitPlayer(ruid);
+	    		var videoH=$("#J_prismPlayer").height();
+	    		var boxTop=parseInt(videoH)+parseInt(10);
+	    		$(".Communication").css("padding-top",boxTop);
+	    		var random_str = randomString(32);
+	    		var timestamp = getTimestamp();
+	    		var signature = md5("appkey=9a3adc46b6e4b0f6782c3d6b&timestamp=" + timestamp + "&random_str=" + random_str +"&key=91fe269ab64c5fa72ee00987")
+	    		console.log(signature);
+	    		JIM.init({
+	            	"appkey" : "9a3adc46b6e4b0f6782c3d6b",
+		           	"random_str" : random_str,
+		            "signature" : signature,
+		            "timestamp" : timestamp,
+		            "flag" : "0"
+		        }).onSuccess(function(data) {
+		           //data.code 返回码
+		           //data.message 描述
+			          if(data.code == 0){
+			          	registerJIM();
+			          }
+		          }).onFail(function(data) {
+		            // 同上
+		        });	
+	        });
+	        
+	        function setGid(newGid){
+	        	var signData = {
+					"id" : rid,
+					"gid" : "" + newGid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(liveAddress,{
+					method:"setGid",
+					id:rid,
+					gid: "" + newGid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						
+					}else{
+						//服务器繁忙
+					}
+				},'json');
+	        }
+	        
+	        function registerJIM(){
+    	  		JIM.register({ 
+		            'username' : person.pernr,
+			        'password' : person.pernr,
+			        'nickname' : person.name
+		        }).onSuccess(function(data) {
+		        	loginJIM();
+	          	}).onFail(function(data) {
+	          		loginJIM();
+		        });
+	        }
+	        
+	        function loginJIM(){
+	        	JIM.login({
+				    'username' : person.pernr,
+				    'password' : person.pernr
+				}).onSuccess(function(data) {
+				     //data.code 返回码
+				     //data.message 描述
+//				     createAndJoinGroupJIM();
+					getGroups();
+		     		console.log("登录反馈:" + data.code + ":" + data.message);
+			     	
+				}).onFail(function(data){
+				
+					console.log("登录反馈:" + data.code + ":" + data.message);
+//					createAndJoinGroupJIM();
+//					获取群组
+					getGroups(); 
+				});
+	        }
+	        
+//	       	获取群组如果没有该群组就创建群组
+	        function getGroups(){
+	        	if(gid == null){
+//	        		createAndJoinGroupJIM();
+	        		toast("该直播间暂时无法聊天，请联系管理员!")
+	        	}else{
+	        		joinGroupJIM(gid);
+	        	}
+//	        	JIM.getGroups().onSuccess(function(data) {
+////	        		判断是否获取成功
+//	        		if(data.code == 0){
+//	        			var group_name = rid + "号直播间聊天室";
+//	        			var gid = 0;
+//	        			console.log("群组信息获取成功,群组数量：" + data.group_list.length);
+//	        			for (var i = 0 ; i < data.group_list.length; i++){
+//	        				var group = data.group_list[i];
+//	        				console.log(group.name == group_name);
+//	        				if(group.name == group_name){ 
+//	        					console.log("直接加入" + group.gid);
+//	        					gid = group.gid;
+//	        					joinGroupJIM(group.gid);
+//	        				}
+//	        			}
+//	        			if(gid == 0){
+//	        				createAndJoinGroupJIM();
+//	        			}
+//	        		}
+//             	}).onFail(function(data) {
+//             		console.log("群组信息获取失败：" + data.code + ":" + data.message);
+//             	});
+	        }
+	        
+	        function createAndJoinGroupJIM(){
+    	 		JIM.createGroup({
+             		'group_name' : rid + '号直播间聊天室',
+          			'group_description' : rid + '号直播间聊天室'
+               	}).onSuccess(function(data) {
+              		console.log("创建房间:" + data.code + ":" + data.message);
+                	if(data.code == 0){
+                		setGid(data.gid);
+                		joinGroupJIM(data.gid);
+                	}
+               	}).onFail(function(data) {
+                	console.log("创建房间:" + data.code + ":" + data.message);
+               	});
+	        }
+	        
+	        function joinGroupJIM(gid){
+//	        	JIM.addGroupMembers({
+//            		'gid' : gid,
+//        			'member_usernames' : [
+//        				{'username':person.pernr}
+//        			]
+//             	}).onSuccess(function(data) {
+//              	console.log("加入群聊:" + data.code + ":" + data.message);
+//              	receiveJIM(gid);
+//             	}).onFail(function(data) {
+//              	console.log("加入群聊:" + data.code + ":" + data.message);
+//              	receiveJIM(gid);
+//             	});
+				var signData = {
+					"pernr" : person.pernr,
+					"gid" : gid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(liveAddress,{
+					method:"addToGroup",
+					gid:gid,
+					pernr:person.pernr,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						toast("成功连接聊天服务!", 1000);
+						receiveJIM(gid);
+					}else{
+						receiveJIM(gid);
+						toast("聊天服务器繁忙", 1000);
+					}
+				},'json');
+	        }
+	        
+	        function receiveJIM(gid){
+	        	console.log("-开始监听直播间聊天信息");
+	        	JIM.onMsgReceive(function(data) {
+	        		var messages = data.messages;
+	        		var from_gid = messages[0].from_gid;
+	        		var content = messages[0].content;
+	        		var msg_body = content.msg_body;
+	        		console.log(messages[0].from_gid + "==" + gid);
+	        		console.log(content.from_id + "==" + gid);
+	        		console.log(content.from_name + "==" + gid);
+	        		console.log(msg_body.text + "==" + gid);
+				    console.log('receive msg: ' + JSON.stringify(data));
+				    var fromName = content.from_name == undefined ? content.from_id : content.from_name;
+				    if (messages[0].from_gid == gid) {
+				    	elseText(msg_body.text, fromName);
+				    }
+				});
+	        }
+	        
+	        
+	        
+	        function randomString(len) {
+			　　len = len || 32;
+			　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+			　　var maxPos = $chars.length;
+			　　var pwd = '';
+			　　for (i = 0; i < len; i++) {
+			　　　　pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+			　　}
+			　　return pwd;
+			}
+	        
+//	        var lastTime;
+//	        
+//			function getComments(){
+//				if(lastTime == null){
+//					lastTime = getTimestamp();
+//				}
+//				var nowTime = getTimestamp();
+//  			var signData = {
+//					"rid" : rid,
+//					"pernr" : person.pernr,
+//					"cdateTime" : lastTime - 10,
+//					"token" : token,
+//					"timeInMillis" : getTimestamp()
+//				};
+//				var signature = getSignature(signData);
+//				var signature_md5 = md5(md5(signature));
+//				mui.post(liveChatAddress,{
+//					method:"getLiveChat",
+//					rid:rid,
+//					pernr:person.pernr,
+//					cdateTime:lastTime - 10,
+//					token:token,
+//					timeInMillis:getTimestamp(),
+//					signature:signature_md5
+//				},function(data){
+//					console.log(data.result);
+//					if(data.result){
+//						console.log(data.data.length);
+//						lastTime = nowTime;
+//						loadComment(data.data);
+//					}else{
+//						toast("聊天服务器繁忙", 1000);
+//					}
+//				},'json');
+//  		}
+//
+//			function loadComment(data){
+//				for(var i = 0; i < data.length; i++){
+//					var c = data[i];
+//					$(".Send_content>div:last").after('<div class="viewerSpeek"><span class="viewerName">'+c.name+'</span>:<span class="viewerContent">'+c.ccontent+'</span></div>')
+//					$("#comment").val("");
+//					scroll();
+//				}
+//			}
+
+	    	function liveChoice(){
+	    		$(".mask").show();
+	    		$(".giftSort").show();
+	    	}
+	    	function mask(){
+	    		$(".giftSort").hide();
+	    		$(".mask").hide();
+	    	}
+	    	 $(function(){  
+            $('#scroll').scroll({  
+                indicators: false //是否显示滚动条  
+            });  
+            mui('.mui-scroll-wrapper').scroll({  
+                deceleration: 0.0006 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006  
+            });  
+        })  
+        
+//      发送文字
+		function sendTxt(){
+			var txtContent=$("#comment").val();
+			if(txtContent.length!==0){
+				$(".Send_content>div:last").after('<div class="viewerSpeek"><span class="viewerName" style="color: orange;">'+person.name+'</span>:<span class="viewerContent">'+txtContent+'</span></div>')
+				$("#comment").val("");
+				scroll();
+			}else{
+				return false;
+			}
+		}
+		
+		function elseText(txtContent, fromName){
+			if(txtContent.length!==0){
+				$(".Send_content>div:last").after('<div class="viewerSpeek"><span class="viewerName">'+fromName+'</span>:<span class="viewerContent">'+txtContent+'</span></div>')
+				$("#comment").val("");
+				scroll()
+			}else{
+				return false;
+			}
+		}
+		
+		function sendGroupMsg(){
+			var textComment = $("#comment").val();
+			// 发送消息
+   			JIM.sendGroupMsg({
+             	'target_gid' : gid,
+             	'content' : textComment,
+           	}).onSuccess(function(data , msg) {
+           		console.log("用户发送消息:" + data.code + ":" + data.message);
+              	if(data.code == 0){
+              		console.log("发送成功!");
+              		sendTxt();
+              		$("#comment").val("");
+              	}
+           	}).onFail(function(data) {
+              	//同发送单聊文本
+           	});
+		}
+		
+//		送礼物
+		$(document).ready(function(){
+			var gift_img;
+			var gift_name;
+			var i=0;
+			var x;
+			var integral_Gift;
+			$(".USERCOUNT").on("tap",function(){
+				$(".Now_much").css("display","none")
+			})
+			$(".giftSort li").on("tap",function(){
+				gift_img=$(this).find("img").attr("src");
+				gift_name=$(this).find(".giftName").text();
+				integral_Gift=$(this).find(".giftCost span").text()
+				$(this).addClass("confirmColor");
+				$(this).siblings().removeClass("confirmColor");
+			})
+			$(".liveSend").on("tap",function(){
+				var integral_now=$(".liveIntegral").find("span").text();
+				if(gift_img==null){
+					toast("请选择礼物!",2000)
+				}
+				else if(parseInt(integral_now)<parseInt(integral_Gift)){
+					toast("当前积分不足",3000)
+				}
+				else{
+//					积分扣除
+//					x=parseInt(integral_now)-parseInt(integral_Gift);
+//					$(".liveIntegral").find("span").text(x);
+					$(".SendGift").after('<div class="liveGift '+i+'"><div class="giveGift"><div><img src="../img/liveList/head_gift.png"/></div><div><span>某某某</span>送了<span>'+gift_name+'</span></div><div><img src="'+gift_img+'"/></div></div><div class="giftMuch"><img src="../img/liveList/X.png"/><img src="../img/liveList/1.png"/></div></div>')	
+					giftDIs(i);
+					i++;
+				}
+			})
+//			滚动条置底
+			scroll();
+		});
+//			滚动条置底
+		function scroll(){
+			var outheight=$('#scroll1').height();
+			var inheight=$("#dom_id").height()+6;
+			var gapHeight=inheight-outheight;
+			if(gapHeight>0){
+//				$('#scroll1').scrollTop($('#scroll1')[0].scrollHeight);
+			$('#scroll1').scrollTop(gapHeight);
+			}else{
+				return false;
+			}
+		}
+//		礼物消失
+		function giftDIs(i){
+			setTimeout(function(){
+				$("."+i).fadeOut("slow");
+			},3500)
+		}
+	    </script>
+	</body>
+</html>

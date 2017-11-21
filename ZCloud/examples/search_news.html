@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/retail_operation.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/search.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<script type="text/javascript" src="../js/md5.js"></script>
+		<style>
+			li{
+				list-style-type: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="search_Bar"><img src="../img/retail_operation/icon_search_1.png"/><input id="a" class="search" type="text" placeholder="搜索你感兴趣的内容"/><span id="return" class="search_cancel">返回</span><button id = "searchBtn" class="search_button">搜索</button></div>
+		<div class="retail_operation_content1" id="retail_1" style="">
+			<!--<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<div  class="contentOut">
+						<img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_1.png"style="height: 85px;max-width: 110px;padding-bottom:0px;">
+						<div class="mui-media-body">
+							<p class="font-first-line">当生鲜行业遇上互联网</p>
+							<p class='mui-ellipsis-2 font-second-line'>根据用户需求为商品添加多城市覆盖，精确定到"省、市、区（县）",就近安排</p>
+							<p class="TimeStyle">
+								<img src="../img/retail_operation/icon_1.png" class="img-first-size"/>
+								<span  class="font-third-size">2017-05-08 </span>
+								<img src="../img/retail_operation/icon_2.png" class="img-second-size"/>
+								<span class="font-fourth-size">21003</span>
+                            </p>								
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div  class="contentOut">
+						<img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_1.png"style="height: 85px;max-width: 110px;padding-bottom:0px;">
+						<div class="mui-media-body">
+							<p class="font-first-line">当生鲜行业遇上互联网</p>
+							<p class='mui-ellipsis-2 font-second-line'>根据用户需求为商品添加多城市覆盖，精确定到"省、市、区（县）",就近安排</p>
+							<p class="TimeStyle">
+								<img src="../img/retail_operation/icon_1.png" class="img-first-size"/>
+								<span  class="font-third-size">2017-05-08 </span>
+								<img src="../img/retail_operation/icon_2.png" class="img-second-size"/>
+								<span class="font-fourth-size">21003</span>
+                            </p>								
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div  class="contentOut">
+						<img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_1.png"style="height: 85px;max-width: 110px;padding-bottom:0px;">
+						<div class="mui-media-body">
+							<p class="font-first-line">当生鲜行业遇上互联网</p>
+							<p class='mui-ellipsis-2 font-second-line'>根据用户需求为商品添加多城市覆盖，精确定到"省、市、区（县）",就近安排</p>
+							<p class="TimeStyle">
+								<img src="../img/retail_operation/icon_1.png" class="img-first-size"/>
+								<span  class="font-third-size">2017-05-08 </span>
+								<img src="../img/retail_operation/icon_2.png" class="img-second-size"/>
+								<span class="font-fourth-size">21003</span>
+                            </p>								
+						</div>
+					</div>
+				</li>
+			</ul>-->
+		</div>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript">
+		mui.init();
+	</script>
+	<script>	
+		mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			var newsList = self.newsList;
+			if(newsList.length>0){
+				drawNews(newsList);
+			}else{
+				toast("没有相关内容",1000);
+			}		
+		});
+		
+			function drawNews(newslist){
+				var newsListDiv = $("#retail_1");
+				console.log(newslist)
+				mui.each(newslist,function(index,item){
+					 var Li = $("<li/>").addClass("mui-table-view-cell mui-media");
+					 var wrapDiv = $("<a/>").attr("onclick","openNewsContent(" + item.id + "," + item.ntype + ",'" + item.ntitle + "','" + item.nlink + "')");
+					 /*img与div同级*/
+					 var Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ncover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		marginRight:"10px",
+					 		paddingBottom:"0px"
+					 	});
+					 /*div包含3个p标签*/
+					 var rDiv = $("<div/>").addClass('mui-media-body');
+					 var pTitle = $("<p/>").addClass('font-first-line').html(item.ntitle);
+					 var pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html("根据用户需求为商品添加多城市覆盖，精确定到\"省、市、区（县）\",就近安排");
+			 						 
+					 rDiv.append(pTitle).append(pContent);
+
+					/*最后一个p标签分别包含2个img和2个span*/
+					 var pChunk = $("</p>");
+					 var iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 var tt = new Date(item.ncreaterTime);
+					 var time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 pChunk.append(iconImg1).append(time);
+					 rDiv.append(pChunk);
+					 wrapDiv.append(Img);
+					 wrapDiv.append(rDiv);
+					 Li.append(wrapDiv);
+					newsListDiv.append(Li);
+//					document.getElementsByClassName("mui-media")[0].getElementsByTagName("img")[0].onload = function() {
+//						$(".LoadMask").css("display","none");
+//						$(".loadWeb").css("display","none");
+//						$("body,html").css({"position":"absolute","overflow":"visible"});
+//					}
+				});
+		}
+		
+		/*打开内容详情的第一个页面*/
+	      	function openNewsContent(nid, ntype, ntitle, nlink){
+			      		var person = JSON.parse(plus.storage.getItem("person"));
+						var puid = person.pernr;
+			      		var signData = {
+								"puid" : puid,
+								"token" : token,
+								"timeInMillis" : getTimestamp()
+							};
+						var signature = getSignature(signData);
+						var signature_md5 = md5(md5(signature));		
+						mui.post(addScoreAddress,{
+							method:"addTime",
+							puid:puid,
+							type:2,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+						},function(data){
+							
+						},'json')
+	      		if(ntype == 1){
+	      			mui.openWindow({
+		      			url:'news_content_father.html',
+		      			id:'news_content_father.html',
+		      			extras:{
+					        nid:nid
+					   	},
+					   	waiting:{
+				      		autoShow:true,//自动显示等待框，默认为true
+					      	title:'正在加载...'//等待对话框上显示的提示内容
+					    }
+		      		});
+	      		}else{
+	      			openLinkFrame(ntitle, nlink);
+	      		}
+	      	}
+	      	
+	      	function openLinkFrame(title, link_url){
+				mui.openWindow({
+	      			url:'link_frame.html',
+	      			id:'link_frame.html',
+	      			extras:{
+	      				blink:"" + link_url,
+				        title:title,
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+	      		});
+			}	      	
+		
+				
+//			搜索行
+		$(document).ready(function(){
+			$(".search").bind("input porpertychange",function(){ 
+				var search_val=$(".search").val();
+				if(search_val!==""){
+					$(".search_button").css("display","block");
+					$(".search_cancel").css("display","none");
+				}else{
+					$(".search_button").css("display","none");
+					$(".search_cancel").css("display","block");
+				}
+			})
+		});
+		
+//		搜索
+		document.getElementById("searchBtn").addEventListener('tap',function(){
+			var text = $("#a").val();
+			mui.post(searchAddress,{
+					method:"queryNews",
+					content:text
+				},function(data){
+					if(data.result){
+						$("#retail_1").empty();					
+						if(data.data.length > 0){
+							drawNews(data.data);
+						}else{
+							toast("没有相关内容",1000);
+						}
+					}
+				},'json');
+		});
+		document.getElementById("return").addEventListener('tap',function(){
+			mui.back();
+		})
+	</script>
+	</body>	
+
+</html>

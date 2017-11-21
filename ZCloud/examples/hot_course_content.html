@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+		<link rel="stylesheet" href="../css/zy.media.min.css">
+		<link rel="stylesheet" href="../css/hot_course.css" />
+		<link rel="stylesheet" href="../css/hot_course_content.css" />
+		<script src="../js/iphone-inline-video.browser.js"></script>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+	<style>
+		body{
+			background: #FFFFFF;
+		}
+	</style>
+	</head>
+	<body style="height: 100%;">
+	<div class="" style="background-color: #FFFFFF;position: relative;z-index:10;">
+    	<div class="zy_media" >
+      	<video id="video" style="box-sizing:initial;webkit-box-sizing: initial;"  -webkit-playsinline="true" poster="../img/hot_course_content/def_1.png">
+		        <source id="source" src="http://39.108.154.64/video/1502251391863_10318.mp4" type="video/mp4">
+		        您的浏览器不支持HTML5视频
+	    </video>
+	    </div>
+		 <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="margin-top:-45% ;margin-left:15px;float: left;font-size: 20px;position: absolute;"></a>
+	</div>
+<!--全部-->
+	<div id="box">
+		<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background: #FFFFFF;">
+			<div class="mui-scroll mui-progressbar "style="background-color: #FFFFFF;" >
+				<a class="mui-control-item mui-active" id="abstract1"style="font-size: 14px;">
+							简介
+				</a>
+				<a class="mui-control-item" id="abstract2"style="font-size: 14px;">
+							PPT
+				</a>
+				<a class="mui-control-item" id="abstract3"style="font-size: 14px;">
+							考核
+				</a>
+			</div>	
+		</div>
+		
+		
+		
+<!--简介-->
+<!--视频播放-->
+ 		<div class="tab_content">
+ 			<div  class="sub" id="abstract">
+ 				<div class="mui-scroll-wrapper" style="height: 100%;">
+ 				<div class="mui-scroll" style="height: 100%;">
+				<div class="mui-table-view" style="margin-top: -21px;">
+					<div style="margin-left: 16px;margin-right: 8px;">
+        				<img class="mui-media-object " id="abstract_img" src="../img/hot_course_content/frame.png"></img>
+            			<span class="mui-media-object mui-pull-right " id="details">详情</span>
+	  
+	            		<div class="mui-media-body">
+		            		<div style="margin-top: 25px;">
+		            		<p class="font-food" id="ltitle">产品保鲜订阅专栏</span>
+		            		</div>
+		               		<p style="font-size:12px;margin-top:-6px ;">讲师:<span id="llecturer">云信息小组</span</p>
+	            		</div>
+	            
+			            <div style="margin-right: 8px;height: 30px;margin-top:-8px;">
+			            	<p style="margin-top: 7px;width: 100%;">
+			                	<img src="../img/hot_course/icon_1.png"/ id="img1" /><font style="font-size: 12px;color: #000000;margin-left: 5px;" id="ltr"></font>
+			                	<img src="../img/hot_course/icon_2.png"/ id="img2" /><font style="font-size: 12px;color: #000000;margin-left: 5px;" id="commentCount"></font>
+			                	<img src="../img/hot_course/icon_5.png"/ id="img3" />&nbsp;&nbsp;
+			                	<img src="../img/hot_course/icon_4.png"/ id="img4" style="display: none;"/>&nbsp;&nbsp;
+			                	<img src="../img/hot_course/icon_3.png"/ id="img5"/     >&nbsp;&nbsp;
+			                </p>
+			            </div>
+        			</div>
+   			 	</div> 
+			<!--打赏-->
+			<ul class="mui-table-view" style="height: 42px;">
+						<li class="mui-table-view-cell mui-media">
+							<div href="javascript:;" style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">
+								
+							<div class="mui-ellipsis-1" style="width:130px;float: right;margin-top: 0px;text-overflow: ellipsis; overflow: hidden;white-space: nowrap;display: inline-block;">
+				  			<img src="../img/hot_course/head_1.png"/ class="reward" >
+				    		<img src="../img/hot_course/head_2.png"/ class="reward" >
+				   		 	<img src="../img/hot_course/head_1.png"/ class="reward" >
+							<img src="../img/hot_course/head_2.png"/ class="reward" >
+							<font style="margin-right:2px ;font-size: 12px;" >...</font>
+							</div>
+								<div class="mui-media-body">
+									<p class=""style="text-align: center;margin-top: 3px;margin-left:-10rem;font-size: 14px;color: #000000;">打赏</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<!--打赏er-->
+		<!--全部评论-->
+	<div class="mui-table-view">
+		<div style="margin-left: 16px;margin-right: 8px;">
+            <div class="mui-media-body">
+               	<div class="font-styles" >全部评论</div>
+            </div>
+ 			<div class="comment_first">
+               	<img src="../img/hot_course/head_1.png" id="comment_img"/>
+               	<div class="comment_input" style="width: 100%;">
+               		<input type="text" placeholder="我来说几句" id="comment_font" style="width: 72%;"/>
+               		<span onclick="sendComment()" style="color: gray;margin-left: 58px;float: right;font-size: 14px;margin-top: -39px;">发&nbsp;送</span>
+               	</div>
+            </div>
+       	</div>
+		
+		<div id="comment_list">
+			<div class=""style="margin-top: -2px;margin-left: 12px;" >
+	            <img class="mui-media-object mui-pull-left" src="../img/hot_course/head_1.png" id="coment_img_1" >
+	            <div class="mui-media-body">
+	                <div class="comment_font_first">李晓梅 </div>
+	                <p class="comment_font_second">1个小时前</p>
+	                <div class="comment_font_third">听了一节课，脑洞打开!赞</div>
+	            </div>
+	            <div style="margin-top: -15px;">
+		           	<a>
+		           		<img class="mui-media-body mui-pull-right" src="../img/hot_course/icon_6.png" id="comment_img_first"/>
+		           	</a>
+				<span class="mui-media-body mui-pull-right" id="comment_font_span">0</span>
+	            </div>
+			</div>
+		
+	    	<div class="mui-table-view" style="margin-top: 14px;margin-left: 12px;">
+           		<img class="mui-media-object mui-pull-left" src="../img/hot_course/head_2.png" id="coment_img_1">
+	            <div class="mui-media-body">
+	                <div class="comment_font_first">李晓梅 </div>
+	                <p class="comment_font_second">1个小时前</p>
+	                <div class="comment_font_third">听了一节课，脑洞打开!赞</div>
+	            </div>
+	            <div style="margin-top: -15px;">
+		           	<a>
+		           		<img class="mui-media-body mui-pull-right" src="../img/hot_course/icon_6.png" id="comment_img_first"/>
+		           	</a>
+					<span class="mui-media-body mui-pull-right" id="comment_font_second">0</span>
+	            </div>
+			</div>
+       
+		    <div class="mui-table-view" style="margin-top: 14px;margin-left: 12px;">
+	            <img class="mui-media-object mui-pull-left" src="../img/hot_course/head_2.png" id="coment_img_1">
+	            <div class="mui-media-body">
+	                <div class="comment_font_first">海贼王路飞 </div>
+	                <p class="comment_font_second">1个小时前</p>
+	                <div class="comment_font_third">听了一节课，脑洞打开!赞</div>
+	            </div>
+	            <div style="margin-top: -15px;">
+	           		<a>
+	           			<img class="mui-media-body mui-pull-right" src="../img/hot_course/icon_6.png" id="comment_img_first"/>
+	           		</a>
+					<span class="mui-media-body mui-pull-right" id="comment_font_second">0</span>
+	            </div>
+		    </div>
+		    
+		    <div class="mui-table-view" style="margin-top: 14px;margin-left: 12px;">
+	            <img class="mui-media-object mui-pull-left" src="../img/hot_course/head_2.png" id="coment_img_1">
+	           
+	           
+	            <div style="margin-top: -15px;">
+	           		<a>
+	           			<img class="mui-media-body mui-pull-right" src="../img/hot_course/icon_6.png" id="comment_img_first"/>
+	           		</a>
+					<span class="mui-media-body mui-pull-right" id="comment_font_second">0</span>
+	            </div>
+		    </div>
+		</div>
+		
+    	
+<!--全部评论的div-->		
+</div>
+	<!--2个都是滚动条的div-->
+ 	</div>
+ 	</div>
+<!--sub的div-->
+</div>
+			
+  	<!--PPT-->
+ 	<div class="sub" id="PPT" style="height: 100%;">
+		
+ 	</div>
+	<!--考核-->
+ 	<div  class="sub" id="examine">
+	<button id="examine1"  class="mui-btn mui-btn-primary" style="width:100%;padding-top: 10px;padding-bottom: 10px;margin-top: 5%;">开始考核</button>
+ 	</div>
+ <!--tab_content的box-->	
+ </div>
+ <!--全部的 box-->
+</div>
+	
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script src="../js/zy.media.min.js"></script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script>
+
+			mui.init();
+			
+			/*滚动条设置*/
+			mui('.mui-scroll-wrapper').scroll({
+/*			deceleration: 0.0006, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+*/			});
+		var abstract1= document.getElementById("abstract1");
+		var abstract2 = document.getElementById("abstract2");
+		var abstract3 = document.getElementById("abstract3");
+		var abstract= document.getElementById("abstract");
+		var PPT = document.getElementById("PPT");
+		var examine = document.getElementById("examine");
+		
+		//监听点击事件
+		abstract1.addEventListener("tap",function () {
+			abstract.style.display="block";
+  			PPT.style.display="none";
+  			examine.style.display="none";
+		});
+		abstract2.addEventListener("tap",function () {
+			abstract.style.display="none";
+  			PPT.style.display="block";
+  			examine.style.display="none";
+		});
+		abstract3.addEventListener("tap",function () {
+			abstract.style.display="none";
+  			PPT.style.display="none";
+  			examine.style.display="block";
+		});
+            /*开始考核*/
+//  document.getElementById("JKDiv_1").addEventListener('tap',function(){
+//    			mui.openWindow({
+//    				url:'examine_bottom.html',
+//    				id:'examine_bottom.html'
+//    			});
+//    });
+   
+  
+    </script>
+    <script type="text/javascript">
+    mui.plusReady(function() {
+		var self = plus.webview.currentWebview();
+		var lid = self.lid;
+		var cover = self.cover;
+		var per = JSON.parse(plus.storage.getItem("person"));
+		var signData = {
+			"id" : lid,
+			"token" : token,
+			"timeInMillis" : getTimestamp()
+		};
+		var signature = getSignature(signData);
+		var signature_md5 = md5(md5(signature));
+		mui.post(lessonAddress,{
+			method:"getLesson",
+			id:lid,
+			token:token,
+			timeInMillis:getTimestamp(),
+			signature:signature_md5
+		},function(data){
+			if(data.result){
+				console.log(data.data);
+				drawLessonInfo(data.data);
+				drawComment(data.data.commentlist);
+				drawPPT(data.data.lesson);
+			}else{
+				//服务器繁忙
+			}
+		},'json');
+		
+		function getComment(){
+			signData = {
+				"id" : lid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(lessonAddress,{
+				method:"getLesson",
+				id:lid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawComment(data.data.commentlist);
+				}else{
+					//服务器繁忙
+				}
+			},'json');
+		}
+		
+		function drawLessonInfo(data){
+			var lesson = data.lesson;
+			//封面图片
+			$("#video").attr("poster",imageAddress + cover);
+			//视频流地址
+			document.querySelector('video').src = videoAddress + lesson.lpath;
+			zymedia('video');
+			//课节标题
+			$("#ltitle").html(lesson.ltitle);
+			//讲师
+			$("#llecturer").html(lesson.llecturer);
+			//点击率
+			$("#ltr").html(lesson.ltr);
+			//评论数量
+			$("#commentCount").html(data.comment);
+			if(per.avatar == "" || per.avatar == null){
+				$('#comment_img').attr("src",avatarAddress + "Head.png");
+			}else{
+				$('#comment_img').attr("src",avatarAddress + per.avatar);
+			}
+		}
+		
+		function drawComment(commentlist){
+			var comment_list = $("#comment_list");
+			$("#comment_list").html("");
+			mui.each(commentlist,function(index,item){
+				var comment_div = $("<div/>").addClass('mui-table-view');
+				if(index == 0){
+					comment_div.css({
+						marginTop: "-2px",
+						marginLeft: "12px"
+					});
+				}else{
+					comment_div.css({
+						marginTop: "14px",
+						marginLeft: "12px"
+					});
+				}
+				var avatar = item.avatar == "" ? "Head.png" : item.avatar;
+				var comment_avatar = $("<img/>").addClass('mui-media-object mui-pull-left').attr("id","coment_img_1").attr("src", avatarAddress + avatar);
+				var comment_body = $("<div/>").addClass("mui-media-body");
+					var comment_body_name = $("<div/>").addClass("comment_font_first").html(item.pname);
+					var before = getDateDiff(item.cdateTime);
+					var comment_body_p = $("</p>").addClass("comment_font_second").html(before);
+					var comment_body_text = $("<div/>").addClass("comment_font_third").html(item.ctext);
+				var comment_right = $("<div/>").css({marginTop: "-15px"});
+					var comment_right_a = $("<a/>");
+						var comment_right_img = $("<img/>").addClass("mui-media-body mui-pull-right").attr("id","comment_img_first").attr("src", "../img/hot_course/icon_6.png");
+					var comment_right_span = $("<span/>").addClass("mui-media-body mui-pull-right").attr("id", "comment_font_second").html(item.cpraise);
+				//拼接组合
+				comment_body.append(comment_body_name).append(comment_body_p).append(comment_body_text);
+				comment_right_a.append(comment_right_img);
+				comment_right.append(comment_right_a).append(comment_right_span);
+				comment_div.append(comment_avatar).append(comment_body).append(comment_right);
+				//增加
+				comment_list.append(comment_div);
+			});
+		}
+		
+		function sendComment(){
+			var comment_text = $("#comment_font");
+			if(comment_text.val() == ""){
+				toast("请输入要评论的内容!", 2000);
+			}else{
+				//发送评论
+				signData = {
+					"clid" : lid,
+					"ctext" : comment_text.val(),
+					"cuid" : per.pernr,
+					"ctype" : 1,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(commentAddress,{
+					method:"sendComment",
+					clid:lid,
+					ctext:comment_text.val(),
+					cuid:per.pernr,
+					ctype:1,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						getComment();
+					}
+					comment_text.val("");
+					toast(data.msg, 2000);
+				},'json');
+			}
+		}
+
+		function drawPPT(lesson){
+			var pptDiv = $("#PPT");
+			var pptMsw=$("<div/>").addClass("mui-scroll-wrapper").attr("style","height: 100%;");
+			var pptMs=$("<div/>").addClass("mui-scroll");
+			pptMsw.append(pptMs);
+			var ppts = lesson.lppt.split(",");
+			for( var i = 0; i < ppts.length - 1; i++){
+				var img = $("<img/>").attr("src", pptAddress + ppts[i]).attr("style","width: 100%;height: 100%;");
+				pptMs.append(img);
+				pptDiv.append(pptMsw);
+				mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0006 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+			}
+		}
+	});
+    </script>
+	</body>
+</html>

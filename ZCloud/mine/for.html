@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>兑换记录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<script type="text/javascript" src="../js/md5.js"></script>
+		<style type="text/css">
+			.line{
+				float: left;
+				background-color: #dcdcdc;
+				width: 93%;
+				margin-right: 3.5%;
+				margin-left: 3.5%;
+				margin-bottom: 3%;
+				margin-top: 5px;
+				height: 1px;
+			} 
+			.number{
+				margin-top:55px ;
+				width: 100%;
+				height: auto;
+			}
+			.number1{
+				margin-right: 3.5%;
+				margin-left: 3.5%;
+				margin-top:10px;
+				width: 93%;
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height:55px;margin-top: 0px;" >
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " style="margin-top: 18px;padding-right: 30px;"></a>
+	    	<h1 class="mui-title" style="margin-top: 15px;" >兑换记录</h1>
+		</header>
+		<div id="DIVALL">
+		
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				var per = JSON.parse(plus.storage.getItem("person"));
+				var pernr = per.pernr;
+				var signData = {
+					"pernr" : pernr,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(forAddress,{
+					method:"getFor",
+					pernr:pernr,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawAll(data.data);
+					}
+				},'json');
+			});
+			function drawAll(all){
+				var all = JSON.parse(JSON.stringify(all));
+				var data = $("#DIVALL");
+				data.empty();
+				mui.each(all,function(index,item){
+					var unixTimestamp = new Date(item.odateTime);
+					data.append(
+						"<div class=\"number\">"+
+							"<div class=\"number1\">"+
+								"<span style=\"float: left;\">"+
+									"<div style=\"color: #444444;font-size: 80%;\">"+item.iname+"</div>"+
+									"<div style=\"color: #8b8b8b;margin-top: 5px;font-size: 78%;\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</div>"+
+								"</span>"+
+								"<span style=\"float: right;color: #e84c3d;margin-top: 15px;font-size: 80%;\">-"+item.oscore+"</span>"+
+							"</div>"+
+						"</div>"+
+						"<div class=\"line\"></div>"
+					);
+				});
+				
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,913 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的界面</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/md5.js"></script>
+		<style type="text/css">
+			.head1{
+				background-color: #2768B7;
+				height: auto;
+				width: 100%;
+
+			}
+			.head_portrait{
+				width: 100%;
+			    height: 100px;
+			    text-align: center;
+			}
+			.head_portrait img{
+			    width: 100px;
+			    height: 100px;
+			    border-radius: 50%;
+			    overflow: hidden;	
+			}
+			.font_name{
+				margin: 10px;
+				text-align: center;
+				font-size: 90%;
+				color: #FFFFFF;
+			}
+			.button_div{
+				background-image: url(../img/min/frame_conew2.png);
+				height: 25px;
+				width: 90px;
+				margin: auto;
+				visibility:hidden; 
+			}
+			.font_button{
+				text-align: center;
+				color: #FFFFFF;
+				font-size: 70%;
+				float: left;
+				margin-left: 10px;
+				margin-top: 2px;
+			}
+			.info{
+				margin-top: 10px;
+				text-align: center;
+				width: 100%;
+				height: 45px;
+			}
+			.vertical{
+				float: left;
+				background-color: #FFFFFF;
+				width: 1px;
+				height: 70%;
+				margin-top: 1%;
+			}
+			.medal{
+				border: 1px solid #bfbfbf;
+				padding-top: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-bottom: 3px;
+				border-radius: 5px;
+				margin: 3.5%;
+				width: 93%;
+				float: left;
+			}
+			.title{
+				margin-right: 3.5%;
+				margin-left: 3.5%;
+				width: 93%;
+				float: left;
+				padding-top: 8px;
+				padding-bottom: 3px;
+			}
+			.line{
+				float: left;
+				background-color: #dcdcdc;
+				width: 93%;
+				margin-right: 3.5%;
+				margin-left: 3.5%;
+				/*margin-bottom: 3%;
+				margin-top: 2px;*/
+				height: 1px;
+			}
+			
+			.button1{
+				background-color: #ee5566;
+				width: 93%;
+				height: 40px;
+				margin-right: 3.5%;
+				margin-left: 3.5%;
+				margin-bottom: 3%;
+				color: #FFFFFF;
+				font-size: 70%;
+				border-radius: 5px;
+			}
+			/*检查更新*/
+			.upDates{
+				display: none;
+				background: url("../img/login/bjPop.png");
+			    width: 80%;
+			    top: 18%;
+			    margin-left: 10%;
+			    background-repeat: no-repeat;
+			    background-size: 100% 100%;
+			    position: fixed;
+			    height: 63%;	
+			    z-index: 11;	
+			}
+			.newEdition{
+				color: #fff;
+				position: absolute;
+				top: 28%;
+    			font-size: 15px;
+    			width: 100%;
+    			text-align: center;
+			}
+			.versionNum{
+				color: #A0A0A0;
+			    position: absolute;
+	    		top: 38%;
+    			right: 7%;
+    			font-size: 13px;
+			}
+			.EdtionContent{
+				position: absolute;
+			    top: 42%;
+			    font-size: 14px;
+			    width: 100%;
+			    padding-right: 17px;
+			}
+			.EdtionContent li{
+				color: #666;
+			}
+			.immediaUpdate{
+				position: absolute;
+			    bottom: 0;
+			    color: #2768B7;
+			    width: 100%;
+			    text-align: center;
+			    font-size: 15px;
+			    padding-bottom: 10px;
+			    padding-top: 10px;
+			    border-top: 1px solid #DFDFDF;
+			}
+			.mask{
+				display: none;
+				position: fixed;
+				background: #000;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				z-index: 10;
+				opacity: 0.5;
+			}
+			.version{
+			    text-align: center;
+			    font-size: 12px;
+			    width: 100%;
+			    color: #838383;
+			    z-index: -1;
+			    display: inline-block;
+			}
+			/*指导页*/
+			html,body{
+				width: 100%;
+				height: 100%;
+				position: fixed;
+			}
+			.guide_mask{
+				position: fixed;
+				background-color: #000;
+				width: 100%;
+				height: 100%;
+				left:0;
+				top: 0;
+				opacity: 0.3;
+				display: none;
+			}
+			.guide_content{
+				display: none;
+			}
+			.guide_one{
+			    position: fixed;
+			    width: 100%;
+			    z-index: 11;
+			    background-color: #fff;
+			    top: 263px;
+			    width: 93%;
+			    height: 70px;
+				margin: 3.5%;
+				border-radius: 5px;
+			}
+			.guide_one .medal{
+				margin: 0;
+				width: 100%;
+				border:none;
+			}
+			.guide_two{
+				text-align: center;
+			}
+			.guide_two img{
+				width: 30px;
+			}
+			.guide_three{
+				margin-top: -46px;
+    			text-align: end;
+			}
+			.guide_three img{
+				width: 65%;
+				margin-right: 22px;
+			}
+			.guide_four{
+				text-align: center;
+				margin-top: 20px;
+			}
+			.guide_four img{
+				width: 40%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<div class="head1">
+			<br />
+			<br />
+			<div class="head_portrait" id="headImg">
+				<!--<img  style="width: 100%;height: 100%;"  src="../img/circle/def_2.png" />-->
+			</div>
+			<div id="nameDiv"   class="font_name">
+				
+			</div>
+			<div class="button_div">
+				<div class="font_button">加入永辉知云</div >
+			</div>
+			<div class="info">
+				<span id="info1" style="float: left;width: 30%;text-align: center;">
+					<div style="text-align: center; font-size: 70%;color: #FFFFFF;">我的积分</div>
+					<div id="myScore" style="text-align: center;font-weight: bolder; font-size: 70%;color: #FFFFFF;"></div>
+				</span>
+				<span class="vertical"></span>
+				<span id="info2" style="float: left;width: 38%;text-align: center;">
+					<div style="text-align: center; font-size: 70%;color: #FFFFFF;">考核次数</div>
+					<div id="myTestCount"   style="text-align: center;font-weight: bolder; font-size: 70%;color: #FFFFFF;"></div>
+				</span>
+				<span class="vertical"></span>
+				<span id="info3" style="float: left;width: 30%;text-align: center;">
+					<div style="text-align: center; font-size: 70%;color: #FFFFFF;">签到次数</div>
+					<div  id="mySign" style="text-align: center;font-weight: bolder; font-size: 70%;color: #FFFFFF;"></div>
+				</span>
+			</div>
+		</div>
+		<div id="box">
+		<div class="medal" id="degree">
+			<span style="float: left;width: auto;">
+				<img height="50px"  src="../img/min/icon_10.png" />
+			</span style="float: left;width: auto;">
+			<span style="float: left;width: auto;margin-left: 15px;">
+				<div style="color:#323232;font-size: 75%;">永辉知云学位制度</div>
+				<div id="degreeNUM" style="color:#7e7e7e;font-size: 70%;margin-top: 5px;">已修学分：0</div>
+			</span>
+			<span style="float: right;width: auto;margin-top: 15px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+			<span style="float: right; color:#7e7e7e;font-size: 70%;margin-right: 5px; margin-top: 13px;">
+				详情
+			</span>
+		</div>
+		<div class="title" id="feedBack">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_11.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				问题反馈
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="modifyPassword">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_12.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				修改密码
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="medal">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_1.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				我的勋章
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="growthTree">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_2.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				我的成长树
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="viewhistory">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_3.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				观看历史
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="assessing">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_4.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				考核记录
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="collection">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_5.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				我的收藏
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="numintegral">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_6.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				积分记录
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div id="scoreShop" class="title">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_7.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				积分商城
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="for">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_8.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				兑换记录
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="game">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_9.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				小游戏
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<div class="title" id="Check_update">
+			<span style="float: left;width: auto;">
+				<img width="25px" src="../img/min/icon_13.png" />
+			</span>
+			<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+				检查更新
+			</span>
+			<span style="float: right;width: auto;margin-top: 3px;">
+				<img height="15px" src="../img/min/icon_details.png" />
+			</span>
+		</div>
+		<div class="line"></div>
+		<a href="tel:02367518897" style="display: block;">
+			<div class="title">
+				<span style="float: left;width: auto;">
+					<img width="25px" src="../img/min/icon_14.png" />
+				</span>
+				<span style="float: left;color:#323232;font-size: 75%; margin-left:10px;margin-top: 3px;">
+					联系我们
+				</span>
+				<span style="float: right;width: auto;margin-top: 3px;">
+					<img height="15px" src="../img/min/icon_details.png" />
+				</span>
+			</div>
+		</a>
+		<div class="line"></div>
+		<div class="">
+			<button id="backDiv" class="button1">退出登入</button>
+		</div>
+		</div>
+		<!--版本检测-->
+		<div class="upDates">
+			<div class="newEdition">发现新版本</div>
+			<div id="versionNum" class="versionNum">v4.5.0</div>
+			<div class="EdtionContent">
+				<ul id="update_content">
+					<li>新增更新提示功能</li>
+					<li>新增登陆记忆功能</li>
+					<li>新增PPT课节功能</li>
+					<li>更新首页菜单栏样式（滑动查看）</li>
+					<li>优化及修复错误</li>
+				</ul>
+			</div>
+			<div id="updateNow" class="immediaUpdate">立即更新</div>
+		</div>
+		<div class="mask"></div>
+		<!--指导页-->
+		<div class="guide_content">
+			<div class="guide_one">
+				<div class="medal" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
+					<span style="float: left;width: auto;">
+						<img height="50px" src="../img/min/icon_10.png">
+					</span>
+					<span style="float: left;width: auto;margin-left: 15px;">
+						<div style="color:#323232;font-size: 75%;">永辉知云学位制度</div>
+						<div id="degreeNUM" style="color:#7e7e7e;font-size: 70%;margin-top: 5px;">已修学分：0</div>
+					</span>
+					<span style="float: right;width: auto;margin-top: 15px;">
+						<img height="15px" src="../img/min/icon_details.png">
+					</span>
+					<span style="float: right; color:#7e7e7e;font-size: 70%;margin-right: 5px; margin-top: 13px;">
+						详情
+					</span>
+				</div>
+				<div class="guide_two"><img src="../img/degree_new/icon_1.png" alt="" /></div>
+				<div class="guide_three"><img src="../img/degree_new/icon_4.png" alt="" /></div>
+				<div class="guide_four"><img src="../img/degree_new/icon_3.png" alt="" /></div>
+			</div>
+		</div>
+		<div class="guide_mask"></div>
+		<script type="text/javascript" src="../js/h.js"></script>
+		<script>
+			document.getElementById("backDiv").addEventListener('tap',function(){
+      			plus.storage.removeItem("mine");
+      			plus.storage.removeItem("person");
+      			plus.runtime.restart();
+     		});
+			document.getElementById("feedBack").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'feedBack.html',
+      			id:'feedBack.html',
+      			})
+     		});
+     		document.getElementById("modifyPassword").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'modifyPassword.html',
+      			id:'modifyPassword.html',
+      			})
+     		});
+			document.getElementById("growthTree").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'growthTree.html',
+      			id:'growthTree.html',
+      			})
+     		});
+			document.getElementById("for").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'for.html',
+      			id:'for.html',
+      			})
+     		});
+      		document.getElementById("viewhistory").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'viewhistory.html',
+      			id:'viewhistory.html',
+      			})
+     		});
+     		document.getElementById("numintegral").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'numintegral.html',
+      			id:'numintegral.html',
+      			})
+     		});
+     		document.getElementById("info1").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'numintegral.html',
+      			id:'numintegral.html',
+      			})
+     		});
+     		document.getElementById("assessing").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'assessing.html',
+      			id:'assessing.html',
+      			})
+     		});
+     		document.getElementById("info2").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'assessing.html',
+      			id:'assessing.html',
+      			})
+     		});
+     		document.getElementById("info3").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'signbill.html',
+      			id:'signbill.html',
+      			})
+     		});
+     		document.getElementById("collection").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'collection.html',
+      			id:'collection.html',
+      			})
+     		});
+     		document.getElementById("medal").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'medal.html',
+      			id:'medal.html',
+      			})
+     		});
+     		document.getElementById("degree").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'degree-New.html',
+      			id:'degree-New.html',
+      			})
+     		});
+     		document.getElementById("scoreShop").addEventListener('tap',function(){
+     			mui.openWindow({
+      			url:'../examples/integral_mall.html',
+      			id:'../examples/integral_mall.html',
+      			})
+     		});
+     		document.getElementById("game").addEventListener('tap',function(){
+     			mui.openWindow({
+	      			url:'game.html',
+	      			id:'game.html',
+      			})
+     		});
+			document.getElementById("Check_update").addEventListener('tap',function(){
+				var version = plus.runtime.version;
+				var signData = {
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(systemAddress,{
+					method:"getVersion",
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+//						判断是否与官方版本不符
+						if(data.data != version){
+							h("#versionNum").html("v" + data.data);
+							Update();
+						}else{
+							toast("您当前已为最新版本",1500)								
+						}
+					}
+				},'json')	
+			});
+			document.getElementById("updateNow").addEventListener('tap',function(){
+				switch ( plus.os.name ) {
+			        case "Android":
+			        	document.location.href = updateAndroidAddress;
+			        break;
+			        case "iOS":
+			        	document.location.href = updateIOSAddress;
+			        break;
+			        default:
+			        	break;
+			    }
+			});		
+			document.getElementsByClassName("mask")[0].addEventListener('tap',function(){
+				$(".upDates,.mask").css("display","none");
+			})
+			$(document).ready(function(){
+				var NewEd=$(window).height()-$(".upDates").height();
+				$(".upDates").css("top",NewEd/2)
+				})
+	 		function Update(){
+				$(".mask,.upDates").css("display","block");
+				}		
+		</script>
+
+		<script type="text/javascript">
+		mui.init({
+  			pullRefresh : {
+	   			container:"#box",
+	    		down : {
+	      			style:'circle',
+	      			color:'#2BD009', 
+	      			height:'50px',
+	      			range:'100px', 
+	     			offset:'0px', 
+	      			/*auto: false,*/
+	      			callback : pullfresh
+	   			}
+    		}
+    	});
+    	function pullfresh() {
+    		var per = JSON.parse(plus.storage.getItem("person"));
+			var pernr = per.pernr;
+			var signData = {
+				"pernr" : pernr,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(loginAddress,{
+				method:"getPer",
+				pernr:pernr,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+						plus.storage.setItem("person",JSON.stringify(data.data.per));
+						var per = JSON.parse(plus.storage.getItem("person"));
+						var pernr = per.pernr;
+						var DegreeNum = $("#degreeNUM");
+						DegreeNum.empty().append("已修学分："+per.credit);
+						var signData = {
+							"pernr" : pernr,
+							"token" : token,
+							"timeInMillis" : getTimestamp()
+						};
+							var signature = getSignature(signData);
+							var signature_md5 = md5(md5(signature));
+							mui.post(perCenterAddress,{
+								method:"query",
+								pernr:pernr,
+								token:token,
+								timeInMillis:getTimestamp(),
+								signature:signature_md5
+							},function(data){
+								if(data.result){
+									plus.storage.setItem("mine",JSON.stringify(data.data));
+									drawPeople(data.data.perlist);
+									drawSign(data.data.signlist);
+									drawTest(data.data.testcount);
+									mui('#box').pullRefresh().endPulldown(true);
+								}
+							},'json');
+					}
+			},'json');			
+    	}
+		mui.plusReady(function(){
+			var per = JSON.parse(plus.storage.getItem("person"));
+			var pernr = per.pernr;
+			var DegreeNum = $("#degreeNUM");
+			DegreeNum.empty().append("已修学分："+per.credit);
+			var signData = {
+				"pernr" : pernr,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(perCenterAddress,{
+					method:"query",
+					pernr:pernr,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						plus.storage.setItem("mine",JSON.stringify(data.data));
+						drawPeople(data.data.perlist);
+						drawSign(data.data.signlist);
+						drawTest(data.data.testcount);
+					}
+				},'json');
+//			指导页
+				var guide_1=plus.storage.getItem("guide_mine");
+				if(guide_1!="is_True"){
+					$(".guide_content,.guide_mask").css("display","block");
+				}
+				$(".guide_one .medal,.guide_four img").on("tap",function(){
+					$(".guide_content,.guide_mask").css("display","none");
+					plus.storage.setItem("guide_mine","is_True");
+					$("html,body").css("position","absolute");
+				});
+				if($(".guide_mask").css("display")=="none"){
+					$("html,body").css("position","absolute");
+				}
+		});
+	
+
+		function drawPeople(perlist){				
+			var per = JSON.parse(plus.storage.getItem("person"));
+			var score = per.score;
+			var nameDiv = $("#nameDiv");
+			var myScore = $("#myScore");
+			var headImg = $("#headImg");
+			if(perlist.length>0){
+				nameDiv.empty().append(perlist[0].name);
+				myScore.empty().append(score);
+				headImg.empty().append("<img  id=\"userImg\"   name=\"photo\"     alt=\"kk\" src=\""+ serverIp +"avatar/" + perlist[0].avatar + " \"/>")
+			}
+		}				
+		//压缩图片转成base64
+	    function getBase64Image(img) { 
+            var canvas = document.createElement("canvas"); 
+            var width = img.width; 
+            var height = img.height; 
+            // calculate the width and height, constraining the proportions 
+            if (width > height) { 
+                if (width > 100) { 
+                    height = Math.round(height *= 200 / width); 
+                    width = 200; 
+                } 
+            } else { 
+                if (height > 100) { 
+                    width = Math.round(width *= 200 / height); 
+                    height = 200; 
+                } 
+            } 
+            canvas.width = width;   /*设置新的图片的宽度*/ 
+            canvas.height = height; /*设置新的图片的长度*/ 
+            var ctx = canvas.getContext("2d"); 
+            ctx.drawImage(img, 0, 0, width, height); /*绘图*/ 
+            var dataURL = canvas.toDataURL("image/png", 0.8); 
+            return dataURL.replace("data:image/png;base64,", ""); 
+        }    
+
+	    //上传图片
+	    function uploadHeadImg(imgPath){
+	    	var person = JSON.parse(plus.storage.getItem("person"));
+			var pernr = person.pernr;	
+	    	//选中图片之后，头像当前的照片变为选择的照片
+	    	var mainImg = document.getElementById('userImg');
+	        	mainImg.src = imgPath;
+	        var baseImg = function (){
+	        	var imageObject = new Image();
+	        	imageObject.src = "file://" + imgPath;
+	        	return getBase64Image(imageObject);
+	        };
+	        
+	        setTimeout(function (){
+		   		var baseIMG = baseImg();
+		   		var signData = {
+					avatar:baseIMG,
+		        	pernr:pernr,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+		   		mui.post(perCenterAddress,{
+		        	method:"uploadAvatar",
+		        	avatar:baseIMG,
+		        	pernr:pernr,
+		        	token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+		        },function(data){
+		        	if(data.result){
+		        		toast("头像更换成功!",3000);
+		        	}else{
+		        		toast("头像更换失败，小云忙不过来了，一会儿再试试呗!",3000);
+		        	}
+		        },'json');
+		   	}, 5000);
+	        
+	    }
+			
+	    document.getElementById('headImg').addEventListener('tap',function(){
+	        if(mui.os.plus){
+	            var a=[{
+	                title:'拍照'
+	            },{
+	                title:'从手机相册选择'
+	            }];
+	            plus.nativeUI.actionSheet({
+	                title:'修改头像',
+	                cancel:'取消',
+	                buttons:a
+	            },function(b){
+	                switch(b.index){
+	                    case 0:
+	                        break;
+	                    case 1:
+	                        //拍照
+	                        getImages();
+	                        break;
+	                    case 2:
+	                        //打开相册
+	                        galleryImages();
+	                        break;
+	                    default:
+	                        break;
+	                }
+	            },false);   
+	        }
+	    
+				
+				    //拍照
+	    function getImages(){
+	        var mobileCamera=plus.camera.getCamera();
+	        mobileCamera.captureImage(function(e){
+	            plus.io.resolveLocalFileSystemURL(e,function(entry){
+	                var path = entry.toLocalURL()+'?version='+new Date().getTime();
+	                uploadHeadImg(path);
+	            },function(err){
+	                console.log("读取拍照文件错误");
+	            });
+	        },function(e){
+	            console.log("er",err);
+	        },function(){
+	            filename:'_doc/head.png';
+	        });
+	    }
+				
+			    //从本地相册选择
+	    function galleryImages(){
+		        console.log("你选择了从相册选择");
+		        plus.gallery.pick(function(a){
+		            plus.io.resolveLocalFileSystemURL(a,function(entry){
+		                plus.io.resolveLocalFileSystemURL('_doc/',function(root){
+		                	var path = "";
+		                    root.getFile('head.png',{},function(file){
+		                        //文件已经存在
+		                        file.remove(function(){
+		                            console.log("文件移除成功");
+		                            entry.copyTo(root,'head.png',function(e){
+		                                path = e.fullPath + '?version=' + new Date().getTime();
+		                    			uploadHeadImg(path);
+		                            },function(err){
+		                                console.log("copy image fail: ",err);
+		                            });
+		                        },function(err){
+		                            console.log("删除图片失败：（"+JSON.stringify(err)+")");
+		                        });
+		                    },function(err){
+		                        //打开文件失败
+		                        entry.copyTo(root,'head.png',function(e){
+		                            path = e.fullPath + '?version=' + new Date().getTime();
+		                            uploadHeadImg(path);
+		                        },function(err){
+		                            console.log("上传图片失败：（"+JSON.stringify(err)+")");
+		                        });
+		                    });
+		                },function(e){
+		                    console.log("读取文件夹失败：（"+JSON.stringify(err)+")");
+		                });
+		            });
+		        },function(err){
+		            console.log("读取拍照文件失败: ",err);
+		        },{
+		            filter:'image'
+		        });
+		    };
+		});
+		
+		function drawSign(signlist){
+			var mySign = $("#mySign");
+			if(signlist>0){
+				mySign.empty().append(signlist);
+			}
+		}
+		
+		function drawTest(testcount){
+			var myTestCount = $("#myTestCount");
+			myTestCount.empty().append(testcount);
+		}		
+		</script>	
+	</body>
+</html>

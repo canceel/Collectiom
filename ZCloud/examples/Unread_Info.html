@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../css/main.css" />
+	<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+	<script type="text/javascript" src="../js/md5.js"></script>	
+	<script type="text/javascript" src="../js/zc_utils.js"></script>
+	<script type="text/javascript" src="../js/dateFormat.js"></script>
+	<style type="text/css">
+		body,html{
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav" style="height: 55px;">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="margin-top: 15px;padding-right: 30px;"></a>
+		<h1 class="mui-title"style="margin-top: 15px;" >消息</h1>    
+		<span class="del_info">清空</span>
+	</header>
+	<section style="margin-top: 55px;">
+		<ul class="Unread_List" id="unList">
+			
+		</ul>
+	</section>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript">
+		mui.init({				
+				beforeback: function(){				
+			        var main = plus.webview.getWebviewById("circle-New.html");
+			　　　　    //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(main, "loading",{
+			        	
+			        });
+			        //返回true,继续页面关闭逻辑
+			        return true;
+   			 	}
+			})
+		$(document).ready(function(){
+		  	$(".del_info").click(function(){
+		    	$(".Unread_List li").remove(); 
+		  	});
+		});
+		
+		mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			var commentId = JSON.stringify(self.commentId);
+			per = JSON.parse(plus.storage.getItem("person"));	
+			mui.post(comcontentAddress,{
+				method:"unReadComment",
+				pernr:per.pernr
+			},function(data){ 
+					if(data.result){
+						drawComment(data.data);	
+					}
+			},'json');
+		})
+		
+		function drawComment(commentlist){
+			var Unread_List = $("#unList");		
+			mui.each(commentlist,function(index,item){
+				var unixTimestamp = new Date(item.cdateTime);
+				Unread_List.append("<li onclick=\"javascript:goComment(\'cnId"+index+"\');\">"+
+								  "<div style=\"display: none;\"   id=\"cnId"+index+"\" >"+item.cid+"</div>"+
+								  "<div class=\"Unread_Name\"><img src=\""+ serverIp +"avatar/" + item.avatar +"\"/></div>"+	
+								  "<div class=\"Unread_Info\">"+
+								 	 "<div>"+item.name+"</div>"+
+								 	 "<div>"+item.ctext+"</div>"+
+								 	 "<div>"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</div>"+
+								 	"</div>"+
+								  "</li>");		
+			})							
+		}
+		
+		function goComment(cId){
+			mui.openWindow({
+					url: 'circle_comment.html',
+					id: 'circle_comment.html',
+					extras:{
+				      	cid : $("#"+cId).text()
+				   	},
+				   	waiting:{
+			      		autoShow:true,//自动显示等待框，默认为true
+				      	title:'正在加载...'//等待对话框上显示的提示内容
+				    }
+				});	
+		}
+	</script>
+</body>
+
+</html>

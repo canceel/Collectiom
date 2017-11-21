@@ -1,0 +1,410 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/zc_utils.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<style type="text/css">
+			body{
+				background-color: #F3F3F3;
+			
+			}
+			.div_img{			
+				width: 30%;
+				margin-top:25%;
+				margin-left:37%;		
+			}
+			.div_input1{
+				background-color: #FFFFFF;
+				width:90%;
+				height:50px;
+				margin-top:6%;
+				margin-left:5%;	
+				float: left;
+				border-radius:5px;	
+			}
+			.div_input2{
+				background-color: #FFFFFF;
+				width:90%;
+				height:50px;
+				margin-top:5%;
+				margin-left:5%;
+				float: left;	
+				border-radius:5px;		
+			}
+			.div_pw{
+					width: 90%;
+					height: 40px;
+					float: left;
+					margin-top: 10px;
+					margin-left:5% ;
+				    text-align: center;
+				    clear: both;
+			}
+			.div_btn{
+				width: 90%;
+				float: left;		
+				margin-left: 5%;
+				height: 55px;
+				border-radius:5px;	
+				margin-bottom: 35%;
+			}
+			.upDates{
+				display: none;
+				background: url("./img/login/bjPop.png");
+			    width: 80%;
+			    margin-left: 10%;
+			    background-repeat: no-repeat;
+			    background-size: 100% 100%;
+			    position: fixed;
+			    height: 63%;	
+			    z-index: 11;	
+			}
+			.newEdition{
+				color: #fff;
+				position: absolute;
+				top: 28%;
+    			font-size: 15px;
+    			width: 100%;
+    			text-align: center;
+			}
+			.versionNum{
+				color: #A0A0A0;
+			    position: absolute;
+	    		top: 38%;
+    			right: 7%;
+    			font-size: 13px;
+			}
+			.EdtionContent{
+				position: absolute;
+			    top: 42%;
+			    font-size: 14px;
+			    width: 100%;
+			    padding-right: 17px;
+			}
+			.EdtionContent li{
+				color: #666;
+			}
+			.immediaUpdate{
+				position: absolute;
+			    bottom: 0;
+			    color: #2768B7;
+			    width: 100%;
+			    text-align: center;
+			    font-size: 15px;
+			    padding-bottom: 10px;
+			    padding-top: 10px;
+			    border-top: 1px solid #DFDFDF;
+			}
+			.mask{
+				display: none;
+				position: fixed;
+				background: #000;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				z-index: 10;
+				opacity: 0.5;
+			}
+			.version{
+			    text-align: center;
+			    font-size: 12px;
+			    width: 100%;
+			    color: #838383;
+			    z-index: -1;
+			    display: inline-block;
+			}
+		</style>
+	</head> 
+
+	<body >
+		<div class="div_img">
+			<img src="img/login/logo2 (1).png" style="width:100%;">
+		</div>	
+		<div class="div_input1">
+			<div style="z-index:1;width: 6%;height:35%;margin-top: 15px;margin-left: 4%;float: left;"><img src="img/login/icon_1.png" style="width: 100%;height: 100%;"></div>
+			<div style="z-index:2;margin-top:5px;width: 80%;height: 100%;float: left;margin-left: -2px;"><input id="login_pernr"  name="pernr"  class="" type="number" style="   border-style:none;font-size: 95%;background-color: #FFFFFF;" placeholder="请输入工号"></div>
+			<div id="resect1"  style="width: 6%;height:40%;float: left;margin-left: 1%;margin-top: 15px;"><img src="img/login/logo2 (3).png" style="width: 100%;height: 100%;"></div>
+		</div>
+		<div class="div_input2">
+			<div style="width: 6%;height:35%;margin-top: 17px;margin-left: 4%;float: left;"><img src="img/login/logo2 (2).png" style="width: 100%;height: 100%;"></div>
+			<div style="margin-top:6px;width: 80%;height: 100%;float: left;margin-left: -2px;"><input id="login_password" class="" type="password" style="border-style:none;font-size: 95%;background-color: transparent;" placeholder="请输入密码"></div>
+			<div id="resect2"   style="width: 6%;height:40%;float: left;margin-left: 1%;margin-top: 15px;"><img src="img/login/icon4.png" style="width: 100%;height: 100%;"></div>
+		</div>
+		<div id="repassword" class="div_pw">
+			<span class="mui-checkbox mui-left" style="padding-left: 30px;font-size: 13px;float: left;">
+				<input id="checkbox"  name="checkbox" value=""  type="checkbox" style="left:0;margin-top:-6px;">记住密码
+			</span>
+			<a href="./mine/Unbind.html" style="font-size: 13.6px;">解除绑定</a>
+			<span id="forgot" style="color: #007AFF;font-size: 80%;float: right;"><a href="./forgotPassword.html">忘记密码？</a></span>
+		</div>
+		<div class="div_btn">
+			<input id="btn_login" type="button" style="background-color: #3895f4;width: 100%;height: 100%;color: #FFFFFF;font-size: 20px;border: transparent;" value="登入"/>		
+		</div>
+		<div class="version"><span>版本号：</span><span id="version_Num">1.1.5</span></div>
+		<div class="upDates">
+			<div class="newEdition">发现新版本</div>
+			<div id="versionNum" class="versionNum">1.1.5</div>
+			<div class="EdtionContent">
+				<ul id="update_content">
+					<li>新增更新提示功能</li>
+					<li>新增登陆记忆功能</li>
+					<li>新增PPT课节功能</li>
+					<li>更新首页菜单栏样式（滑动查看）</li>
+					<li>优化及修复错误</li>
+				</ul>
+			</div>
+			<div id="updateNow" class="immediaUpdate">立即更新</div>
+		</div>
+		<div class="mask"></div>
+		
+		
+		<script type="text/javascript" src="js/h.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/md5.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			var launchFlag = null;
+			mui.plusReady(function() {
+				var serialNumber = plus.device.uuid;
+				plus.screen.lockOrientation("portrait-primary"); 
+				var version = plus.runtime.version;					//版本号
+				var signData = {
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(systemAddress,{
+					method:"getVersion",
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+//						判断是否与官方版本不符	
+						if(data.data != version){
+//							h("#versionNum").html("v" + data.data);
+//							h("#version_Num").html("v" + data.data);
+							Update();
+						}else{	
+							var per = JSON.parse(plus.storage.getItem("person"));
+							var password = JSON.parse(plus.storage.getItem("login_password"));
+							var signData = { 
+								"pernr" : per.pernr,
+								"password" : password ,
+								"serialNumber" : serialNumber,
+								"token" : token,
+								"timeInMillis" : getTimestamp()
+							};
+							var signature = getSignature(signData);
+							var signature_md5 = md5(md5(signature));
+							//弹出加载框(非真机测试时请注释掉)
+							plus.nativeUI.showWaiting( "等待中..." ); 
+							mui.ajax(loginAddress,{
+							    data:{   
+							    	method:"loading",
+							        pernr:per.pernr,
+									password:password ,
+									serialNumber:serialNumber,
+									token:token,
+									timeInMillis:getTimestamp(),
+									signature:signature_md5
+							    }, 
+							    dataType: 'json', //服务器返回json格式数据
+							    type: 'post', //HTTP请求类型
+							    timeout: 5000, //超时时间设置为10秒；
+							    success: function(data) {
+							        //服务器返回响应，根据响应结果，分析是否登录成功； 
+							        plus.nativeUI.closeWaiting();
+									toast(data.msg, 2000);
+								 	if(data.result){
+										plus.storage.setItem("person",JSON.stringify(data.data));
+										plus.storage.setItem("cper",JSON.stringify(data.data));
+										plus.storage.setItem("login_password",login_password);
+										var cook=plus.storage.getItem("cook");
+										if(cook=="a"){
+											mui.openWindow({
+							      				url:'index.html',
+							      				id:'index.html'
+					      					});
+										}
+										else{
+											mui.openWindow({
+							      				url:'guide_Fun.html',
+							      				id:'guide_Fun.html'
+					      					});
+										}
+									}else{
+										toast(data.msg,8000);
+										mui.openWindow({
+							      				url:'login.html',
+							      				id:'login.html'
+					      					});
+									}
+							    },
+							    error: function(xhr, type, errorThrown) {
+							    	if("timeout" == type){
+							    		toast("服务器连接超时，请稍后再试",3000);
+							    		plus.nativeUI.closeWaiting();
+							    		return false;
+							    	}else{
+							    		toast("未连接上服务器，请稍后再试",3000);
+							    		plus.nativeUI.closeWaiting();
+							    		return false;
+							    	}
+							    }
+							});
+						}
+					}
+				},'json');		
+				launchFlag = plus.storage.getItem("launchFlag");
+				/**
+				 * 获取本地存储中launchFlag的值
+				 * 若存在，说明不是首次启动，直接进入首页；
+				 * 若不存在，说明是首次启动，进入引导页；
+				 */
+				var checkbox = document.getElementById("checkbox");
+				var pcheckbox = plus.storage.getItem("pcheckbox");
+				var cper = JSON.parse(plus.storage.getItem("cper"));
+				if(!isNull(pcheckbox)&&!isNull(cper)){
+					if(pcheckbox == "true"){
+						checkbox.checked = "true";
+						var login_pernr = h("#login_pernr");
+						var login_password = h("#login_password");
+						login_pernr.val(cper.pernr);
+						login_password.val(plus.storage.getItem("login_password"));
+					}
+				}
+				
+				checkbox.addEventListener('tap',function(){
+					if(checkbox.checked == false){
+						plus.storage.setItem("pcheckbox" , "true");
+					}else{
+						plus.storage.setItem("pcheckbox" , "false");
+						var login_pernr = h("#login_pernr");
+						var login_password = h("#login_password");
+						login_pernr.val("");
+						login_password.val("");
+					}
+				});
+				if(launchFlag) {
+					
+				}else{
+					mui.openWindow({
+						url: "guide.html",
+						id: "guide"
+					});
+				}
+				
+				document.getElementById("btn_login").addEventListener('tap',function(){
+					var login_pernr = h("#login_pernr").val();
+					var login_password = h("#login_password").val();
+					if( isNull(login_pernr.trim()) || isNull(login_password.trim())){
+						toast('请完整输入工号及密码!',2000);
+						return false;
+					}else{
+						var signData = { 
+							"pernr" : login_pernr,
+							"password" : login_password,
+							"serialNumber" : serialNumber,
+							"token" : token,
+							"timeInMillis" : getTimestamp()
+						};
+						var signature = getSignature(signData);
+						var signature_md5 = md5(md5(signature));
+						//弹出加载框(非真机测试时请注释掉)
+						plus.nativeUI.showWaiting( "等待中..." ); 
+						mui.ajax(loginAddress,{
+						    data:{   
+						    	method:"doLogin",
+						        pernr:login_pernr,
+								password:login_password,
+								serialNumber : serialNumber,
+								token:token,
+								timeInMillis:getTimestamp(),
+								signature:signature_md5
+						    },
+						    dataType: 'json', //服务器返回json格式数据
+						    type: 'post', //HTTP请求类型
+						    timeout: 5000, //超时时间设置为10秒；
+						    success: function(data) {
+						        //服务器返回响应，根据响应结果，分析是否登录成功； 
+						        plus.nativeUI.closeWaiting();
+								toast(data.msg, 2000); 
+							 	if(data.result){
+									plus.storage.setItem("person",JSON.stringify(data.data));
+									plus.storage.setItem("cper",JSON.stringify(data.data));
+									plus.storage.setItem("login_password",login_password);
+									var cook=plus.storage.getItem("cook");
+									if(cook=="a"){
+										mui.openWindow({
+						      				url:'index.html',
+						      				id:'index.html'
+				      					});
+									}
+									else{
+										mui.openWindow({
+						      				url:'guide_Fun.html',
+						      				id:'guide_Fun.html'
+				      					});
+									}
+								}
+						    },
+						    error: function(xhr, type, errorThrown) {
+						    	if("timeout" == type){
+						    		toast("服务器连接超时，请稍后再试",3000);
+						    		plus.nativeUI.closeWaiting();
+						    		return false;
+						    	}else{
+						    		toast("未连接上服务器，请稍后再试",3000);
+						    		plus.nativeUI.closeWaiting();
+						    		return false;
+						    	}
+						    }
+						});
+					}
+					plus.navigator.closeSplashscreen();
+      			});
+
+				document.getElementById("updateNow").addEventListener('tap',function(){
+				        	document.location.href = "./app_Load/zcdown.html";
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			function isNull(data){ 
+				return (data == "" || data == undefined || data == null) ? true : false; 
+			}
+			
+			document.getElementById("resect1").addEventListener('tap',function(){
+				$("#login_pernr").val("").focus();
+			});
+//			密码明文和暗文的转换
+			document.getElementById("resect2").addEventListener('tap',function(){
+				var pass_word=$("#login_password").attr("type");
+				if(pass_word=="password"){
+					$("#login_password").prop("type","text");
+					$("#resect2 img").attr("src","img/login/icon3.png");
+				}else{
+					$("#login_password").prop("type","password");
+					$("#resect2 img").attr("src","img/login/icon4.png");
+				}
+			});
+			//弹窗的样式
+
+//			$(document).ready(function(){
+//				var NewEd=$(window).height()-$(".upDates").height();
+//				$(".upDates").css("top",NewEd/2)
+//			})
+//	 		function Update(){
+//				$(".mask,.upDates").css("display","block");
+//			}
+
+		</script>
+	</body>
+
+</html>

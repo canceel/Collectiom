@@ -1,0 +1,341 @@
+/*头部背景颜色*/
+.mui-bar-nav{
+	background-color: #2768B7;
+}
+/*头部箭头指向*/
+.mui-pull-left{
+	color: #FFFFFF;
+}
+/*头部零售实操样式*/
+.mui-title{
+	color: #FFFFFF;
+	font-size: 14px;
+}
+/*生鲜专栏等字体的大小*/
+.mui-control-item{
+	font-size:12px ;
+	color: #5e5e5e;
+}
+/*生鲜专栏等的标题栏的背景颜色*/
+#title_background{
+	background-color: #FFFFFF;
+	margin-top: 10px;
+}
+/*第一行字体的大小和样式*/
+.font-first-line{
+	color: #161616;
+	font-size: 14px;
+	text-overflow: ellipsis; 
+	overflow: hidden;
+	white-space: nowrap;
+}
+/*第二行字体的大小*/
+.font-second-line{
+	font-size: 12px;
+	color: #4e4e4e;
+	margin-top: 4px;
+	text-overflow: ellipsis; 
+	overflow: hidden;
+	white-space: nowrap;
+}
+/*图片小时钟的大小*/
+.img-first-size{
+	width: 12px;
+	margin-bottom: 0px;
+}
+/*时间日期的字体大小*/
+.font-third-size{
+	display: inline-block;
+	font-size: 9px;
+	margin-left: 1px;
+
+
+}
+/*眼睛图片的大小*/
+.img-second-size{
+	width: 15px;
+	margin-left: 10px;
+}
+/*21003的字体的大小*/
+.font-fourth-size{
+	display: inline;
+	margin-left:1px;
+	font-size: 10px;
+}
+/*生鲜专栏下的每个table-view框框*/
+.mui-table-view-cell{
+	padding: 9.5px 15px;
+}
+/**/
+.mui-progressbar{
+	
+	height: 5px;
+}
+/*进度条的长度*/
+.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
+	
+	margin-right:35px;
+	padding: 0px;	
+}
+.mui-segmented-control .mui-control-item{
+	margin-top: 10px;
+	line-height: 100%;
+}
+.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
+	padding-bottom:3.2px
+}
+/*时间距离第二行的距离*/
+.third_p{
+	margin-top: 20px;
+}
+/*追加样式*/
+.contentOut{
+	text-overflow: ellipsis; 
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+}
+.TimeStyle{
+	position:absolute;
+	bottom:0;
+}
+#title_background{
+	border-bottom: 1px solid #e5e5e5;
+	height: 35px;
+}
+#title_background a{
+	width: 25vw;
+	padding-bottom: 10px;
+}
+/*搜索导航栏*/
+#search_Bar{
+	display: flex;
+	display: -webkit-flex;
+    line-height: 1;
+    width: 100%;
+    padding-left: 4%;
+    padding-right: 4%;
+    background-color: #2768B7;
+    margin: auto;
+    padding-top: 20px;
+    display: none;
+    padding-bottom: 6px;
+}
+#search_Bar img{
+	position: absolute;
+    width: 30px;
+    height: 30px;
+    padding-top: 8px;
+    padding-left: 8px;
+}
+#search_Bar input{
+	margin-bottom: 0;
+    flex: 5;
+    -webkit-flex: 5;
+    padding-left: 40px;
+    color: #8c8c8c;
+    background-color: #F7F7F7;
+    font-size: 14px;
+}
+.search_cancel{
+	align-self: center;
+	-webkit-align-self: center;
+    flex: 1;
+    -webkit-flex: 1;
+    padding-left: 5px;
+    color: #fff;
+    text-align: center;
+}
+.search_button{
+    align-self: center;
+    flex: 1;
+    -webkit-flex: 1;
+    background-color: #2768B7;
+    text-align: center;
+    color: #fff;
+    height: 34px;
+    line-height: 1;
+	border: none;
+    font-size: 17px;
+    display: none;	
+    padding-left: 3px;
+    padding-right: 3px;
+}
+/*未读的信息页面*/
+.del_info{
+	margin-top: 15px;
+    color: #fff;
+    font-size: 14px;
+    float: right;
+    padding-left: 5px;
+    padding-top: 13px;
+    padding-right: 5px;
+}
+.Unread_List{
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-left: 0;
+}
+.Unread_List li{
+	list-style-type: none;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: space-between;
+	-webkit-justify-content: space-between;
+	border-bottom: 1px solid #e5e5e5;
+	padding-bottom: 7px;
+	padding-top: 10px;
+}
+.Unread_Name{
+	align-self: center;
+	-webkit-align-self: center;
+	margin-right: 6px;
+}
+.Unread_Name img{
+	width: 40px;
+	height: 40px;
+}
+.Unread_Info{
+    font-size: 12px;
+    line-height: 1;
+    align-self: center;
+    -webkit-align-self: center;
+    flex: 3;	
+    -webkit-flex: 3;
+}
+.Unread_Info div:nth-of-type(1){
+	color: #2768b7;
+}
+.Unread_Info div:nth-of-type(2){
+	color: #242424;
+	padding-top: 5px;
+    padding-bottom: 5px;
+}
+.Unread_Info div:nth-of-type(3){
+	color: #979797;
+}
+.Unread_Img{
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+    line-height: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.Unread_Img img{
+	width: 50px;
+	height: 50px;
+}
+/*评论底部样式*/
+.div_bottom{
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    display: -webkit-flex;	
+    width: 100%;
+    justify-content: center;
+    -webkit-justify-content: center;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 10px;
+    background-color: #fff;
+}
+.comment_send{
+	position: relative;
+	flex: 1;
+    margin-left: 5%;
+    margin-bottom: 18px;
+}
+.div_bottom input,#send_content{
+	border: none;
+	border-radius: 22px;
+    background-color: #e5e5e5;
+    color: #414141;	
+    min-height: 41px;
+}
+#sendTO{
+    display: inline-block;
+    background-color: #2768b7;
+    color: #fff;
+    position: absolute;
+	right: 6px;
+    top: 6px;
+    width: 50px;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 16px;
+}
+.emotion{
+	margin-left: 8px;
+	margin-right: 5%;
+}
+.emotion img{
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	margin-top: 5px;
+}
+#send_content{
+	-webkit-user-select: auto;
+	padding-left: 17px;
+	padding-right: 60px;
+	font-size: 14px;
+	line-height: 1;
+	padding-top: 14px;
+	padding-bottom: 12px;
+}
+/*课程价格*/
+/*.class_price_out{
+    position: absolute;
+    color: #fff;
+}
+.class_price_out img{
+	width: 74px;
+    height: 67px;
+}
+.class_price{
+    padding-left: 6px;
+    padding-top: 4px;
+    position: absolute;
+    top: -57px;
+    left: 0;	
+}
+.class_price_pre{
+    position: absolute;
+    top: 4px;
+    font-size: 12px;
+    text-decoration: line-through;
+    padding-left: 4px;
+}
+.class_price_now{
+    position: absolute;
+    top: 23px;
+    padding-left: 4px;	
+}
+.money_logo{
+	font-size: 12px;
+}*/
+.price_detail{
+    display: flex;
+    display: -webkit-flex;
+    line-height: 1;	
+    padding-top: 4px;
+}
+.price_before{
+    background-color: #c8c8c8;
+    color: #fff;
+    padding: 3px;
+    font-size: 12px;	
+    text-decoration: line-through;
+}
+.price_now{
+    background-color: #edbd88;
+    color: #fff;
+    margin-left: 8px;
+    padding: 3px;
+    font-size: 12px;	
+}

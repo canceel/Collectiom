@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<style>
+		body,html{
+			position: fixed;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+		}
+		.loadWeb{
+			position: fixed;
+			z-index: 2;
+			background-color: #454545;
+			color: #fff;
+			padding:10px 20px;
+			border-radius: 8px;
+		}
+		.LoadMask{
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+		</style>
+	
+	</head>
+	<body>
+		<div class="mui-content">
+			<div id="course_content_list" class="retail_operation_content">
+				<!--<div class="retail_operation_content1">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media">
+							<div><img class="mui-media-object mui-pull-left" src="../img/retail_operation/def_2.png" style="height: 75px!important;width: 125px!important;" /></div>
+							<div class="mui-media-body">
+								<p class="font-first-line">焦点科技阿斯蒂芬卡萨丁发货了卡视角发神经发酸辣粉gas就发生</p>
+								<p class="mui-ellipsis-2 font-second-line">三大地方撒地方撒发生地方撒大叔大婶</p>
+								<p class="third_p">
+									<img class="img-first-size" src="../img/retail_operation/icon_1.png" alt="" />
+									<span class="font-third-size"></span>
+									<img class="img-first-size" src="../img/retail_operation/icon_1.png" alt="" />
+									<span class="font-third-size"></span>
+								</p>
+							</div>
+						</li>
+					</ul>
+				</div>-->
+			</div>
+		</div>
+	<!--页面加载弹窗-->
+<div class="loadWeb">加载中...</div>
+<div class="LoadMask"></div>	
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			/*打开内容详情的第一个页面*/
+      	function openContent(){
+      		mui.openWindow({
+      			url:'news_content_father.html',
+      			id:'news_content_father.html', 			
+      		})
+      	}
+		</script>
+		<script type="text/javascript">
+		mui.plusReady(function() {
+			var signData = {
+				"pageNo" : 1,
+				"pageSize" : 99,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(hotCourseAddress,{
+				method:"getHotCourse",
+				pageNo:1,
+				pageSize:99,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawHotCourse(data.data);
+				}else{
+					//服务器繁忙
+				}
+			},'json');
+		});
+			function drawHotCourse(courselist){
+				var courseDiv = $("#course_content_list");
+				mui.each(courselist,function(index,item){
+						
+						var retail_totalDiv=$("<div/>").addClass("retail_operation_content1").attr("name",item.id).attr("onClick","openCourse(" + item.id + ")");
+						var retail_ul=$("<ul>").addClass("mui-table-view");
+						var retail_li=$("<li/>").addClass("mui-table-view-cell mui-media");
+						var retail_wrapDiv = $("<div/>").attr("href","javascript:openContent()").addClass("contentOut");
+						var retail_Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ccover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px",
+					 	});
+					 	var retail_rDiv = $("<div/>").addClass('mui-media-body');
+					 	var retail_pTitle = $("<p/>").addClass('font-first-line').html(item.ntitle);
+//					 	var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis);
+//					 	价格样式
+					 	var retail_priceOut=$("<div/>").addClass("price_detail");
+					 	var retail_priceBefore=$("<div/>").addClass("price_before").html("原价 "+item.cprice+"");
+					 	var retail_priceNow=$("<div/>").addClass("price_now").html("现价 "+item.discount+"");
+					 	
+					 	if(item.cpay==0){
+					 		var retail_pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html(item.csynopsis);
+					 		retail_rDiv.append(retail_pTitle).append(retail_pContent);
+					 	}else{
+					 		if(item.cprice==item.discount){
+					 			var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis);
+		 						retail_rDiv.append(retail_pTitle).append(retail_pContent);
+							 	retail_priceOut.append(retail_priceNow);
+							 	retail_rDiv.append(retail_priceOut)
+					 		}else{
+					 			var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis);
+							 	retail_rDiv.append(retail_pTitle).append(retail_pContent);
+							 	retail_priceOut.append(retail_priceBefore);
+							 	retail_priceOut.append(retail_priceNow);
+							 	retail_rDiv.append(retail_priceOut)	
+					 		}
+					 	}				
+					 	var retail_pChunk = $("</p>").addClass("TimeStyle");
+					 	var retail_iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 	var retail_tt = new Date(item.ccreateTime);
+					 	var retail_time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(retail_tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 	var retail_iconImg2 = $("<img/>").addClass('img-second-size').attr("src","../img/retail_operation/icon_2.png");
+					 	var retail_num=$("<span/>").addClass('font-fourth-size').html(item.ctr);
+					 	retail_pChunk.append(retail_iconImg1).append(retail_time).append(retail_iconImg2).append(retail_num);
+					 	retail_rDiv.append(retail_pChunk);
+					 	retail_wrapDiv.append(retail_Img);
+					 	retail_wrapDiv.append(retail_rDiv);
+					 	retail_li.append(retail_wrapDiv);
+						retail_ul.append(retail_li);
+						retail_totalDiv.append(retail_ul);
+						courseDiv.append(retail_totalDiv);
+						document.getElementsByClassName("mui-media")[0].getElementsByTagName("img")[0].onload = function() {
+							$(".LoadMask").css("display","none");
+							$(".loadWeb").css("display","none");
+							$("body,html").css({"position":"absolute","overflow":"visible"});
+						}
+					});
+			}
+			
+			function openCourse(cid){
+				mui.openWindow({
+					url: 'hot_course_father.html',
+					id: 'hot_course_father.html',
+					extras:{
+				        cid:cid
+				   	},
+				   	waiting:{
+			      		autoShow:true,//自动显示等待框，默认为true
+				      	title:'正在加载...'//等待对话框上显示的提示内容
+				    }
+				});
+			}
+//		图片加载提示的高度
+		$(document).ready(function(){
+			var screenWidth=$(window).width();
+			var screenHeight=$(window).height();
+			var loadWidth=$(".loadWeb").width();
+			var loadHeight=$(".loadWeb").height();
+			var width_Gap=(screenWidth-loadWidth)/2-20;
+			var height_Gap=(screenHeight-loadHeight)/2;
+			$(".loadWeb").css({"left":width_Gap,"top":height_Gap});
+		})
+		</script>
+	</body>
+
+</html>

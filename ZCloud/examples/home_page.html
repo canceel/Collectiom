@@ -1,0 +1,678 @@
+<!doctype html>
+<html>
+<!--首页子窗口-->
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="../js/remjs.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/integral_mall.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<style>
+			body,html{
+				position: fixed;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body id="bd">
+		<!--首页主体部分  -->
+	<div class="mui-content " >
+		
+		<!--图片播放-->
+
+			<div class="mui-slider " >
+			 	<div id="banner" class="mui-slider-group mui-slider-loop">
+	
+				</div>
+				<div class="mui-slider">
+				 	<div id="bannerDiv" class="mui-slider-group mui-slider-loop">
+
+				    </div>
+				     <div id="bannerIndicator" class="mui-slider-indicator mui-text-center">
+					</div>
+				</div>
+				
+		    </div>
+		 <!--图片播放下的窗口-->
+		<div class="FS">
+		    <ul class="mui-table-view mui-grid-view">
+		        <li class="mui-table-view-cell mui-media mui-col-xs-3" >
+		            <a id="mui-retail" onclick="openStudy(1)">
+		                <img class="mui-media-object" src="../img/main/icon_1.png" style="width:28px;height: 28px;" >
+		                <div class="mui-media-body " id="mui-view-fonts" >零售实操</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		            <a href="#" onclick="openStudy(2)">
+		                <img class="mui-media-object" src="../img/main/icon_2.png" style="width:28px;height: 28px;">
+		                <div class="mui-media-body" id="mui-view-fonts" >成长教练</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		            <a href="#" onclick="openStudy(3);">
+		            	<img class="mui-media-object" src="../img/main/icon_3.png" style="width:28px;height: 28px;" >
+		                <div class="mui-media-body" id="mui-view-fonts" >能力提升</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		            <a href="#" onclick="openExternal(1);">
+		                <img class="mui-media-object" src="../img/main/icon_4.png" style="width:28px;height: 28px;" >
+		                <div class="mui-media-body" id="mui-view-fonts" >认知迭代</div></a></li>
+		               <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		            <a href="#" onclick="openExternal(2);">
+		                <img class="mui-media-object" src="../img/main/icon_5.png" style="width:28px;height: 28px;" >
+		                <div class="mui-media-body" id="mui-view-fonts" >案例中心</div></a></li>
+		                  <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		            <a href="#" onclick="openExternal(3);">
+		                <img class="mui-media-object" src="../img/main/icon_6.png" style="width:28px;height: 28px;">
+		                <div class="mui-media-body" id="mui-view-fonts" >专项推广</div></a></li>
+		                  <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		            <a href="#" onclick="openExternal(4);">
+		                <img class="mui-media-object" src="../img/main/icon_13.png" style="width:28px;height: 28px;">
+		                <div class="mui-media-body" id="mui-view-fonts" >营销在线</div></a></li>
+		                  <li class="mui-table-view-cell mui-media mui-col-xs-3" >
+		            <a href="#" onclick="" id="good_class">
+		                <img class="mui-media-object" src="../img/main/icon_8.png" style="width: 28px;height: 28px;">
+		                <div class="mui-media-body" id="mui-view-fonts" >好课榜</div></a></li>
+		    </ul>    
+		</div>
+		<div class="news" >
+			<div id="newsDiv" class="mui-table-view"> 
+				<div class="news-title-total">
+					<div class="news-title-image"></div>
+					<div class="mui-table-view-cell new-total">
+	        		<span class="mui-title-fonts"  >新闻与资讯</span>
+	        		<a id="news"  style="display: inline-block;float: right; margin-left: 13px;color: #636363;font-size: 12px;">显示全部
+	        		<img src="../img/main/btn_3.png" style="display: inline-block; margin-left: 8px;margin-right:5px;color: #636363;height: 8px;margin-top: 2px;"/>
+	        		</a>
+	    		</div>
+		
+				</div>
+			</div>
+		</div>
+		<!--热门课程-->
+		<div class="news">
+		<div class="mui-table-view" >
+				<div class="news-title-total"  >
+					<div class="news-title-image" ></div>
+	    			<div class="mui-table-view-cell new-total">
+	        		    <span class="mui-title-fonts" >热门课程 </span>
+	        		    <a id="course"  style="display: inline-block;float: right; margin-left: 13px;color: #636363;font-size: 12px;">显示全部
+	        		    <img src="../img/main/btn_3.png" style="display: inline-block; margin-left: 8px;margin-right:5px;color: #636363;height: 8px;margin-top: 2px;"/>
+	        		    </a>
+	    			</div>
+				</div>
+			    <ul id="hotCourseDiv" class="mui-table-view mui-grid-view mui-grid-view-image hot_course_Out" >
+			        <!--<li class="mui-table-view-cell mui-media mui-col-xs-4 hot_course_BGImg" >
+			        	<div class="price_out">
+				        	<div class="price">
+					        	<div class="price_pre">原价1.99</div>
+					        	<div class="price_Split">/</div>
+					        	<div class="price_now">￥0.00</div>			        		
+				        	</div>			       
+			        	</div>
+			        	<div class="liveName"></div>
+			        	<div class="mui-media-body hot_course_brief" id="mui-viedo-fonts"></div>
+			        </li>-->
+			    </ul>   
+		    </div>
+		</div>
+		<!--直播回顾-->
+	    <div class="news" style="display: none;">
+			<ul class="mui-table-view">
+				    <div class="news-title-total">
+					<div class="news-title-image"></div>
+						<div class="mui-table-view-cell new-total">
+	        		    <span class="mui-title-fonts" >直播回顾 </span>
+	        		    <a id="news"  style="display: inline-block;float: right; margin-left: 13px;color: #636363;font-size: 12px;">显示全部
+	        		    <img src="../img/main/btn_3.png" style="display: inline-block; margin-left: 8px;margin-right:5px;color: #636363;height: 8px;margin-top: 2px;"/>
+	        		    </a>
+	    			</div>
+				    </div>
+			    <ul class="mui-table-view mui-grid-view mui-grid-view-image" >
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4" >
+			            <a href="#">
+			                <img class="mui-media-object" src="../img/main/def_4.png">
+			                <div class="mui-media-body" id="mui-viedo-fonts">食品用品保鲜</div></a></li>
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4">
+			            <a href="#">
+			                <img class="mui-media-object" src="../img/main/def_5.png">
+			                <div class="mui-media-body" id="mui-viedo-fonts">食品用品保鲜</div></a></li>
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4 " >
+			            <a href="#"><img class="mui-media-object" src="../img/main/def_6.png" >
+			                <div class="mui-media-body" id="mui-viedo-fonts">食品用品保鲜</div></a></li>
+			    </ul>   
+		    </ul>
+		</div>
+		<!--自己的故事-->
+		<div class="news">
+			<div class="mui-table-view">
+				    <div class="news-title-total"style="">
+					<div class="news-title-image"></div>
+	    			<div class="mui-table-view-cell new-total">
+	        		    <span class="mui-title-fonts" >自己的故事•当下的故事</span>
+	        		    <a id="story_all" style="display: inline-block;float: right; margin-left: 13px;color: #636363;font-size: 12px;">显示全部
+	        		    <img src="../img/main/btn_3.png" style="display: inline-block; margin-left: 8px;margin-right:5px;color: #636363;height: 8px;margin-top: 2px;"/>
+	        		    </a>
+	    			</div>
+				    </div>
+			    <ul id="storyDiv" class="mui-table-view mui-grid-view mui-grid-view-image hot_course_Out" >
+			    </ul>   
+		    </div>
+		</div>
+	</div>
+		<!--每日弹窗-->
+	<div  id="signDIV"></div>
+	<!--每日弹窗结束-->
+	<!--页面加载弹窗-->
+
+	<div class="loadWeb">加载中...</div>
+<!--	<div class="LoadMask"></div>-->
+
+	<!--页面加载结束-->
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript">
+		var bannerDateList = null;
+		mui.init({
+  			  pullRefresh : { 
+				container:"#bd",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			    down : {
+			      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+			      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+			      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+			      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+			      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+//			      auto: true,//可选,默认false.首次加载自动上拉刷新一次
+			      callback :refresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+			    }
+			  }
+			})
+		function refresh(){
+			window.location.reload();
+			mui('#bd').pullRefresh().endPulldown(true);		
+		}
+		
+		//1:零售实操 2:项目学习 3:能力提升
+		/*打开零售实操的页面*/
+		function openStudy(type) {
+			mui.openWindow({
+				url: 'retail_operation.html',
+				id: 'retail_operation.html',
+				extras:{
+			        tid:type
+			   	},
+			   	waiting:{
+		      		autoShow:true,
+			      	title:'正在加载...'
+			    }
+			});
+		}
+		
+		function openExternal(type){
+			mui.openWindow({
+				url: '../external/show_external.html',
+				id: 'retail_operation.html',
+				extras:{
+			        type:type
+			   	},
+			   	waiting:{
+		      		autoShow:true,
+			      	title:'正在加载...'
+			    }
+			});
+		}
+		
+		function openLive(){
+			mui.openWindow({
+				url: 'liveList.html',
+				id: 'live.html',
+				extras:{
+			        
+			   	},
+			   	waiting:{
+		      		autoShow:true,
+			      	title:'正在加载...'
+			    }
+			});
+		}
+		
+		/*打开企业新闻的页面*/
+		document.getElementById("news").addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'news_father.html',
+				id: 'news_father.html'
+			});
+		});
+		/*打开热门课程的页面*/
+		document.getElementById("course").addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'good_class_father.html',
+				id: 'good_class_father.html'
+			});
+		});
+		
+		document.getElementById("good_class").addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'good_class_father.html',
+				id: 'good_class_father.html'
+			});
+		});
+		
+		document.getElementById("story_all").addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'story_father.html',
+				id: 'story_class_father.html'
+			});
+		});
+		
+		//打开新闻详情
+		function openNewsContent(nid, ntype, ntitle, nlink){
+      		if(ntype == 1){
+      			mui.openWindow({
+	      			url:'news_content_father.html',
+	      			id:'news_content_father.html',
+	      			extras:{
+				        nid:nid
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+	      		});
+      		}else{
+      			openLinkFrame(ntitle, nlink);
+      		}
+      	}
+		
+		function openBannerContent(bid, btype,bclass,bjid){
+			if(btype == 1){
+				mui.openWindow({
+	      			url:'../banner/banner_content.html',
+	      			id:'banner_content.html',
+	      			extras:{
+				        bid:bid
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+	      		});
+			}else if(btype == 2){
+				var bannerData = null;
+				for(var i = 0; i < bannerDateList.length; i++){
+					if(bannerDateList[i].id == bid){
+						bannerData = bannerDateList[i];
+					}
+				}
+				if(bannerData != null){
+					openLinkFrame(bannerData.btitle, bannerData.blink);
+				}
+			}else if(btype == 3){
+				if(bclass == 1){
+					mui.openWindow({
+						url:'hot_course_father.html',
+						id: 'hot_course_father.html',
+						extras:{
+								cid:bjid
+							},
+						waiting:{
+							autoShow:true,
+							title:'正在加载...'
+						}
+					})
+				}else if(bclass == 2){	
+				var per = JSON.parse(plus.storage.getItem("person"));
+				var signData = {
+					"id":bjid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(externalAddress,{
+					method:"queryExternal",
+					id:bjid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						if(data.data.epath != null){
+							mui.openWindow({
+				      			url: '../external/show_external_content.html',
+								id:  '../external/show_external_content.html',
+			      				extras:{
+						        	eid:bjid
+						   		},
+						   		waiting:{
+					      			autoShow:true,
+						      	title:'正在加载...'
+						   		}
+	      					});	
+						}else{
+							mui.openWindow({
+				      			url: '../external/show_external_ppt.html',
+								id:  '../external/show_external_ppt.html',
+			      				extras:{
+						        	eid:bjid
+						   		},
+						   		waiting:{
+					      			autoShow:true,
+						      	title:'正在加载...'
+						   		}
+	      					});	
+						}
+					}
+				},'json');
+				}else if(bclass == 3){
+					var per = JSON.parse(plus.storage.getItem("person"));
+					var signData = {
+					"id":bjid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(storyAddress,{
+						method:"queryStory",
+						id:bjid,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							if(data.data.stype == 1){
+								mui.openWindow({
+					      			url: 'show_story_content.html',
+									id:  'show_story_content.html',
+				      				extras:{
+							        	sid:bjid,
+							        	cover:data.data.scover
+							   		},
+							   		waiting:{
+						      			autoShow:true,
+							      	title:'正在加载...'
+							   		}
+		      					});	
+							}else if(data.data.stype == 2){
+								mui.openWindow({
+					      			url: 'show_story_audio.html',
+									id:  'show_story_audio.html',
+				      				extras:{
+							        	sid:bjid,
+							        	cover:data.data.scover
+							   		},
+							   		waiting:{
+						      			autoShow:true,
+							      	title:'正在加载...'
+							   		}
+		      					});	
+							}else{
+								mui.openWindow({
+					      			url: 'show_story_ppt.html',
+									id:  'show_story_ppt.html',
+				      				extras:{
+							        	sid:bjid,
+							        	cover:data.data.scover
+							   		},
+							   		waiting:{
+						      			autoShow:true,
+							      	title:'正在加载...'
+							   		}
+		      					});	
+							}
+						}
+					},'json');					
+				}				
+			}
+		}
+		   
+		function openHotCourse(cid){
+			mui.openWindow({
+				url: 'hot_course_father.html',
+				id: 'hot_course_father.html',
+				extras:{
+			        cid:cid
+			   	},
+			   	waiting:{
+		      		autoShow:true,
+			      	title:'正在加载...'
+			    }
+			});
+		}
+		
+		function openStory(sid, scover,type){
+			if(type == 3){
+					mui.openWindow({
+					url: 'show_story_ppt.html',
+					id: 'show_story_ppt.html',
+					extras:{
+				        sid:sid,
+				        cover:scover
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+				});
+			}else if(type == 1){
+					mui.openWindow({
+						url: 'show_story_content.html',
+						id: 'show_story_content.html',
+					extras:{
+				        sid:sid,
+				        cover:scover
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+				});
+			}else{
+				mui.openWindow({
+						url: 'show_story_audio.html',
+						id: 'show_story_audio.html',
+					extras:{
+				        sid:sid,
+				        cover:scover
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+				});
+			}
+		}
+
+		function openLinkFrame(title, link_url){
+			mui.openWindow({
+      			url:'link_frame.html',
+      			id:'link_frame.html',
+      			extras:{
+      				blink:"" + link_url,
+			        title:title,
+			   	},
+			   	waiting:{
+		      		autoShow:true,
+			      	title:'正在加载...'
+			    }
+      		});
+		}
+	</script>
+	<script type="text/javascript">
+		mui.plusReady(function() {
+			plus.navigator.setStatusBarStyle('light');
+			var per = JSON.parse(plus.storage.getItem("person"));
+			var signData = {
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(indexAddress,{
+				method:"index",
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					newslist = data.data.newslist;
+					bannerDateList = data.data.bannerlist;
+					drawBanner(data.data.bannerlist);
+					drawNews(data.data.newslist);
+					drawHotCourse(data.data.courselist);
+					drawStory(data.data.storylist);
+				}
+			},'json');		
+			var suid = per.pernr;
+			var signData = {
+				"suid" : suid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(signsAddress,{
+				method:"add",
+				suid:suid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					if(data.data == 0){
+						$("#signDIV").append(
+							"<div class=\"maskContent\">"+
+								"<img onclick=\"cancel()\" src=\"../img/signin/1.png\"/>"+
+								"<div class=\"sign\">"+
+									"<div>积分可用于兑换商品</div>"+
+									"<div onclick=\"sign()\">立即签到</div>"+
+								"</div>"+
+							"</div>"+
+							"<div class=\"mask\"></div>"
+						);
+							(function(){
+								var screenHeight=$(window).height();
+								var screenWidth=$(window).width();
+								var left=(screenWidth-250)/2;
+								var top=(screenHeight-292)/2;
+								$(".maskContent").css({"top":top,"left":left});
+							})()
+							(function(){
+								if($(".mask").css("display")=="block"){
+								$("body,html").height($(window).height()).css({
+								  "overflow-y": "hidden"
+								});
+								}
+							})()
+						}
+					}
+				},'json');
+		});
+		
+		function drawBanner(bannerlist){
+			var bannerDiv = $("#bannerDiv");
+			var bannerIndicator = $("#bannerIndicator");
+			//判断轮播图数量
+			if(bannerlist.length > 1){
+				bannerDiv.append("<div class=\"mui-slider-item mui-slider-item-duplicate hh\"><a onclick='openBannerContent(" + bannerlist[bannerlist.length - 1].id + ","+bannerlist[bannerlist.length - 1].btype+"," + bannerlist[bannerlist.length - 1].bclass + "," + bannerlist[bannerlist.length - 1].bjid+ ")' href=\"#\"><img src=\"" + serverIp + "images/" + bannerlist[bannerlist.length - 1].bimage +"\" /></a></div>");
+			}
+			mui.each(bannerlist,function(index,item){
+				bannerDiv.append("<div class=\"mui-slider-item hh\"><a onclick='openBannerContent(" + item.id + "," + item.btype + "," +item.bclass + "," + item.bjid + ")' href=\"#\"><img src=\"" + serverIp + "images/" + item.bimage +"\" /></a></div>");
+				if(index == 0){
+					bannerIndicator.append("<div class=\"mui-indicator mui-active\"></div>");
+				}else{
+					bannerIndicator.append("<div class=\"mui-indicator\"></div>");
+				}
+			});
+			if(bannerlist.length > 1){
+				bannerDiv.append("<div class=\"mui-slider-item mui-slider-item-duplicate hh\"><a onclick='openBannerContent(" + bannerlist[0].id + "," + bannerlist[0].btype + "," + bannerlist[0].bcalss + "," + bannerlist[0].bjid + ")' href=\"#\"><img src=\"" + serverIp + "images/" + bannerlist[0].bimage +"\" /></a></div>");
+			}
+			mui(".mui-slider").slider({interval: 3000});
+			document.getElementById("bannerDiv").getElementsByTagName("img")[0].onload = function() {
+				$(".LoadMask").css("display","none");
+				$(".loadWeb").css("display","none");
+				$("body,html").css({"position":"absolute","overflow":"visible"});
+			}
+		}
+		
+		function drawNews(newslist){
+			var newsDiv = $("#newsDiv");
+			mui.each(newslist,function(index,item){
+				newsDiv.append("<li class=\"mui-table-view-cell news-title\"><a onclick=\"openNewsContent(" + item.id + "," + item.ntype + ",'" + item.ntitle + "','" + item.nlink + "')\" class=\"mui-navigate-right\" id=\"mui-news-fonts\">" + item.ntitle + "<span id=\"news-fonts\">&nbsp;·NEW</span></a></li>");
+			});
+		}
+
+		function drawHotCourse(courselist){
+			var hotCourseDiv = $("#hotCourseDiv");
+			mui.each(courselist,function(index,item){
+				if(item.cpay==0){
+					var course = ""; 
+					course += "<li onclick='openHotCourse(" + item.id + ")' class=\"mui-table-view-cell mui-media mui-col-xs-4 hot_course_BGImg\" style=\"background: url(" + imageAddress + item.ccover + ")\">";
+					course += "<div class=\"liveName\">" + item.clecturer + "</div>";
+					course += "<div class=\"mui-media-body hot_course_brief\" id=\"mui-viedo-fonts\">" + item.ctitle +"</div>";
+					course += "</li>";	
+				}else{
+					if(item.cprice==item.discount){
+						var course = ""; 
+						course += "<li onclick='openHotCourse(" + item.id + ")' class=\"mui-table-view-cell mui-media mui-col-xs-4 hot_course_BGImg\" style=\"background: url(" + imageAddress + item.ccover + ")\">";
+						course +="<div class=\"price\"><div class=\"price_now\">￥"+item.discount+"</div></div>"
+						course += "<div class=\"liveName\">" + item.clecturer + "</div>";
+						course += "<div class=\"mui-media-body hot_course_brief\" id=\"mui-viedo-fonts\">" + item.ctitle +"</div>";
+						course += "</li>";	
+					}else{
+						var course = ""; 
+						course += "<li onclick='openHotCourse(" + item.id + ")' class=\"mui-table-view-cell mui-media mui-col-xs-4 hot_course_BGImg\" style=\"background: url(" + imageAddress + item.ccover + ")\">";
+						course +="<div class=\"price\"><div class=\"price_pre\">原价"+item.cprice+"</div><div class=\"price_Split\">/</div><div class=\"price_now\">￥"+item.discount+"</div></div>"
+						course += "<div class=\"liveName\">" + item.clecturer + "</div>";
+						course += "<div class=\"mui-media-body hot_course_brief\" id=\"mui-viedo-fonts\">" + item.ctitle +"</div>";
+						course += "</li>";							
+					}				
+				}
+				hotCourseDiv.append(course);
+			});
+		}
+		
+		function drawStory(storylist){
+			var storyDiv = $("#storyDiv");
+			mui.each(storylist,function(index,item){
+				var story = "";
+				story += "<li onclick='openStory(" + item.id +",\"" + item.scover +"\","+item.stype+")' class=\"mui-table-view-cell mui-media mui-col-xs-4 hot_course_BGImg\" style=\"background: url(" + imageAddress + item.scover + ")\">";
+//				story +="<div class=\"price\"><div class=\"price_pre\">原价1.99</div><div class=\"price_Split\">/</div><div class=\"price_now\">￥0.00</div></div>"				
+				story += "<div class=\"liveName\">" + item.slecturer + "</div>";
+				story += "<div class=\"mui-media-body hot_course_brief\" id=\"mui-viedo-fonts\">" + item.stitle +"</div>";
+				story += "</li>";
+				storyDiv.append(story);
+			});
+		}
+
+//		每日弹窗的宽高计算结束
+//		弹窗取消
+		function cancel(){
+			$(this).css("display","none");
+			$(".mask").css("display","none");
+			$(".maskContent").css("display","none");
+			$("body,html").height($(window).height()).css({"overflow-y": "scroll"});
+		}
+//		弹窗取消结束
+//		弹窗签到
+		function sign(){
+			$(this).css("display","none");
+			$(".mask").css("display","none");
+			$(".maskContent").css("display","none");
+			$("body,html").height($(window).height()).css({"overflow-y": "scroll"});
+		}
+//		判断图片是否加载完毕
+		$(document).ready(function(){
+			var screenWidth=$(window).width();
+			var screenHeight=$(window).height();
+			var loadWidth=$(".loadWeb").width();
+			var loadHeight=$(".loadWeb").height();
+			var width_Gap=(screenWidth-loadWidth)/2-20;
+			var height_Gap=(screenHeight-loadHeight)/2;
+			$(".loadWeb").css({"left":width_Gap,"top":height_Gap});
+		})
+	</script>
+	</body>
+</html>

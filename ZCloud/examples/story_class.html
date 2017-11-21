@@ -1,0 +1,169 @@
+<!doctype html>
+<html id="hl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<style>
+		body,html{
+			position: fixed;
+			overflow: hidden;
+			width: 100%;
+		}
+		.loadWeb{
+			position: fixed;
+			z-index: 2;
+			background-color: #454545;
+			color: #fff;
+			padding:10px 20px;
+			border-radius: 8px;
+		}
+		.LoadMask{
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}			
+		</style>
+	
+	</head>
+	<body>
+		<div class="mui-content">
+			<div id="story_content_list" class="retail_operation_content">
+
+			</div>
+		</div>
+	<!--页面加载弹窗-->
+<!--<div class="loadWeb">加载中...</div>
+<div class="LoadMask"></div>	-->
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			/*打开内容详情的第一个页面*/
+      	function openContent(){
+      		mui.openWindow({
+      			url:'news_content_father.html',
+      			id:'news_content_father.html',
+      			
+      		})
+      	}
+		</script>
+		<script type="text/javascript">
+		mui.plusReady(function() {
+			var signData = {
+				"pageNo" : 1,
+				"pageSize" : 99,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(storyAddress,{
+				method:"query",
+				pageNo:1,
+				pageSize:99,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawStory(data.data);
+				}else{
+					//服务器繁忙
+				}
+			},'json');
+		});
+			function drawStory(storylist){
+				var storyDiv = $("#story_content_list");
+				mui.each(storylist,function(index,item){
+						
+						var retail_totalDiv=$("<div/>").addClass("retail_operation_content1").attr("name",item.id).attr("onClick","openCourse(" + item.id + ")");
+						var retail_ul=$("<ul>").addClass("mui-table-view");
+						var retail_li=$("<li/>").addClass("mui-table-view-cell mui-media");
+						var retail_wrapDiv = $("<div/>").attr("href","javascript:openContent()");
+						var retail_Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.scover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px",
+					 	});
+//					 	价格样式
+//					 	var retail_prdiv=$("<div/>").addClass('class_price_out');
+//					 	var retail_primg=$("<img>").attr("src","../img/retail_operation/icon_02.png");
+//					 	var retail_prdivPe=$("<div/>").addClass("class_price_pre").html("原价1.99");
+//					 	var retail_prdivNow=$("<div/>").addClass("class_price_now").html("0.00");
+//					 	var retail_prspan=$("<span/>").addClass("money_logo").html("￥");
+						 /*div包含3个p标签*/
+					 	var retail_rDiv = $("<div/>").addClass('mui-media-body');
+					 	var retail_pTitle = $("<p/>").addClass('font-first-line').html(item.stitle);
+					 	var retail_pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html(item.ssynopsis);
+					 	retail_rDiv.append(retail_pTitle).append(retail_pContent);
+						/*最后一个p标签分别包含2个img和2个span*/
+					 	var retail_pChunk = $("</p>").addClass("TimeStyle");
+					 	var retail_iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 	var retail_tt = new Date(item.screateTime);
+					 	var retail_time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(retail_tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 	var retail_iconImg2 = $("<img/>").addClass('img-second-size').attr("src","../img/retail_operation/icon_2.png");
+					 	var retail_num=$("<span/>").addClass('font-fourth-size').html(item.ctr);
+					 	retail_pChunk.append(retail_iconImg1).append(retail_time).append(retail_iconImg2).append(retail_num);
+					 	retail_rDiv.append(retail_pChunk);
+					 	
+//					 	retail_prdivNow.append(retail_prspan);
+//					 	retail_prdiv.append(retail_primg).append(retail_prdivPe).append(retail_prdivNow);
+//					 	retail_wrapDiv.append(retail_prdiv);
+					 	
+					 	retail_wrapDiv.append(retail_Img);
+					 	retail_wrapDiv.append(retail_rDiv);
+					 	retail_li.append(retail_wrapDiv);
+						retail_ul.append(retail_li);
+						retail_totalDiv.append(retail_ul);
+						storyDiv.append(retail_totalDiv);
+						document.getElementsByClassName("mui-media")[0].getElementsByTagName("img")[0].onload = function() {
+							$(".LoadMask").css("display","none");
+							$(".loadWeb").css("display","none");
+							$("body,html").css({"position":"absolute","overflow":"visible"});
+						}
+					});
+			}
+			
+			function openCourse(cid){
+				mui.openWindow({
+					url: 'show_story_content.html',
+					id: 'show_story_content.html',
+					extras:{
+				        sid:cid
+				   	},
+				   	waiting:{
+			      		autoShow:true,//自动显示等待框，默认为true
+				      	title:'正在加载...'//等待对话框上显示的提示内容
+				    }
+				});
+			}
+//		图片加载提示的高度
+		$(document).ready(function(){
+			var screenWidth=$(window).width();
+			var screenHeight=$(window).height();
+			var loadWidth=$(".loadWeb").width();
+			var loadHeight=$(".loadWeb").height();
+			var width_Gap=(screenWidth-loadWidth)/2-20;
+			var height_Gap=(screenHeight-loadHeight)/2;
+			$(".loadWeb").css({"left":width_Gap,"top":height_Gap});
+		})
+		</script>
+	</body>
+
+</html>

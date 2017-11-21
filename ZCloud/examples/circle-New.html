@@ -1,0 +1,931 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="../js/remjs.js"></script>	
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/Live.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<script  type="text/javascript">
+//			void plus.screen.lockOrientation("portrait-primary");//仅支持竖屏
+			function speak(sendSid){
+				if(sendSid == "-1"){
+					mui.alert("请选择你要发送内容的圈子","提示");
+				}else{
+					mui.openWindow({
+						url:'circle_send.html',
+						id:'circle_send.html',
+						extras:{
+						   sid : sendSid
+						},
+						waiting:{
+					        autoShow:true,//自动显示等待框，默认为true
+						    title:'正在加载...'//等待对话框上显示的提示内容
+						}
+					});	
+				}
+			}
+		</script>
+		<script src="../js/zy.media.min.js"></script>
+		<style type="text/css">
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				bottom: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: auto;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+				height: auto;
+				max-width: 100%;
+				/*max-height: 100%;*/
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+			/*未读的信息*/
+			.UnreadInfo{
+			    margin: auto;
+			    display: -webkit-flex;
+			    background-color: #3a85e0;
+			    color: #fff;
+			    -webkit-justify-content: center;
+			    -webkit-align-items: center;
+			    width: 100px;
+			    border-radius: 10px;
+			    padding-top: 5px;
+			    padding-bottom: 5px;
+				position: fixed;
+			    left: 0;
+			    right: 0;	
+			    z-index: 11;
+			}
+			.UnreadInfo img{
+			    width: 25px;
+    			height: 25px;
+   				display: inline-block;	
+   				margin-right: 4px;
+			}
+		</style>
+	</head>
+	<body style="height: 100%;background-color: #FFFFFF;">
+		<header class="mui-bar mui-bar-nav" style="height:60px;float: left;">
+		  	<div class="topOption">
+		  		<div id="vtitle" class="topic">话题</div>
+		  		<div id="queryAllV" class="Circle">圈子</div>
+		  		<div class="BlueMask"></div>
+		  	</div>
+			<div style="width: 8%;height: 22px;position: absolute;top: 30px;right: 10px;"><img onclick="javascript:speak(sid)" id="jump" src="../img/circle/icon_5.png" style="height: 100%;"></div>
+		</header>
+		<!--<div class="UnreadInfo" onclick="toUnreadInfo()">
+			<img src="../img/circle/head-portrait.png" alt="" />
+			<span id= "info"></span>
+			<span>条新信息</span>
+		</div>-->
+		<div id="box" style="margin-top: 65px;">
+			
+			
+		</div>
+		<!--隐藏框-->
+		<div class="circleBox">
+			<div class="topicName">话题圈子</div>
+			<div class="topicList">
+				<ul id="unionTitle">
+				</ul>
+			</div>
+		</div>
+		<div class="circle_mask"></div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script src="../javascript/mui.zoom.js"></script>
+	<script src="../javascript/mui.previewimage.js"></script>
+	<script>
+			mui.init();
+	</script>
+	<script type="text/javascript" src="../js/h.js" ></script>
+	<script type="text/javascript"> 
+			var sid = -1;
+			var pernr = null;
+			var pageSize = 20;
+			var pageNo = 1;
+			var infoNum = null;
+			var commentId = null;
+			mui.init({
+  				pullRefresh : {
+   				container:"#box",
+    			down : {
+      				style:'circle',
+      				color:'#2BD009', 
+      				height:'50px',
+      				range:'100px', 
+     				offset:'0px', 
+//   				auto: false,
+      				callback : pullfresh
+   				},
+    			 up : {
+      				 height:'50px',//可选.默认50.触发上拉加载拖动距离
+     				 auto:false,//可选,默认false.自动上拉加载一次
+      				 contentrefresh : '正在加载...',//可选，正在加载状态时，上拉加载控件上显示的标题内容
+     				 contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+     				 callback :loading//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+   					}
+  				}
+			});
+			mui.plusReady(function() {
+			 		pernr = JSON.parse(plus.storage.getItem("person"));
+					var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							drawall(data.data);
+						}
+					},'json');
+					
+					var signData = {
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(uninAddress,{
+						method:"query",
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){			
+							drawTitle(data.data);
+						}
+					},'json');
+										
+					var userid = pernr.pernr;
+					mui.post(comcontentAddress,{
+						method:"qyerySelfContent",
+						pernr:userid	
+					},function(data){
+						if(data.result){
+						
+							if(data.data.length == 0){
+								$(".UnreadInfo").hide();
+							}else{
+								$(".UnreadInfo").show();
+								$("#info").html(data.data.length);
+								commentId = data.data;
+							}
+						}
+					},'json');
+			});
+			function loading() {
+				pageNo =pageNo+1;
+				var signData = {
+					"pageNo" : pageNo,
+					"pageSize" : pageSize,
+					"sid" : sid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(comcontentAddress,{
+					method:"queryall",
+					sid: sid,
+					pageNo:pageNo,
+					pageSize:pageSize,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawload(data.data);
+					}
+				},'json');
+				mui('#box').pullRefresh().endPullupToRefresh();
+			} 
+			function drawload(all){	
+				var per = pernr.pernr;
+				var box = $("#box");
+				//判断数量
+				var all = JSON.parse(JSON.stringify(all));
+				mui.each(all,function(index,item){
+					index = index + (pageSize*pageNo-9);
+					/*alert(index);*/
+					var unixTimestamp = new Date(item.cdateTime);
+					if(index != 0){
+						box.append("<div class=\"line\"></div>");
+					}
+					box.append(
+						"<div class=\"Comment\"   id=\"upLoadDiv"+index+"\"  >"+
+							"<div class=\"user\">"+
+								"<div><img src=\""+ serverIp +"avatar/" + item.avatar +"\"/></div>"+
+								"<div><span>"+item.name+"</span></div>"+
+								"<div>"+item.sid+"</div>"+
+							"</div>"+
+							"<div onclick=\"javascript:goComment("+item.id+","+index+",\'praise2"+index+"\');\" class=\"userSpeekTxt\">"+item.ctext+"</div>"+
+							"<div id=\"box1"+index+"\" class=\"userSpeekImg\">"+ 
+							"</div>"+
+							"<div class=\"userSpeekTime\">"+
+								"<div>"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</div>"+
+								"<span class='Del'  id=\"upLoad"+index+"\" onclick=\"removeComment("+item.id+",\'"+item.cuser+"\',\'upLoadDiv"+index+"\')\">删除</span>"+
+								"<div><img id=\"aprise"+index+"\" onclick=\"javascript:upaprise("+item.id+","+index+");\" src=\"../img/circle/icon_4.png\" style=\"vertical-align:middle;\" />"+
+								"<span id=\"praise"+index+"\"></span></div>"+
+								"<div><img id=\"comment"+index+"\" onclick=\"javascript:goComment("+item.id+","+index+",\'praise2"+index+"\');\" src=\"../img/circle_send/icona_1.png\" style=\"vertical-align:middle;\" />"+
+								"<span id=\"praise2"+index+"\" ></span></div>"+
+								"<div><img src=\"../img/circle/icon_6.png\"/>"+
+								"</div>"+
+							"</div>"+
+						"</div>"
+					);
+					if(per != item.cuser){
+						$("#upLoad"+index).hide();
+					}
+					var box1 = $("#box1"+index);
+					box1.empty();
+					if(!isNull(item.cimages)){
+						var image = item.cimages.split(",");
+						for (var i = 0; i< image.length-1; i++) {
+							box1.append("<img class=\"Img\" src=\""+ serverIp +"images/" + image[i] + "\" data-preview-src=\"\" data-preview-group=\"" + item.id + "\"/></div>");
+						}
+						mui.previewImage();
+					}
+					var pernr = JSON.parse(plus.storage.getItem("person"));
+					var signData = {
+						"cid" : item.id,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryp",
+						cid:item.id,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							var temp = JSON.parse(JSON.stringify(data.data));
+							$("#praise"+index).empty();
+							$("#praise"+index).append(temp.count);
+							mui.each(temp.tpriselist,function(index2,item2){
+								if(item2.name == pernr.name){
+									document.getElementById("aprise"+index).src="../img/circle/icon_4s.png";
+								}else{
+									document.getElementById("aprise"+index).src="../img/circle/icon_4.png";
+								}
+							});
+							$("#praise2"+index).empty();
+							$("#praise2"+index).append(temp.count1);
+							mui.each(temp.commentlistList,function(index3,item3){
+								if(item3!=null){
+									document.getElementById("comment"+index).src="../img/circle_send/icon_1s.png";
+								}
+							});
+						}
+					},'json');
+				});
+				imgWidth();
+			}
+			function pullfresh() {
+				pageNo = 1;
+     			//业务逻辑代码，比如通过ajax从服务器获取新数据；   				
+					var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							drawall(data.data);
+							mui('#box').pullRefresh().endPulldown(true);
+						}
+					},'json');
+    				pageNo = 1;
+    			 
+    			 	var userid = pernr.pernr;
+					mui.post(comcontentAddress,{
+						method:"qyerySelfContent",
+						pernr:userid
+					},function(data){
+						if(data.result){
+							if(data.data.length == 0){
+								$(".UnreadInfo").hide();
+							}else{
+								$(".UnreadInfo").show();
+;								$("#info").html(data.data.length);
+								commentId = data.data;
+							}
+						}
+					},'json');
+			}
+			function drawall(all){
+				var per = pernr.pernr;
+				var box = $("#box");
+				//判断数量
+				var all =JSON.parse(JSON.stringify(all));
+				box.empty();
+				mui.each(all,function(index,item){
+					var unixTimestamp = new Date(item.cdateTime);
+					if(index!=0){
+						box.append("<div class=\"line\"></div>");
+					}
+					box.append(
+						"<div class=\"Comment\"  id=\"utitle"+index+"\"  >"+
+							"<div class=\"user\">"+
+								"<div><img src=\""+ serverIp +"avatar/" + item.avatar +"\"/></div>"+
+								"<div><span>"+item.name+"</span></div>"+
+								"<div>"+item.sid+"</div>"+
+							"</div>"+
+							"<div onclick=\"javascript:goComment("+item.id+","+index+",\'praise2"+index+"\');\" class=\"userSpeekTxt\">"+item.ctext+"</div>"+
+							"<div id=\"box1"+index+"\" class=\"userSpeekImg\">"+
+								"<img class=\"Img\" src=\"../img/circle/def_1.png\"/>"+
+								"<img class=\"Img\" src=\"../img/circle/def_1.png\"/>"+
+							"</div>"+
+							"<div class=\"userSpeekTime\">"+ 
+								"<div>"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</div>"+
+								"<span class=\"Del\"  id=\"delete"+index+"\"   onclick=\"removeComment("+item.id+",\'"+item.cuser+"\',\'utitle"+index+"\')\">删除</span>"+
+								"<div><img id=\"aprise"+index+"\" onclick=\"javascript:upaprise("+item.id+","+index+");\" src=\"../img/circle/icon_4.png\" style=\"vertical-align:middle;\" />"+
+								"<span id=\"praise"+index+"\"></span></div>"+
+								"<div><img id=\"comment"+index+"\" onclick=\"javascript:goComment("+item.id+","+index+",\'praise2"+index+"\');\" src=\"../img/circle_send/icona_1.png\" style=\"vertical-align:middle;\" />"+
+								"<span id=\"praise2"+index+"\" ></span></div>"+
+								"<div><img src=\"../img/circle/icon_6.png\"/>"+
+								"</div>"+
+							"</div>"+
+						"</div>"
+					);				
+					if(per != item.cuser){
+						$("#delete"+index).hide();
+					}
+					var box1 = $("#box1"+index);
+					box1.empty();
+					if(!isNull(item.cimages)){
+						var image = item.cimages.split(",");
+						for (var i = 0; i< image.length-1; i++) {
+							box1.append("<img class=\"Img\" src=\""+ serverIp +"images/" + image[i] + "\" data-preview-src=\"\" data-preview-group=\"" + item.id + "\"/></div>");
+						}
+						mui.previewImage();
+					}
+					var pernr = JSON.parse(plus.storage.getItem("person"));
+					var signData = {
+						"cid" : item.id,
+						"usid" : pernr.pernr,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+							method:"queryp",
+							cid:item.id,
+							usid:pernr.pernr,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							var temp = JSON.parse(JSON.stringify(data.data));
+							$("#praise"+index).empty();
+							$("#praise"+index).append(temp.count);
+							mui.each(temp.tpriselist,function(index2,item2){
+								if(item2.name == pernr.name){
+									document.getElementById("aprise"+index).src="../img/circle/icon_4s.png";
+								}else{
+									document.getElementById("aprise"+index).src="../img/circle/icon_4.png";
+								}
+							});
+							$("#praise2"+index).empty();
+							$("#praise2"+index).append(temp.count1);
+							mui.each(temp.commentlistList,function(index3,item3){
+								if(item3!=null){
+									document.getElementById("comment"+index).src="../img/circle_send/icon_1s.png";
+								}
+							});
+						}
+					},'json');
+				});
+				imgWidth();
+			}
+			function isNull(data){ 
+				return (data == "" || data == undefined || data == null) ? true : false; 
+			}
+				
+			function removeComment(id,userid,divId){
+				var removeDiv =   document.getElementById(divId);									
+					var signData = {
+						"id" : id,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"remove",
+						id:id,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							toast("删除成功",1000);	
+							removeDiv.remove();
+						}
+					},'json');									
+			}	
+				
+			function drawTitle(all){
+				var unionTitle = $("#unionTitle");
+				unionTitle.empty();
+				var all=JSON.parse(JSON.stringify(all));
+				mui.each(all.unionlist,function(index,item){
+						unionTitle.append(
+							"<li onclick=\"select("+item.id+",\'"+item.stitle+"\',\'utitle"+index+"\')\">"+item.stitle+"</li>"
+						);
+				});			
+			}
+			
+			function goComment(cid,index,cp){
+				var scroll_Top=$(window).scrollTop();
+				mui.openWindow({
+					url: 'circle_comment.html',
+					id: 'circle_comment.html',
+					extras:{
+				      	cid : cid,
+				      	height:scroll_Top,
+				      	pageNo:cp
+				   	},
+				   	waiting:{
+			      		autoShow:true,//自动显示等待框，默认为true
+				      	title:'正在加载...'//等待对话框上显示的提示内容
+				    }
+				});		
+			}
+			
+			function upaprise(cid,index){
+					var pernr = JSON.parse(plus.storage.getItem("person"));
+					var cuid = pernr.pernr;
+					var signData = {
+						"cid" : cid,
+						"cuid" : cuid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+							method:"thumbup",
+							cid:cid,
+							cuid:cuid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.data == 1){
+							document.getElementById("aprise"+index).src="../img/circle/icon_4s.png";
+						}else{
+							document.getElementById("aprise"+index).src="../img/circle/icon_4.png";
+						}
+						if(data.result){
+							/*location.reload();*/
+							var signData = {
+								"cid" : cid,
+								"usid" : pernr.pernr,
+								"token" : token,
+								"timeInMillis" : getTimestamp()
+							};
+							var signature = getSignature(signData);
+							var signature_md5 = md5(md5(signature));
+							mui.post(comcontentAddress,{
+							method:"queryp",
+							cid:cid,
+							usid:pernr.pernr,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+							},function(data){
+								if(data.result){
+									var temp = JSON.parse(JSON.stringify(data.data));
+									$("#praise"+index).empty();
+									$("#praise"+index).append(temp.count);								
+									$("#praise2"+index).empty();
+									$("#praise2"+index).append(temp.count1);
+									mui.each(temp.commentlistList,function(index3,item3){
+										if(item3!=null){
+											document.getElementById("comment"+index).src="../img/circle_send/icon_1s.png";
+										}
+									});
+								}
+							},'json');
+						}	
+						},'json'
+					);
+				}
+			
+			document.getElementById('queryAllV').addEventListener('tap',function(){
+				sid=-1;
+				pageNo = 1;
+				var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							drawall(data.data);
+						}
+				},'json');
+			})
+			
+			function select(sid1,stitle,titleID){
+				sid=sid1;
+				pageNo = 1;	
+				document.getElementById("box").innerHTML = "";	
+				var signData = {
+						"pageNo" : pageNo,
+						"pageSize" : pageSize,
+						"sid" : sid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(comcontentAddress,{
+						method:"queryall",
+						sid: sid,
+						pageNo:pageNo,
+						pageSize:pageSize,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawall(data.data);
+						$("#vtitle").empty().append(stitle);
+					}
+				},'json');
+			}
+		function imgWidth(){
+			$(".Comment .userSpeekImg").each(function(){
+				var imgLength=$(this).children("img").length;
+				if(imgLength==1){
+					var w=parseInt($(this).children("img").css("width"));
+					var h=parseInt($(this).children("img").css("height"));
+					if(h>w*2){
+						$(this).children("img").css({"max-width":"70%","max-height":"100px","overflow":"hidden"});
+					}else{
+						$(this).children("img").css("max-width","70%");						
+					}
+				}
+				if(imgLength==2){
+					$(this).children("img").css("max-width","45%");
+					var x=$(this).children("img").css("width");
+					$(this).children("img").css("height",x);
+				}
+				if(imgLength>2){
+					$(this).children("img").css("max-width","31%");
+					var x=$(this).children("img").css("width");
+					$(this).children("img").css("height",x);
+				}
+			});
+			$(".topic").on("tap",function(){
+				$(".BlueMask").css({"left":"0","right":""});
+				$(".circleBox,.circle_mask").css("display","block");
+				Topic();
+				TitCen();
+			});
+			$(".circleBox li").on("click",function(){
+				$(this).addClass("colorBlue");
+				$(this).siblings().removeClass("colorBlue");
+				$(".topic").text($(this).text());
+				$(".circleBox,.circle_mask").css("display","none");
+				Topic();
+				TitCen();
+			});
+			TitCen();
+		}
+//		判断图片的多少设宽度结束
+
+		function TitCen(){
+			var screenWidth=$(window).width();
+			var topWidth=$(".topOption").width()+20;
+			$(".topOption").css("left",(screenWidth-topWidth)/2);
+		}
+		function Topic(){
+			var a=$(".topic").text().length;
+			if(a==2){
+				$(".topic").css("-webkit-flex","2");
+				var topWidth=$(".topic").width();
+				$(".BlueMask").css("width",topWidth);
+			}
+			if(a==3){
+				$(".topic").css("-webkit-flex","3");
+				var topWidth=$(".topic").width();
+				$(".BlueMask").css("width",topWidth);
+			}
+			if(a==4){
+				$(".topic").css("-webkit-flex","4");
+				var topWidth=$(".topic").width();
+				$(".BlueMask").css("width",topWidth);
+			}
+			if(a==5){
+				$(".topic").css("-webkit-flex","5");
+				var topWidth=$(".topic").width();
+				$(".BlueMask").css("width",topWidth);
+			}
+			if(a==6){
+				$(".topic").css("-webkit-flex","6");
+				var topWidth=$(".topic").width();
+				$(".BlueMask").css("width",topWidth);
+			}
+			if(a>6){
+				$(".topic").css({"-webkit-flex":"6","overflow":"hidden","text-overflow":"ellipsis","white-space":"nowrap"});
+				var topWidth=$(".topic").width();
+				$(".BlueMask").css("width",topWidth);
+			}
+		}
+//		圈子和话题的滑动
+		$(document).ready(function(){
+			Topic();
+			imgWidth();
+			$(".Circle").on("tap",function(){
+				var topicWidth=$(".BlueMask").width();
+				var CircleWidth=$(".Circle").width()+6;
+				$(".BlueMask").css({"left":"","right":"0","width":CircleWidth});
+				$(".circleBox,.circle_mask").css("display","none");
+			});
+			$("#box").on("tap",function(){
+				$(".circleBox,.circle_mask").css("display","none");					
+			});
+			$(".BlueMask").on("tap",function(){
+				if($(".BlueMask").css("left")=="0px"){
+					$(".circleBox,.circle_mask").toggle();
+				}
+			});	
+			$(".circle_mask").on("click",function(){
+				$(".circle_mask,.circleBox").css("display","none");
+			})
+		})
+	</script>
+	<script type="text/javascript">
+		window.addEventListener("pageflowrefresh",function(e){
+			pullfresh();
+			toast("发送成功",2000);
+			var person = JSON.parse(plus.storage.getItem("person"));
+			var puid = person.pernr;
+			var signData = {
+						"puid" : puid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));		
+			mui.post(addScoreAddress,{
+					method:"addTime",
+					puid:puid,
+					type:4,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+			},function(data){
+					
+				},'json')
+		});
+		window.addEventListener("loading",function(e){
+			var height = event.detail.height;
+			var divPage =  event.detail.divPage;
+			var cid = event.detail.cid;
+			backRefresh(cid,divPage);
+			window.scrollTo(0,height);
+			var userid = pernr.pernr;
+					mui.post(comcontentAddress,{
+						method:"qyerySelfContent",
+						pernr:userid
+					},function(data){
+						if(data.result){
+							if(data.data.length == 0){
+								$(".UnreadInfo").hide();
+							}else{
+								$(".UnreadInfo").show();
+;								$("#info").html(data.data.length);
+								commentId = data.data;
+							}
+						}
+					},'json');
+		});
+		
+		function backRefresh(cid,divPage){
+			mui.post(comcontentAddress,{
+						method:"queryp",
+						cid:cid					
+				},function(data){
+						if(data.result){		
+							refresh_comment(data.data.count1,divPage);
+						}
+					},'json'
+				);
+		}
+		function refresh_comment(num,divPage){
+			var dp =   document.getElementById(divPage); 
+			
+			if(num!=null){
+				dp.innerText =num;
+			}
+		}
+//		跳转未读信息界面
+		function toUnreadInfo(){
+				mui.openWindow({
+					url: 'Unread_Info.html',
+					id:  'Unread_Info.html',
+					extras:{
+				      commentId	:commentId
+				   	},
+				   	waiting:{
+			      		autoShow:true,//自动显示等待框，默认为true
+				      	title:'正在加载...'//等待对话框上显示的提示内容
+				    }
+				});		
+		}
+		
+
+	</script>
+</html>

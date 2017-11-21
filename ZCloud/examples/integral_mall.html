@@ -1,0 +1,283 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../js/remjs.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/integral_mall.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<style>
+			.hh a img{
+				height: 3.5rem;
+			}
+			#bannerlist img{
+				height:4.73rem ;
+			}
+		</style>
+	
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;box-shadow: none;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">积分商城</h1>    
+		</header>
+		
+		<!--图片播放-->
+
+			<div class="mui-slider " style="margin-top: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+			 	<div id="bannerlist" class="mui-slider-group mui-slider-loop">
+
+				</div>
+				<div class="mui-slider">
+				 	<div id="bannerDiv" class="mui-slider-group mui-slider-loop">
+	
+				    </div>
+				     <div id="bannerIndicator" class="mui-slider-indicator mui-text-center">
+					</div>
+				</div>
+				
+		    </div>
+		 <!--图片播放下的窗口-->
+		 
+		 <div class="bgW integral ptb10">
+		 	<img src="../img/integral_mall/icon.png"/ class="ImgWidth ml10">
+		 	<span class="" style="font-size: 14px;padding-right:5px;padding-left: 6px;">
+		 		<span>积分:</span><span id="score">123</span>
+		 	</span>
+		 	<form class="dib" style="-webkit-flex: 8;padding-right: 10px;">
+			    <span class="mui-input-row" style="position: relative;">
+			    	<img src="../img/integral_mall/search_1.png" class="SearchText" />
+			        <input id="searchText" type="text" class="" style="margin-bottom:0;height:32px;padding-left: 26px;font-size:14px;" placeholder="请输入商品进行搜索">
+			        <img onclick="javascript:clearText();" src="../img/integral_mall/icon_close.png" class="cancelText" />
+			    </span>
+			</form>
+			<span onclick="javascript:searchDo();" class="confirm"><a>搜索</a></span>
+		 </div>
+		 
+		 <div class="bgW">
+		 	<div>
+		 		<div class="bgW mt5 Digital" style="padding-bottom: 10px;padding-top: 10px;position: relative;">
+			 		<span id="titleB" style="font-size: 14px;">全部商品</span><span><img src="../img/integral_mall/icon_more.png" class="nextImg"/></span>
+			 	</div>
+			 	<div class="popUp">
+			 		<ul id="sortUL">
+			 			
+			 		</ul>
+			 	</div>
+		 	</div>
+		 	<div>
+		 		<img src="../img/integral_mall/bj_2.png" class="w100" style="display: inherit;height:1.61rem;" />
+		 	</div>
+		 	<div>
+		 		<ul id="ur">
+		 			
+		 			
+		 		</ul>
+		 	</div>
+		 </div>
+	</body>
+		<script src="../js/mui.min.js">
+			mui.init();
+		</script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script>
+			var pernr = null;
+			mui.plusReady(function() {
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				var signData = {
+						"pernr" : pernr.pernr,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"shopall",
+							pernr:pernr.pernr,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							shop(data.data);	
+						}
+					},'json');
+			});
+			function shop(all){
+				//用户积分
+				var all = JSON.parse(JSON.stringify(all));
+				var score = all.pernr.score;
+				$("#score").text(score);
+				//轮播图
+				var bannerlist = all.bannerlist;
+				var banner = $("#bannerlist");
+				banner.empty();
+				for(var i = 0; i < bannerlist.length; i++){
+					if(i == 0){
+						 banner.append(
+						 	"<div class=\"mui-slider-item mui-slider-item-duplicate hh\"><a href=\"#\"\>"+
+						 	"<img src=\""+ serverIp +"images/" + bannerlist[bannerlist.length-1].simage + "\"/></a></div>"
+						 );
+					}
+					banner.append(
+						 	"<div class=\"mui-slider-item hh\"><a href=\"#\"\>"+
+						 	"<img src=\""+ serverIp +"images/" + bannerlist[i].simage + "\"/></a></div>"
+					);
+					if(i == bannerlist.length-1){
+						banner.append(
+						 	"<div class=\"mui-slider-item mui-slider-item-duplicate hh\"><a href=\"#\"\>"+
+						 	"<img src=\""+ serverIp +"images/" + bannerlist[0].simage + "\"/></a></div>"
+						 );
+					}
+				}
+				mui(".mui-slider").slider({interval: 3000});
+				//商品
+				var ur = $("#ur");
+				var Itemlist = all.Itemlist;
+				ur.empty();
+				mui.each(Itemlist,function(index,item){
+					ur.append(
+						"<li onclick='javascript:commodityDetails("+item.id+")'  class=\"texc ptb510 br bt\">"+
+		 				  	"<div class=\"fs77 colorBT\">"+item.iname+"</div>"+
+		 					"<p class=\"fs60 color87\"></p>"+
+		 					"<img src=\""+ serverIp +"images/" + item.icover + "\"  class=\"w60\"/>"+
+		 					"<div><span class=\"muchIntegral\">"+item.iscore+"</span></div>"+
+		 				"</li>"
+					);
+				});
+				//商品分类
+				var shopsortlist = all.shopsortlist;
+				var sortUL=$("#sortUL");
+				sortUL.empty();
+				sortUL.append("<li onclick='javascript:appendAll()'>全部商品</li>");
+				mui.each(shopsortlist,function(index,item){
+					sortUL.append(
+						"<li onclick='javascript:append("+item.id+",\""+item.sname+"\");'>"+item.sname+"</li>"
+					);
+				});
+			}
+			function commodityDetails(shopid){
+				mui.openWindow({
+							url: 'integral_mall_detail.html',
+							id: 'integral_mall_detail.html',
+							extras:{
+				      		 	shopid : shopid
+				   			},
+				   			waiting:{
+			      				autoShow:true,
+				      			title:'正在加载...'
+				    		}
+				});		
+			}
+			//获取全部商品
+			function appendAll(){
+				var signData = {
+						"pernr" : pernr.pernr,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"shopall",
+							pernr:pernr.pernr,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							$("#titleB").text("全部商品");
+							shop(data.data);	
+						}
+					},'json');
+			}
+			//获取分类商品
+			function append(iid,titleB){
+				$("#titleB").text(titleB);
+				var signData = {
+						"iid" : iid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"append",
+							iid:iid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+				},function(data){
+						if(data.result){
+							var item = JSON.parse(JSON.stringify(data.data));
+							//商品
+							var ur = $("#ur");
+							ur.empty();
+							mui.each(item,function(index,item){
+								ur.append(
+									"<li onclick='javascript:commodityDetails("+item.id+")'  class=\"texc ptb510 bl bt\">"+
+		 						  	"<div class=\"fs77 colorBT\">"+item.iname+"</div>"+
+		 							"<img src=\""+ serverIp +"images/" + item.icover + "\"  class=\"w60\"/>"+
+		 							"<div><span class=\"muchIntegral\">"+item.iscore+"</span></div>"+
+		 							"</li>"
+								);
+							});
+						}
+					},'json');
+			}
+			//搜索
+			function searchDo(){
+				var iname = $("#searchText").val();
+				$("#searchText").text("");
+				var signData = {
+						"iname" : iname,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(shopAddress,{
+							method:"search",
+							iname:iname,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.result){
+							var item = JSON.parse(JSON.stringify(data.data));
+							//商品
+							var ur = $("#ur");
+							ur.empty();
+							mui.each(item,function(index,item){
+								ur.append(
+									"<li onclick='javascript:commodityDetails("+item.id+")'  class=\"texc ptb510 bl bt\">"+
+		 						  	"<div class=\"fs77 colorBT\">"+item.iname+"</div>"+
+		 							"<img src=\""+ serverIp +"images/" + item.icover + "\"  class=\"w60\"/>"+
+		 							"<div><span class=\"muchIntegral\">"+item.iscore+"</span></div>"+
+		 							"</li>"
+								);
+							});
+						}
+					},'json');
+			}
+			//清空
+			function clearText(){
+				$("#searchText").val("");
+			}
+//			弹窗
+				$(document).ready(function(){
+ 					 $(".Digital").on("tap",function(){
+  						  $(".popUp").toggle();
+  					});
+				});
+
+		</script>
+	</html>

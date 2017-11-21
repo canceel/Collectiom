@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="background-color: #2768B7;height: 20px;" >
+		    <div class="mui-tab-item "style="margin-top: 12px;" id="teacher_father">
+		        <div id=""style="margin-top: 5px">
+		        	<font id="teacher" class="mui-tab-label" style="color:#FFFFFF;text-align: center;font-size: 14px;">赞赏讲师</font>
+		        </div>
+		    </div>
+		</nav>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				subpages:[{
+					url:'show_lesson_content.html',
+      			id:'show_lesson_content.html',
+      			styles:{
+					top:'0px',
+      				bottom:'51px',
+      				width: "100%"		
+      			}
+				}]
+			});
+			   /*赞赏讲师*/
+      	   document.getElementById("teacher_father").addEventListener('tap',function(){
+      			mui.openWindow({
+      				url:'teacher.html',
+      				id:'teacher.html'
+      			});
+      	});
+		</script>
+	</body>
+
+</html>

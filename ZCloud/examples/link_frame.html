@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title"style="margin-top: 15px;" id="nav_title">企业新闻</h1>    
+		</header>
+		<div class="head1">
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				$(document).ready(function(){
+				var self = plus.webview.currentWebview();
+				var link_url = self.blink;
+				var title = self.title;
+				$("#nav_title").html(title);
+				mui.init({
+					subpages:[{
+						url:link_url,
+						id:'link',
+						styles:{
+							top:'55px',
+							bottom:'0px'
+						}
+					}]
+				});
+			});
+			})	
+		</script>
+	</body>
+
+</html>

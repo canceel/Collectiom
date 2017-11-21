@@ -1,0 +1,454 @@
+<!doctype html>
+<!--零售实操主页面-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+	</head>
+		<style>
+		body,html{
+			position: fixed;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			background-color: #fff;
+		}
+		.loadWeb{
+			position: fixed;
+			z-index: 2;
+			background-color: #454545;
+			color: #fff;
+			padding:10px 20px;
+			border-radius: 8px;
+		}
+		.LoadMask{
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+		/*ul{
+			margin-left: 10px;
+			margin-right: 10px;
+		}*/
+	</style>
+	<body id="bd">
+		<header class="mui-bar mui-bar-nav" style="height: 55px;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title" style="margin-top: 15px;" id="page_title">零售实操</h1>    
+			<a href="#" id="search_start" style="position: absolute;right: 0;width: 40px;height: 55px;padding-right: 15px;"><img src="../img/retail_operation/icon_search.png" style="display:inline-block;float:right;margin-top:30px;height: 15px;"/></a>
+		</header>
+
+		<div id="search_Bar">
+			<img src="../img/retail_operation/icon_search_1.png"/>
+			<input id="a" class="search" type="text" placeholder="搜索你感兴趣的内容"/>
+			<span class="search_cancel">取消</span>
+			<button id="searchBtn" class="search_button">搜索</button>
+		</div>
+		<div class="mui-content" >
+			<!--各个专栏  mui-progressbar-->
+			<div id="courseSortDiv" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height:45px;background-color: #fff;position: fixed;top:50px;">
+				<div class="mui-scroll" id="title_background">	
+
+				</div>
+			</div>
+			<!--各个专栏的内容-->	
+			<div id="course_content_list" class="retail_operation_content" style="margin-top: 50px;">
+				<!--生鲜专栏-->
+				<div class="retail_operation_content1" id="retail_1" style="">
+					<ul class="mui-table-view">
+						<!--<div class="price_detail">
+							<div class="price_before">原价<span>￥1.99</span></div>
+							<div class="price_now">现价<span>￥0.00</span></div>							
+						</div>-->
+					</ul>
+				<!--生鲜专栏的div-->
+				</div>	
+				<!--食品用品专栏-->
+				<div class="retail_operation_content1" id="retail_2" style="">
+					
+				</div>	
+				<!--餐饮加工专栏-->
+				<div class="retail_operation_content1" id="retail_3" style="">
+					
+				</div>
+				<!--公共分享专栏-->
+				<div class="retail_operation_content1" id="retail_4"  style="">
+					
+				</div>	
+			</div>	
+		<!--对应mui-content的-->		
+		</div>		
+	</body>		 
+	<!--页面加载弹窗-->
+<div class="loadWeb">加载中...</div>
+<div class="LoadMask"></div>	
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script type="text/javascript">
+		mui.init();
+		</script>
+		<script type="text/javascript">
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			var tid = self.tid;
+			var pageTitle = "零售实操";
+			switch(tid){
+				case 2:
+					pageTitle = "成长教练";
+					break;
+				case 3:
+					pageTitle = "能力提升";
+					break;
+				case 4:
+					pageTitle = "认知迭代";
+					break;
+				default:
+					break;
+			}
+			$("#page_title").html(pageTitle);
+			
+			var signData = {
+				"tid" : tid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(courseSortAddress,{
+				method:"query",
+				tid:tid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawSort(data.data);
+				}else{
+					//服务器繁忙
+				}
+			},'json');
+
+		});
+		function drawSort(courseSortList){
+				var sortDiv = $("#title_background");
+				mui.each(courseSortList,function(index,item){
+					if(index == 0){
+						getCourse(item.id);
+						sortDiv.append("<a name=\"" + item.id + "\" class=\"mui-control-item mui-active\" style=\"font-size:14px;font-weight: 500;margin-right: 0;\">" + item.stitle + "</a>");
+						$("#title_background a").css("width","50vw");
+					}else{
+						sortDiv.append("<a name=\"" + item.id + "\" class=\"mui-control-item\" style=\"font-size:14px;font-weight: 500;margin-right:0;\">" + item.stitle + "</a>");
+						if(index==1){
+							$("#title_background a").css("width","40vw")
+						}
+						if(index==2){
+							$("#title_background a").css("width","33vw")
+						}
+						if(index>2){
+							$("#title_background a").css("width","25vw")
+						}
+					}
+				});
+			}
+			var count = 0;
+			function getCourse(sid){
+				signData = {
+					"csid" : sid,
+					"pageNo" : 1,
+					"pageSize" : 99,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				signature = getSignature(signData);
+				signature_md5 = md5(md5(signature));
+				mui.post(courseAddress,{
+					method:"query",
+					csid:sid,
+					pageNo:1,
+					pageSize:99,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						if(count == 0){
+							fristDrawCourse(data.data, sid);
+						}else{
+							drawCourse(data.data, sid);
+						}
+					}else{
+						//服务器繁忙
+					}
+				},'json');
+			}
+
+           	function fristDrawCourse(courselist, sid){
+           		$("div[class=retail_operation_content1]").each(function(){
+			    	$(this).hide();
+			  	});
+				var course_content_list = $("#course_content_list");
+				if($("div[name=" + sid + "]").length > 0){
+				  	$("div[name=" + sid + "]").show();
+				}else{
+					var t_li = $(".mui-control-item");
+	                var c_li = $(".retail_operation_content1");
+	                $("a").on("tap",function(){
+	                    var i = t_li.index($(this));
+	                    function way() {
+	                        t_li.removeClass("mui-active").eq(i).addClass("mui-active");
+	                        c_li.hide().eq(i).show();
+	                    }
+	                    timer = setTimeout(way, 0);
+	                }, function() {
+						var sortId = $(this).attr("name");
+						getCourse(sortId);
+	                });
+					var course_content_list = $("#course_content_list");
+					mui.each(courselist,function(index,item){
+						var retail_totalDiv=$("<div/>").addClass("retail_operation_content1").attr("name",item.id).click(function(){
+							mui.openWindow({
+								url: 'hot_course_father.html',
+								id: 'hot_course_father.html',
+								extras:{
+				       				 cid:item.id
+				   				},
+				   				waiting:{
+			      					autoShow:true,
+				      				title:'正在加载...'
+				   				 }
+							});
+						});
+						var retail_ul=$("<ul>").addClass("mui-table-view");
+						var retail_li=$("<li/>").addClass("mui-table-view-cell mui-media");
+						var retail_wrapDiv = $("<div/>").attr("href","javascript:openContent()").addClass("contentOut");
+						var retail_Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ccover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px",
+					 	});
+						 /*div包含3个p标签*/
+					 	var retail_rDiv = $("<div/>").addClass('mui-media-body');
+					 	var retail_pTitle = $("<p/>").addClass('font-first-line').html(item.ntitle);
+					 	var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis); 
+//					 	价格样式
+					 	var retail_priceOut=$("<div/>").addClass("price_detail");
+					 	var retail_priceBefore=$("<div/>").addClass("price_before").html("原价 "+item.cprice+"");
+					 	var retail_priceNow=$("<div/>").addClass("price_now").html("现价 "+item.discount+"");
+					 	
+					 	if(item.cpay==0){
+					 		var retail_pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html(item.csynopsis); 
+					 		retail_rDiv.append(retail_pTitle).append(retail_pContent);
+					 	}else{
+					 		if(item.cprice==item.discount){
+					 			var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis); 
+		 						retail_rDiv.append(retail_pTitle).append(retail_pContent);
+							 	retail_priceOut.append(retail_priceNow);
+							 	retail_rDiv.append(retail_priceOut)
+					 		}else{
+					 			var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis); 
+							 	retail_rDiv.append(retail_pTitle).append(retail_pContent);
+							 	retail_priceOut.append(retail_priceBefore);
+							 	retail_priceOut.append(retail_priceNow);
+							 	retail_rDiv.append(retail_priceOut)	
+					 		}
+					 	}
+//					 	retail_rDiv.append(retail_pTitle).append(retail_pContent);
+//					 	retail_priceOut.append(retail_priceBefore);
+//					 	retail_priceOut.append(retail_priceNow);
+//					 	retail_rDiv.append(retail_priceOut)
+						/*最后一个p标签分别包含2个img和2个span*/
+					 	var retail_pChunk = $("</p>").addClass("TimeStyle");
+					 	var retail_iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 	var retail_tt = new Date(item.ccreateTime);
+					 	var retail_time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(retail_tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 	var retail_iconImg2 = $("<img/>").addClass('img-second-size').attr("src","../img/retail_operation/icon_2.png");
+					 	var retail_num=$("<span/>").addClass('font-fourth-size').html(item.ctr);
+					 	retail_pChunk.append(retail_iconImg1).append(retail_time).append(retail_iconImg2).append(retail_num);
+					 	retail_rDiv.append(retail_pChunk);
+					 	
+					 	retail_wrapDiv.append(retail_Img);
+					 	retail_wrapDiv.append(retail_rDiv);
+					 	retail_li.append(retail_wrapDiv);
+						retail_ul.append(retail_li);
+						retail_totalDiv.append(retail_ul);
+						course_content_list.append(retail_totalDiv);
+						document.getElementsByClassName("contentOut")[0].getElementsByTagName("img")[0].onload = function() {
+							$(".LoadMask").css("display","none");
+							$(".loadWeb").css("display","none");
+							$("body,html").css({"position":"absolute","overflow":"visible"});
+						}
+					});
+				}
+           	}
+           
+			function drawCourse(courselist, sid){
+				$("div[class=retail_operation_content1]").each(function(){
+			    	$(this).hide();
+			  	});
+				var course_content_list = $("#course_content_list");
+				if($("div[name=" + sid + "]").length > 0){
+				  	$("div[name=" + sid + "]").show();
+				}else{
+					var t_li = $(".mui-control-item");
+	                var c_li = $(".retail_operation_content1");
+					var course_content_list = $("#course_content_list");
+					console.log(courselist);
+					mui.each(courselist,function(index,item){
+						var retail_totalDiv=$("<div/>").addClass("retail_operation_content1").attr("name",item.id).click(function(){
+							mui.openWindow({
+								url: 'hot_course_father.html',
+								id: 'hot_course_father.html',
+								extras:{
+				       				 cid:item.id
+				   				},
+				   				waiting:{
+			      					autoShow:true,
+				      				title:'正在加载...'
+				   				 }
+							});
+						});
+						var retail_ul=$("<ul>").addClass("mui-table-view");
+						var retail_li=$("<li/>").addClass("mui-table-view-cell mui-media");
+						var retail_wrapDiv = $("<div/>").attr("href","javascript:openContent()").addClass("contentOut");
+						var retail_Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ccover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px",
+					 	});
+						 /*div包含3个p标签*/
+					 	var retail_rDiv = $("<div/>").addClass('mui-media-body');
+					 	var retail_pTitle = $("<p/>").addClass('font-first-line').html(item.ntitle);
+//					 	var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis);
+//					 	价格样式
+					 	var retail_priceOut=$("<div/>").addClass("price_detail");
+					 	var retail_priceBefore=$("<div/>").addClass("price_before").html("原价 "+item.cprice+"");
+					 	var retail_priceNow=$("<div/>").addClass("price_now").html("现价 "+item.discount+"");
+					 	
+					 	if(item.cpay==0){
+					 		var retail_pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html(item.csynopsis);
+					 		retail_rDiv.append(retail_pTitle).append(retail_pContent);
+					 	}else{
+					 		if(item.cprice==item.discount){
+					 			var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis);
+		 						retail_rDiv.append(retail_pTitle).append(retail_pContent);
+							 	retail_priceOut.append(retail_priceNow);
+							 	retail_rDiv.append(retail_priceOut)
+					 		}else{
+					 			var retail_pContent = $("<p/>").addClass('mui-ellipsis-1 font-second-line').html(item.csynopsis);
+							 	retail_rDiv.append(retail_pTitle).append(retail_pContent);
+							 	retail_priceOut.append(retail_priceBefore);
+							 	retail_priceOut.append(retail_priceNow);
+							 	retail_rDiv.append(retail_priceOut)	
+					 		}
+					 	}			 	
+						/*最后一个p标签分别包含2个img和2个span*/
+					 	var retail_pChunk = $("</p>").addClass("TimeStyle");
+					 	var retail_iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 	var retail_tt = new Date(item.ccreateTime);
+					 	var retail_time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(retail_tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 	var retail_iconImg2 = $("<img/>").addClass('img-second-size').attr("src","../img/retail_operation/icon_2.png");
+					 	var retail_num=$("<span/>").addClass('font-fourth-size').html(item.ctr);
+					 	retail_pChunk.append(retail_iconImg1).append(retail_time).append(retail_iconImg2).append(retail_num);
+					 	retail_rDiv.append(retail_pChunk);
+					 	retail_prdivNow.append(retail_prspan);
+					 	retail_prdiv.append(retail_primg).append(retail_prdivPe).append(retail_prdivNow);
+					 	retail_wrapDiv.append(retail_prdiv);
+					 	retail_wrapDiv.append(retail_Img);
+					 	retail_wrapDiv.append(retail_rDiv);
+					 	retail_li.append(retail_wrapDiv);
+						retail_ul.append(retail_li);
+						retail_totalDiv.append(retail_ul);
+						course_content_list.append(retail_totalDiv);
+						document.getElementsByClassName("contentOut")[0].getElementsByTagName("img")[0].onload = function() {
+							$(".LoadMask").css("display","none");
+							$(".loadWeb").css("display","none");
+							$("body,html").css({"position":"absolute","overflow":"visible"});
+						}
+					});
+				}
+			}
+//			搜索行
+
+			document.getElementById("search_start").addEventListener('tap',function(){
+				$(".mui-bar,.mui-content,.mui-scroll-wrapper,.retail_operation_content").css("display","none");
+				$("#search_Bar").css("display","flex");
+				$(".mui-content").css("padding-top","0");
+			});
+			document.getElementsByClassName("search_cancel")[0].addEventListener('tap',function(){
+				$(".mui-bar,.mui-content,.mui-scroll-wrapper,.retail_operation_content").css("display","block");
+				$(".mui-content").css("padding-top","44px");
+				$("#search_Bar").css("display","none");
+				$(".search").blur();
+			});
+			$(document).ready(function(){
+				$(".search").bind("input porpertychange",function(){ 
+					var search_val=$(".search").val();
+					if(search_val!=""){
+						$(".search_button").css("display","block");
+						$(".search_cancel").css("display","none");
+					}else{
+						$(".search_button").css("display","none");
+						$(".search_cancel").css("display","block");
+					}
+				})
+			});		
+//			搜索
+			document.getElementById("searchBtn").addEventListener('tap',function(){
+				var text = $("#a").val();		
+				mui.post(searchAddress,{
+					method:"queryLesCourse",
+					content:text
+				},function(data){
+					if(data.result){					
+						mui.openWindow({
+							url: 'search.html',
+							id: 'search.html',
+							extras:{
+			       				 courseList:data.data
+			   				},
+			   				waiting:{
+		      					autoShow:true,
+			      				title:'正在加载...'
+			   				 }
+						});
+					}
+				$(".search_button").css("display","none");
+				$(".search_cancel").css("display","block");
+				$(".mui-bar,.mui-content,.mui-scroll-wrapper,.retail_operation_content").css("display","block");
+				$(".mui-content").css("padding-top","44px");
+				$("#search_Bar").css("display","none");
+				},'json');
+				$(".search").val("");
+			});
+
+//		判断图片是否加载完毕
+		$(document).ready(function(){
+			var screenWidth=$(window).width();
+			var screenHeight=$(window).height();
+			var loadWidth=$(".loadWeb").width();
+			var loadHeight=$(".loadWeb").height();
+			var width_Gap=(screenWidth-loadWidth)/2-20;
+			var height_Gap=(screenHeight-loadHeight)/2;
+			$(".loadWeb").css({"left":width_Gap,"top":height_Gap});
+		})
+		</script>
+	</body>
+
+</html>

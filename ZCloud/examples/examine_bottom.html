@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<style type="text/css">
+			.div_content{
+				width: 100%;
+				margin-top: 60px;
+				margin-bottom: 52px;
+				float: left;
+				overflow: auto;
+			}
+			.div_test{
+				width: auto%;
+				height: auto;
+				margin-left: 3%;
+			}
+			.div_line{
+				width: 94%;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+	<!--首页头部  -->
+	<header class="mui-bar mui-bar-nav " style="height:55px;" >
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="margin-top: 15px;color: #FFFFFF;padding-right: 30px;"></a>
+	    <h1 class="mui-title" style="margin-top: 15px;" >考试</h1>
+	</header>
+	<div class="div_content" id="contentHeight">
+		<div class="div_test" id="subject">
+
+		</div>
+		
+	</div>
+	<button id="refer" class="mui-btn mui-btn-primary mui-btn-block" style="position: fixed;bottom: 0;border-radius: 0;background-color: #2768B7;font-size: 15px;margin-bottom: 0;padding: 12px 0;">提交试卷</button>
+
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<script type="text/javascript">				
+			var person = null;
+			var tuid = null;
+			var tlid = null;
+			mui.plusReady(function(){	
+
+				var self = plus.webview.currentWebview();
+				tlid = self.lessonId;	
+				person = JSON.parse(plus.storage.getItem("person"));
+				tuid = person.pernr;
+				var signData = {
+					"tlid":tlid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(testRecordAddress,{
+					method:"getTest",
+					tlid:tlid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5,
+				},function(data){
+					if(data.result){
+						drawTest(data.data.testList);
+						drawTestCount(data.data.subjectNumber);
+					}
+				},'json')
+				
+				var signData = {			
+					"tlid" : tlid,
+					"tuid" : tuid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(testRecordAddress,{
+					method:"loginTest",
+					tlid:tlid,
+					tuid:tuid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						if(data.data == 0){
+							$("#refer").hide();
+							$("#contentHeight").css("height","auto");
+							toast("您已考核过该课程,请去我的考核记录查看成绩",3000);
+						}
+					}
+				},'json')						
+			});		
+							
+			function drawTestCount(subjectNumber){
+				var refer = $("#refer");
+				refer.append(
+					"<input type=\"hidden\" id=\"count\" name=\"count\" value=\" " +subjectNumber+ "\" /> "
+				);
+			}					
+				
+			function drawTest(testList){
+				var subject = $("#subject");			
+				mui.each(testList,function(index,item){
+					if(item.ttype == 1){
+						subject.append(
+							"<div  style=\"font-size: 14px;\" >"+(index+1)+"."+item.ttitle+
+								"<a style=\"text-decoration: underline;color: #000000;\">&nbsp;&nbsp;&nbsp;<span>?</span>&nbsp;&nbsp;&nbsp;</a>。(单选题)"+
+								"<div  style='border-bottom: 1px solid #E5E5E5;width: 96%;'   id=\"" + item.id +"\" name=\"testSubject\">"+
+								"</div>"+
+							"</div>"
+						);				
+						mui.post(testRecordAddress,{
+							method:"getOption",
+							tid:item.id
+						},function(data){
+							if(data.result){					
+								var optionDiv = $("#" + item.id);						
+								mui.each(data.data.optionList,function(nm,vlu){							
+									optionDiv.append(	
+										"<div class=\"mui-input-row mui-radio mui-left\" style=\"margin-top:8px;\">"+
+											"<label style=\"color: #212121;font-size: 14px;margin-left: -5px;\">"+vlu.otext+"</label>"+
+											"<input   value=\"" + vlu.id + "\"   name=\""+item.id+"\"    ttc=\""+item.tkey+"\"    ttid=\""+item.id+"\" type=\"radio\"    style=\"margin-top: 4px;\">"+
+										"</div>"
+									
+									);	
+	
+								});			
+							}						
+						},'json');	
+					}else if(item.ttype == 2){
+						subject.append(
+							"<div  style=\"font-size: 14px;\" >"+(index+1)+"."+item.ttitle+
+								"<a style=\"text-decoration: underline;color: #000000;\">&nbsp;&nbsp;&nbsp;<span>?</span>&nbsp;&nbsp;&nbsp;</a>。(多选题)"+
+								"<div   style='border-bottom: 1px solid #E5E5E5;width: 96%;'  id=\"" + item.id +"\" name=\"testSubject\">"+
+								"</div>"+
+							"</div>"
+						);						
+						mui.post(testRecordAddress,{
+							method:"getOption",
+							tid:item.id
+						},function(data){
+							if(data.result){											
+								var optionDiv = $("#" + item.id);						
+								mui.each(data.data.optionList,function(nm,vlu){
+									optionDiv.append(	
+										"<div class=\"mui-input-row mui-checkbox mui-left\" style=\"margin-top:8px;\">"+
+											"<label style=\"color: #212121;font-size: 14px;margin-left: -5px;\">"+vlu.otext+"</label>"+
+											"<input value=\"" + vlu.id + "\"   name=\""+item.id+"\"   ttid=\""+item.id+"\"  type=\"checkbox\"  style=\"margin-top: 4px;\">"+
+										"</div>"				
+									);
+								});
+							}
+						},'json');			
+					}else if(item.ttype == 3){
+						subject.append(
+							"<div  style=\"font-size: 14px;\" >"+(index+1)+"."+item.ttitle+
+								"<a style=\"text-decoration: underline;color: #000000;\">&nbsp;&nbsp;&nbsp;<span>?</span>&nbsp;&nbsp;&nbsp;</a>。(判断题)"+
+								"<div  style='border-bottom: 1px solid #E5E5E5;width: 96%;' id=\"" + item.id +"\" name=\"testSubject\">"+
+								"</div>"+
+							"</div>"
+						);					
+						mui.post(testRecordAddress,{
+							method:"getOption",
+							tid:item.id
+						},function(data){
+							if(data.result){											
+								var optionDiv = $("#" + item.id);						
+								mui.each(data.data.optionList,function(nm,vlu){							
+									optionDiv.append(	
+										"<div class=\"mui-input-row mui-radio mui-left\" style=\"margin-top:8px;\">"+
+											"<label style=\"color: #212121;font-size: 14px;margin-left: -5px;\">"+vlu.otext+"</label>"+
+											"<input value=\"" + vlu.id + "\" name=\""+item.id+"\" type=\"radio\" style=\"margin-top: 4px;\">"+
+										"</div>"
+									);
+								});
+							}
+						},'json');			
+					}				 			
+				});
+			}
+			
+			var json = [];
+			var jsonCheckBox = [];
+			var choose = 0; 
+			var flag = false;
+		
+			document.getElementById("refer").addEventListener('tap',function(){	
+				plus.nativeUI.showWaiting("提交中,耐心等待",{padlock: true}); 
+				$("#refer").attr("disabled", true);	
+				var count = $('#count').val();
+				var array = new Array();
+				$("#subject div[name='testSubject']").each(function(){
+					var sid = $(this).attr('id');
+					var selected = "";
+					$("input[name='" + sid +"']:checked").each(function(){
+						selected += $(this).val() + ",";
+					});	  			
+					if(selected != ""){
+					 	choose=choose+1; 				
+					}
+					var test = {
+							sid:sid, 
+							selected:selected
+						};
+					array.push(test);
+				});
+				flag =  choose >= count ? true : false;
+				choose = 0;
+				if(flag){				
+					var strArray = JSON.stringify(array)
+					console.log(strArray);	
+					var signData = {
+						"tlid":tlid,
+						"tuid":tuid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+//					mui.post(testRecordAddress,{
+//						method:"getAnswer",
+//						answer:strArray,
+//						tlid:tlid,
+//						tuid:tuid,						
+//						token:token,
+//						timeInMillis:getTimestamp(),
+//						signature:signature_md5
+//					},function(data){
+//						if(data.result){
+//							toast("交卷成功!",3000);
+//							$("#refer").attr("disabled", false);	
+//							mui.back();
+//						}
+//					},'json')
+					mui.ajax(testRecordAddress,{
+						data:{
+							method:"getAnswer",
+							answer:strArray,
+							tlid:tlid,
+							tuid:tuid,						
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:35000,//超时时间设置为10秒；
+						success:function(data){
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.result){
+								toast("交卷成功!",2000);
+								$("#refer").attr("disabled", false);	
+								plus.nativeUI.closeWaiting(); 
+								mui.back();
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							plus.nativeUI.closeWaiting(); 
+							$("#refer").attr("disabled", false);	
+							toast("服务器繁忙，请重试",2000);
+						}
+					})
+				}else{
+					plus.nativeUI.closeWaiting(); 
+					toast("请完整填写考卷!",1000);
+					$("#refer").attr("disabled", false);	
+				}	
+			});			 
+		</script>		
+	</body>
+
+</html>

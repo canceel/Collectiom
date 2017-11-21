@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<style>
+			body,html{
+				position: fixed;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+			}
+			.loadWeb{
+				position: fixed;
+				z-index: 2;
+				background-color: #454545;
+				color: #fff;
+				padding:10px 20px;
+				border-radius: 8px;
+			}
+			.LoadMask{
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title"style="margin-top: 15px;" >企业新闻</h1>    
+			<a href="#" id="search_start" style="position: absolute;right: 0;width: 40px;height: 55px;padding-right: 15px;"><img src="../img/retail_operation/icon_search.png" style="display:inline-block;float:right;margin-top:30px;height: 15px;"/></a>
+		</header>
+		<div id="search_Bar"><img src="../img/retail_operation/icon_search_1.png"/><input id="a" class="search" type="text" placeholder="搜索你感兴趣的内容"/>
+			<span class="search_cancel" style="padding-top: 10px;padding-bottom: 10px;">取消</span>
+			<button id="searchBtn" class="search_button">搜索</button>
+		</div>
+		<div class="head1">
+		</div>
+		<div class="mui-content" style="margin-top: 12px;">
+			<div id="retail" class="mui-slider-item mui-control-content mui-active">
+				<!--图文列表-->
+				<ul id="newsListDiv" class="mui-table-view" >
+				  
+				</ul>
+			</div>				
+		</div>
+		<!--页面加载弹窗-->
+		<div class="loadWeb">加载中...</div>
+		<div class="LoadMask"></div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script type="text/javascript" src="../js/h.js" ></script>
+		<script type="text/javascript">
+			var pageNo = 1;
+			var pageSize =10;
+			mui.init({
+  			 	pullRefresh : { 
+				container:"#newsListDiv",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			    down : {
+				      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+				      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+				      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+				      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+				      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+	//			      auto: true,//可选,默认false.首次加载自动上拉刷新一次
+				      callback :refresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				    },
+				up : {
+      				 height:'50px',//可选.默认50.触发上拉加载拖动距离
+     				 auto:false,//可选,默认false.自动上拉加载一次
+    				 contentrefresh : '正在加载...',//可选，正在加载状态时，上拉加载控件上显示的标题内容
+     				 contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+     				 callback :uploading//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+   					}
+				}
+			});
+			
+			function refresh(){
+				window.location.reload();
+				mui('#newsListDiv').pullRefresh().endPulldown(true);		
+			}
+			
+			
+			function uploading(){		
+				pageNo = pageNo + 1;
+				console.log(pageNo);
+				var signData = {
+					"pageNo" : pageNo,
+					"pageSize" : pageSize,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(newsAddress,{
+					method:"news",
+					pageNo:pageNo,
+					pageSize:pageSize,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						console.log(data.data.newslist);
+						drawUpNews(data.data);
+					}else{
+						
+					}
+				},'json');
+			 	mui('#newsListDiv').pullRefresh().endPullupToRefresh(false);
+			}
+			
+			function drawUpNews(newslist){
+				var newsListDiv = $("#newsListDiv");
+				console.log(newslist)
+				mui.each(newslist,function(index,item){
+					 var Li = $("<li/>").addClass("mui-table-view-cell mui-media");
+					 var wrapDiv = $("<a/>").attr("onclick","openNewsContent(" + item.id + "," + item.ntype + ",'" + item.ntitle + "','" + item.nlink + "')");
+					 /*img与div同级*/
+					 var Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ncover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px"
+					 	});
+					 /*div包含3个p标签*/
+					 var rDiv = $("<div/>").addClass('mui-media-body');
+					 var pTitle = $("<p/>").addClass('font-first-line').html(item.ntitle);
+					 var pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html("根据用户需求为商品添加多城市覆盖，精确定到\"省、市、区（县）\",就近安排");
+					 rDiv.append(pTitle).append(pContent);
+					/*最后一个p标签分别包含2个img和2个span*/
+					 var pChunk = $("</p>");
+					 var iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 var tt = new Date(item.ncreaterTime);
+					 var time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 pChunk.append(iconImg1).append(time);
+					 rDiv.append(pChunk);
+					 wrapDiv.append(Img);
+					 wrapDiv.append(rDiv);
+					 Li.append(wrapDiv);
+					newsListDiv.append(Li);
+					document.getElementsByClassName("mui-media")[0].getElementsByTagName("img")[0].onload = function() {
+						$(".LoadMask").css("display","none");
+						$(".loadWeb").css("display","none");
+						$("body,html").css({"position":"absolute","overflow":"visible"});
+					}
+				});
+			}
+			
+			/*打开内容详情的第一个页面*/
+	      	function openNewsContent(nid, ntype, ntitle, nlink){
+			      		var person = JSON.parse(plus.storage.getItem("person"));
+						var puid = person.pernr;
+			      		var signData = {
+								"puid" : puid,
+								"token" : token,
+								"timeInMillis" : getTimestamp()
+							};
+						var signature = getSignature(signData);
+						var signature_md5 = md5(md5(signature));		
+						mui.post(addScoreAddress,{
+							method:"addTime",
+							puid:puid,
+							type:2,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+						},function(data){
+							
+						},'json')
+	      		if(ntype == 1){
+	      			mui.openWindow({
+		      			url:'news_content_father.html',
+		      			id:'news_content_father.html',
+		      			extras:{
+					        nid:nid
+					   	},
+					   	waiting:{
+				      		autoShow:true,//自动显示等待框，默认为true
+					      	title:'正在加载...'//等待对话框上显示的提示内容
+					    }
+		      		});
+	      		}else{
+	      			openLinkFrame(ntitle, nlink);
+	      		}
+	      	}
+	      	
+	      	function openLinkFrame(title, link_url){
+				mui.openWindow({
+	      			url:'link_frame.html',
+	      			id:'link_frame.html',
+	      			extras:{
+	      				blink:"" + link_url,
+				        title:title,
+				   	},
+				   	waiting:{
+			      		autoShow:true,
+				      	title:'正在加载...'
+				    }
+	      		});
+			}	      	
+		</script>
+		<script type="text/javascript">
+			
+			mui.plusReady(function(){
+			var signData = {
+				"pageNo" : pageNo,
+				"pageSize" : pageSize,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(newsAddress,{
+				method:"news",
+				pageNo:1,
+				pageSize:pageSize,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					console.log(data.data);
+					drawNews(data.data);
+				}else{
+					
+				}
+			},'json');
+			 
+			
+			function drawNews(newslist){
+				var newsListDiv = $("#newsListDiv");
+				console.log(newslist)
+				mui.each(newslist,function(index,item){
+					 var Li = $("<li/>").addClass("mui-table-view-cell mui-media");
+					 var wrapDiv = $("<a/>").attr("onclick","openNewsContent(" + item.id + "," + item.ntype + ",'" + item.ntitle + "','" + item.nlink + "')");
+					 /*img与div同级*/
+					 var Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src",imageAddress + item.ncover)
+					 	.css({
+					 		height:"75px",
+					 		width:"125px",
+					 		maxWidth: "125px",
+					 		paddingBottom:"0px"
+					 	});
+					 /*div包含3个p标签*/
+					 var rDiv = $("<div/>").addClass('mui-media-body');
+					 var pTitle = $("<p/>").addClass('font-first-line').html(item.ntitle);
+					 var pContent = $("<p/>").addClass('mui-ellipsis-2 font-second-line').html("根据用户需求为商品添加多城市覆盖，精确定到\"省、市、区（县）\",就近安排");
+					 rDiv.append(pTitle).append(pContent);
+					/*最后一个p标签分别包含2个img和2个span*/
+					 var pChunk = $("</p>");
+					 var iconImg1 = $("<img/>").addClass('img-first-size').attr("src","../img/retail_operation/icon_1.png");
+					 var tt = new Date(item.ncreaterTime);
+					 var time = $("<span/>").addClass('font-third-size').css({verticalAlign:"middle"}).html(tt.Format("yyyy-MM-dd hh:mm:ss"));
+					 pChunk.append(iconImg1).append(time);
+					 rDiv.append(pChunk);
+					 wrapDiv.append(Img);
+					 wrapDiv.append(rDiv);
+					 Li.append(wrapDiv);
+					newsListDiv.append(Li);
+					document.getElementsByClassName("mui-media")[0].getElementsByTagName("img")[0].onload = function() {
+						$(".LoadMask").css("display","none");
+						$(".loadWeb").css("display","none");
+						$("body,html").css({"position":"absolute","overflow":"visible"});
+					}
+				});
+			}
+		})			
+//		图片加载提示的高度
+		$(document).ready(function(){
+			var screenWidth=$(window).width();
+			var screenHeight=$(window).height();
+			var loadWidth=$(".loadWeb").width();
+			var loadHeight=$(".loadWeb").height();
+			var width_Gap=(screenWidth-loadWidth)/2-20;
+			var height_Gap=(screenHeight-loadHeight)/2;
+			$(".loadWeb").css({"left":width_Gap,"top":height_Gap});
+		})
+
+//			搜索行
+			document.getElementById("search_start").addEventListener('tap',function(){
+				$(".mui-bar,.mui-content,.mui-scroll-wrapper,.retail_operation_content").css("display","none");
+				$("#search_Bar").css("display","flex");
+				$(".mui-content").css("padding-top","0");
+			});
+			document.getElementsByClassName("search_cancel")[0].addEventListener('tap',function(){
+				$(".mui-bar,.mui-content,.mui-scroll-wrapper,.retail_operation_content").css("display","block");
+				$(".mui-content").css("padding-top","44px");
+				$("#search_Bar").css("display","none");
+				$(".search").blur();
+
+			});
+			$(document).ready(function(){
+				$(".search").bind("input porpertychange",function(){ 
+					var search_val=$(".search").val();
+					if(search_val!==""){
+						$(".search_button").css("display","block");
+						$(".search_cancel").css("display","none");
+					}else{
+						$(".search_button").css("display","none");
+						$(".search_cancel").css("display","block");
+					}
+				})
+			});	
+//			搜索
+			document.getElementById("searchBtn").addEventListener('tap',function(){
+				var text = $("#a").val();	
+				mui.post(searchAddress,{
+					method:"queryNews",
+					content:text
+				},function(data){
+					if(data.result){					
+						mui.openWindow({
+							url:'search_news.html',
+							id:'search_news.html',
+							extras:{
+			       				 newsList:data.data
+			   				},
+			   				waiting:{
+		      					autoShow:true,
+			      				title:'正在加载...'
+			   				 }
+						});				
+					}
+				$(".search_button").css("display","none");
+				$(".search_cancel").css("display","block");
+				$(".mui-bar,.mui-content,.mui-scroll-wrapper,.retail_operation_content").css("display","block");
+				$(".mui-content").css("padding-top","44px");
+				$("#search_Bar").css("display","none");
+				},'json');
+				$(".search").val("");
+			});
+		</script>
+	</body>
+
+</html>

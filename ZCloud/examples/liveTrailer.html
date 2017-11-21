@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="../js/remjs.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/Live.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<script type="text/javascript" src="../js/md5.js"></script>
+	</head>
+	<body>
+		<section>
+			<div class="Trailer">
+				<span onclick="Back()"><img src="../img/hot_course/icon_back.png"/></span>
+				<div id="hbackimg"><img src="../img/hot_course/def_1.png" /></div>
+				<div class="TrailerTxt">直播预告</div>
+			</div>
+			<div class="bgW speakContent">
+				<div>《发散思维，每日深谈》</div>
+				<div>演讲老师：<span class="Speaker">吴军</span></div>
+				<div>内容简介：<span class="contentValidity">每日深谈，像时代领航者一样思考</span></div>
+			</div>
+			<div class="mt5 bgW">
+				<div class="sendMessage"><span><img src="../img/hot_course/head_1.png"/></span><input id="comment" type="text" placeholder="我来说几句"/><span onclick="toTell()"><a>发送</a></span></div>
+				<div id="tellDIV">
+					<!--<div class="messageList bt">
+						<div class="dib"><img src="../img/hot_course/head_1.png"/></div>
+						<div class="dib messager">
+							<div class="messageName">李晓梅</div>
+							<div class="mesageTime">1小时前</div>
+							<div class="messageContent">发表感慨发表意见</div>
+							<div class="Supporter"><span>10</span><span>同问</span></div>
+						</div>
+					</div>
+					<div class="messageList bt">
+						<div class="dib"><img src="../img/hot_course/head_1.png"/></div>
+						<div class="dib messager">
+							<div class="messageName">李晓梅</div>
+							<div class="mesageTime">1小时前</div>
+							<div class="messageContent">发表感慨发表意见</div>
+							<div class="Supporter"><span>10</span><span>同问</span></div>
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</section>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			var lid = self.lid;
+			var img = self.img;
+			if(!isNull(img)){
+				$("#hbackimg").empty().append(
+					"<img height=\"200px\" src=\""+serverIp +"images/"+img+"\" />"
+				);
+			}
+			var signData = {
+					"lid" : lid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(trailerAddress,{
+					method:"query",
+					lid:lid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawAll(data.data);
+					}
+				},'json');
+		});
+		function drawAll(all){
+				var pernr = JSON.parse(plus.storage.getItem("person"));
+				var all = JSON.parse(JSON.stringify(all));
+				var live = $("#tellDIV");
+				var s = null;
+				live.empty();
+				mui.each(all,function(index,item){
+					var unixTimestamp = new Date(item.ldateTime);
+					live.append(
+						"<div class=\"messageList bt\">"+
+							"<div class=\"dib\">"+
+								"<img src=\""+serverIp +"avatar/"+item.avatar+" \"/>"+
+							"</div>"+
+							"<div class=\"dib messager\">"+
+								"<div class=\"messageName\">"+item.name+"</div>"+
+								"<div class=\"mesageTime\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</div>"+
+								"<div class=\"messageContent\">"+item.ltext+"</div>"+
+								"<div class=\"Supporter\"><span id=\"num"+index+"\" >10</span><span onclick=\"javascript:upaprise("+item.id+","+index+");\" id=\"color"+index+"\" >同问</span></div>"+
+							"</div>"+
+						"</div>"
+					);
+					var signData = {
+						"lid" : item.id,
+						"luid":pernr.pernr,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(trailerAddress,{
+						method:"queryp",
+						lid:item.id,
+						luid:pernr.pernr,
+						token:token,
+						timeInMillis:getTimestamp(),
+						signature:signature_md5
+					},function(data){
+						if(data.result){
+							var temp = JSON.parse(JSON.stringify(data.data));
+							$("#num"+index).empty();
+							$("#num"+index).append(temp.count);
+							mui.each(temp.tpriselist,function(index2,item2){
+								if(item2.name == pernr.name){
+									document.getElementById("color"+index).style.color="#647dff";
+								}else{
+									document.getElementById("color"+index).style.color="";
+								}
+							});
+						}
+					},'json');
+				});
+		}
+		function upaprise(lid,index){
+					var pernr = JSON.parse(plus.storage.getItem("person"));
+					var luid = pernr.pernr;
+					var signData = {
+						"lid" : lid,
+						"luid" : luid,
+						"token" : token,
+						"timeInMillis" : getTimestamp()
+					};
+					var signature = getSignature(signData);
+					var signature_md5 = md5(md5(signature));
+					mui.post(trailerAddress,{
+							method:"liveTrailer",
+							lid:lid,
+							luid:luid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+					},function(data){
+						if(data.data == 1){
+							document.getElementById("color"+index).style.color="#647dff";
+						}else{
+							document.getElementById("color"+index).style.color="";
+						}
+						if(data.result){
+							/*location.reload();*/
+							var signData = {
+								"lid" : lid,
+								"token" : token,
+								"timeInMillis" : getTimestamp()
+							};
+							var signature = getSignature(signData);
+							var signature_md5 = md5(md5(signature));
+							mui.post(trailerAddress,{
+								method:"queryp",
+								lid:lid,
+								token:token,
+								timeInMillis:getTimestamp(),
+								signature:signature_md5
+							},function(data){
+								if(data.result){
+									var temp = JSON.parse(JSON.stringify(data.data));
+									$("#num"+index).empty();
+									$("#num"+index).append(temp.count);
+								}
+							},'json');
+						}	
+						},'json'
+					);
+				}
+		function Back(){
+			var main = plus.webview.getWebviewById("liveList.html");
+			mui.fire(main, "pageflowrefresh" );
+			mui.back();
+			
+		}
+		function isNull(data){ 
+			return (data == "" || data == undefined || data == null) ? true : false; 
+		}
+		function toTell(){
+			var pernr = JSON.parse(plus.storage.getItem("person"));
+			var self = plus.webview.currentWebview();
+			var lid = self.lid;
+			var luid = pernr.pernr;
+			var ltext = document.getElementById("comment").value;
+			document.getElementById("comment").value="";
+			if(isNull(ltext)){
+				toast('评论失败，内容不能为空', 2000);
+				return false;
+			}else{
+				var signData = {
+					"lid" : lid,
+					"luid" : luid,
+					"ltext" : ltext,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(trailerAddress,{
+					method:"setComment",
+					lid:lid,
+					luid:luid,
+					ltext:ltext,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){	
+						var self = plus.webview.currentWebview();
+						var lid = self.lid;
+						var signData = {
+							"lid" : lid,
+							"token" : token,
+							"timeInMillis" : getTimestamp()
+						};
+						var signature = getSignature(signData);
+						var signature_md5 = md5(md5(signature));
+						mui.post(trailerAddress,{
+							method:"query",
+							lid:lid,
+							token:token,
+							timeInMillis:getTimestamp(),
+							signature:signature_md5
+						},function(data){
+							if(data.result){
+								drawAll(data.data);
+							}
+						},'json');	
+						toast('评论成功!', 2000);
+					}
+				},'json')}
+		}
+</script>
+</html>

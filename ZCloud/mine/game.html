@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/integral_mall.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+	</head>
+	<style type="text/css">
+		html,body{
+			height: 100%;
+			width: 100%;
+			background-color: #fff;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 55px;-webkit-box-shadow: 0 0 0;box-shadow: 0 0 0;">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left colorW" style="margin-top: 15px;padding-right: 30px;"></a>
+			<h1 class="mui-title colorW" style="margin-top: 15px;" id="page_title">小游戏</h1>    
+		</header>
+		<section class="game_section">
+			<ul>
+				<li id="game_1">
+					<div class="game_logo"><img src="../img/game/dds.png"/></div>
+					<div class="game_name">打地鼠</div>
+					<div class="game_next"><img src="../img/game/icon_3.png"/></div>
+				</li>
+				<li id="game_2">
+					<div class="game_logo"><img src="../game/hero/images/stick_stand.png"/></div>
+					<div class="game_name">量长短</div>
+					<div class="game_next"><img src="../img/game/icon_3.png"/></div>
+				</li>
+			</ul>
+		</section>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			document.getElementById("game_1").addEventListener("tap",function(){
+				mui.openWindow({
+	      			url:'../game/dadishu/index.html',
+	      			id:'../game/dadishu/index.html',
+      			})
+			})
+			document.getElementById("game_2").addEventListener("tap",function(){
+				mui.openWindow({
+	      			url:'../game/hero/index.html',
+	      			id:'../game/hero/index.html',
+      			})
+			})
+		</script>
+	</html>

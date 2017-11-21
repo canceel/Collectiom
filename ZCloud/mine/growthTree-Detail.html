@@ -1,0 +1,85 @@
+<!doctype html>
+<html style="height: 100%;overflow: hidden;">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/Live.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/md5.js"></script>	
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+	</head>
+	<body class="bodyBGTwo">
+		<header id="header" class="mui-bar mui-bar-transparent">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="font-size: 22px;padding: 3%;padding-top: 26px;color: #fff;padding-right: 30px;padding-bottom: 20px;"><span style="font-size: 15px;">返回</span></a>
+		</header>
+		<div id="TreeList" class="growthTreeList">
+			
+		</div>
+		<div class="TreeDown"><img src="../img/growthTree/icon_2.png"/></div>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script>
+			mui.plusReady(function(){
+				var per = JSON.parse(plus.storage.getItem("person"));
+				var uid = per.pernr;
+				var signData = {
+					"uid" : uid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				var signature = getSignature(signData);
+				var signature_md5 = md5(md5(signature));
+				mui.post(degreeAdress,{
+					method:"queryall",
+					uid:uid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){	
+						number1(data.data);
+						$(document).ready(function(){
+							var screenWidth=$(window).width();
+							var TreeDownWidth=$(".TreeDown").width();
+							var TreeDownLeft=(screenWidth-TreeDownWidth)/2;
+							$(".TreeDown").css("left",TreeDownLeft);
+						})
+					}
+				},'json');
+			});
+			function number1(numall){
+				var treeList = $("#TreeList");
+				treeList.empty();
+				mui.each(numall,function(index,item){
+					var unixTimestamp = new Date(item.bdateTime);
+					treeList.append(
+						"<div class=\"growthTreeDetail\">"+
+							"<div>观看"+item.btile+"</div>"+
+							"<div>获得"+item.bnum+"学分成长值</div>"+
+							"<div>"+unixTimestamp.Format("yyyy-MM-dd")+"</div>"+
+						"</div>"
+					);
+				});
+			}
+			document.getElementsByClassName("TreeDown")[0].addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'growthTree.html',
+					id: 'growthTree.html'
+				});
+			});
+			$(document).ready(function(){
+				var screenWidth=$(window).width();
+				var TreeDownWidth=$(".TreeDown").width();
+				var TreeDownLeft=(screenWidth-TreeDownWidth)/2;
+				$(".TreeDown").css("left",TreeDownLeft);
+			})
+		</script>
+	</html>

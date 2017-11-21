@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的收藏</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<style type="text/css">
+			.line{
+				float: left;
+				background-color: #dcdcdc;
+				width: 100%;
+				margin-bottom: 3%;
+				margin-top: 5px;
+				height: 1px;
+			} 
+			.number{
+				margin-top:55px ;
+				width: 100%;
+				height: auto;
+			}
+			.number1{
+				margin-right: 3.5%;
+				margin-left: 3.5%;
+				margin-top:10px;
+				width: 93%;
+				float: left;
+			}
+			.box{
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height:55px;margin-top: 0px;" >
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " style="margin-top: 18px;padding-right: 30px;"></a>
+	    	<h1 class="mui-title" style="margin-top: 15px;" >我的收藏</h1>
+		</header>
+		<div id="box" class="box">
+
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+		mui.plusReady(function() {
+			var per = JSON.parse(plus.storage.getItem("person"));
+			var buid = per.pernr;
+			var signData = {
+				"cuid" : buid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(collectionAddress,{
+				method:"bill",
+				cuid:buid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawMINE(data.data);
+				}
+			},'json');
+		});
+		function drawMINE(mine){
+			var list = JSON.parse(JSON.stringify(mine));
+			box = $("#box");
+			mui.each(list.list1,function(index,item){
+				var unixTimestamp = new Date(item.cdateTime);
+				box.append(
+					"<div onclick=\"javascript:toLess("+item.id+",\'"+item.ccover+"\',\'"+item.ltype+"\');\"  class=\"number\">"+
+					"<div class=\"number1\">"+
+				"<div><div style=\"float:left ;color: #444444;font-size: 80%;\">"+item.ltitle+
+					"</div>"+
+					"<div style=\"float: right;\">"+
+						"<img width=\"80px\" alt=\"kk\" height=\"53px\" src=\""+ serverIp +"images/" + item.ccover + " \"/>"+
+					"</div>"+
+				"</div>"+
+				"<div style=\"width: 100%;;float: left;\">"+
+					"<span style=\"float: left;color:#888888 ;;font-size: 78%;\">课件&nbsp;&nbsp;| &nbsp;&nbsp;"+item.llecturer+"</span>"+
+					"<span style=\"color: #8b8b8b;font-size: 78%;float: right;\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</span>"+
+				"</div></div></div><div class=\"line\"></div>"
+				);
+			});
+			mui.each(list.list2,function(index,item){
+				var unixTimestamp = new Date(item.cdateTime);
+				box.append(
+					"<div onclick=\"javascript:toExternal("+item.id+",\'"+item.ecover+"\',\'"+item.eftype+"\');\" class=\"number\">"+
+					"<div class=\"number1\">"+
+				"<div><div style=\"float:left ;color: #444444;font-size: 80%;\">"+item.etitle+
+					"</div>"+
+					"<div style=\"float: right;\">"+
+						"<img width=\"80px\" alt=\"kk\" height=\"53px\" src=\""+ serverIp +"images/" + item.ecover + " \"/>"+
+					"</div>"+
+				"</div>"+
+				"<div style=\"width: 100%;;float: left;\">"+
+					"<span style=\"float: left;color:#888888 ;;font-size: 78%;\">认知迭代&nbsp;&nbsp;| &nbsp;&nbsp;"+item.electurer+"</span>"+
+					"<span style=\"color: #8b8b8b;font-size: 78%;float: right;\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</span>"+
+				"</div></div></div><div class=\"line\"></div>"
+				);
+			});
+			mui.each(list.list3,function(index,item){
+				var unixTimestamp = new Date(item.cdateTime);
+				box.append(
+					"<div onclick=\"javascript:toExternal("+item.id+",\'"+item.scover+"\',\'"+item.stype+"\');\" class=\"number\">"+
+					"<div class=\"number1\">"+
+				"<div><div style=\"float:left ;color: #444444;font-size: 80%;\">"+item.stitle+
+					"</div>"+
+					"<div style=\"float: right;\">"+
+						"<img width=\"80px\" alt=\"kk\" height=\"53px\" src=\""+ serverIp +"images/" + item.scover + " \"/>"+
+					"</div>"+
+				"</div>"+
+				"<div style=\"width: 100%;;float: left;\">"+
+					"<span style=\"float: left;color:#888888 ;;font-size: 78%;\">当下故事&nbsp;&nbsp;| &nbsp;&nbsp;"+item.slecturer+"</span>"+
+					"<span style=\"color: #8b8b8b;font-size: 78%;float: right;\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+"</span>"+
+				"</div></div></div><div class=\"line\"></div>"
+				);
+			});
+			
+		}
+		function toLess(lid,cover,type){
+			var signData = {
+				"lid" : lid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(lessonAddress,{
+				method:"getLesson",
+				id:lid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					if(data.data.lesson.lpath != null){
+						mui.openWindow({
+							url: '../examples/show_lesson_content.html',
+							id: '../examples/show_lesson_content.html',
+							extras:{
+								lid:lid,
+								cover:cover
+							},
+							waiting:{
+								autoShow:true,
+								title:'正在加载...'
+							}
+						});
+					}else{
+						mui.openWindow({
+							url: '../examples/show_ppt_content.html',
+							id: '../examples/show_ppt_content.html',
+							extras:{
+								lid:lid,
+								cover:cover
+							},
+							waiting:{
+								autoShow:true,
+								title:'正在加载...'
+							}
+						});
+					}					
+				}
+			},'json');
+		}
+		//特殊课程
+		function toExternal(lid,cover,type){
+			var signData = {
+				"id" : lid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(externalAddress,{
+				method:"getExternal",
+				id:lid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					if(data.data.externalObject.epath != null){						
+						mui.openWindow({
+							url: '../external/show_external_content.html',
+							id: '../external/show_external_content.html',
+							extras:{
+				      		  eid:lid,
+				      		  cover:cover
+				   			},
+				   			waiting:{
+			      				autoShow:true,//自动显示等待框，默认为true
+				      			title:'正在加载...'//等待对话框上显示的提示内容
+				    		}
+						});
+					}else{
+						mui.openWindow({
+							url: '../external/show_external_ppt.html',
+							id: '../external/show_external_ppt.html',
+							extras:{
+				      		  eid:lid,
+				      		  cover:cover
+				   			},
+				   			waiting:{
+			      				autoShow:true,//自动显示等待框，默认为true
+				      			title:'正在加载...'//等待对话框上显示的提示内容
+				    		}
+						});	
+					}
+				}
+			},'json');
+		}
+		//自己的故事
+		function toStory(id,cover,type){
+			var signData = {
+				"id" : id,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(storyAddress,{
+				method:"getStory",
+				id:id,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					if(data.data.story.spath != null){
+						mui.openWindow({
+							url: '../examples/show_story_content.html',
+							id: '../examples/show_story_content.html',
+							extras:{
+				      		  sid:id,
+				      		  cover:cover
+				   			},
+				   			waiting:{
+			      				autoShow:true,//自动显示等待框，默认为true
+				      			title:'正在加载...'//等待对话框上显示的提示内容
+				    		}
+						});
+					}else{
+						mui.openWindow({
+							url: '../examples/show_story_ppt.html',
+							id: '../examples/show_story_ppt.html',
+							extras:{
+				      		  sid:id,
+				      		  cover:cover
+				   			},
+				   			waiting:{
+			      				autoShow:true,//自动显示等待框，默认为true
+				      			title:'正在加载...'//等待对话框上显示的提示内容
+				    		}
+						});
+					}
+				}
+				
+			},'json')
+		}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/hot_course.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<style>
+		body,html{
+			position: fixed;
+			/*overflow: hidden;*/
+			width: 100%;
+			height: 100%;
+		}
+		.loadWeb{
+			position: fixed;
+			z-index: 2;
+			background-color: #454545;
+			color: #fff;
+			padding:10px 20px;
+			border-radius: 8px;
+		}
+		.LoadMask{
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}			
+		</style>
+	</head>
+	<body id="bd">
+		<div class="mui-content" style="position: absolute;top: 0;width: 100%;z-index: 2;">
+			
+		<!--头部图片部分-->
+		<div class="mui-slider" style="position: fixed;top:0;">
+			<div class="mui-slider-group">
+				<div class="mui-slider-item">
+					<a style="position: relative;"><img id="course_bg" src='../img/hot_course/bj.png' ></img></a>
+				</div>
+			</div>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="z-index:1;top: 0;padding-top: 7%;padding-left: 15px;padding-right: 30px;padding-bottom: 30px;font-size: 13px;position: absolute;">
+				<div style="margin-left: 15px;margin-top: -12px;">返回</div>
+			</a>
+			<ul class="mui-table-view" style="width: 100%;margin-top: -5px;height: 43px;">
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="../img/hot_course/icon_read.png" style="height: 12px;margin-top: 8px;">
+			            <div class="mui-media-body">
+			               <p style="font-size: 12px;color: #717171;margin-top: 4px;">已有<span id="course_ctr"></span>人观看</p>			
+			            </div>
+			        </a>
+			    </li>
+			</ul>
+		</div>
+
+  <!--产品保鲜订阅专栏-->
+  <!--视频-->
+  <div>
+  	<div id="lessonDiv" class="mui-scroll-wrapper">
+	
+  	</div>
+  </div>
+</div>	
+	<!--页面加载弹窗-->
+<div class="loadWeb">加载中...</div>
+<div class="LoadMask"></div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<script type="text/javascript" src="../js/dateFormat.js" ></script>
+		<script type="text/javascript">	
+			mui.init({
+  			  pullRefresh : { 
+				container:"#bd",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			    down : {
+				      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+				      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+				      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+				      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+				      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+	//			      auto: true,//可选,默认false.首次加载自动上拉刷新一次
+				      callback :refresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				    }
+				}
+			});
+			
+			function refresh(){
+				window.location.reload();
+				mui('#bd').pullRefresh().endPulldown(true);		
+			}
+		
+  			mui('.mui-slider').slider().setStopped(true); 
+			/*滚动条设置*/
+			mui('.mui-scroll-wrapper').scroll({
+			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+		</script>
+		<script type="text/javascript">
+		mui.plusReady(function() {
+			plus.screen.lockOrientation("portrait-primary"); 
+			var self = plus.webview.currentWebview();
+			var cid = self.cid;
+			var cover = null;
+			var csynopsis = null;
+			var shareTitle = null;
+			var signData = {
+				"id" : cid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(courseAddress,{
+				method:"getCourse",
+				id:cid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawCourseInfo(data.data);
+					csynopsis =	data.data.csynopsis;
+					shareTitle = data.data.ctitle;
+				}else{
+					//服务器繁忙
+				}
+			},'json');
+			
+			function drawCourseInfo(course){
+				cover = course.ccover;
+				$("#course_bg").attr("src", serverIp + "images/" + course.ccover);
+				$("#course_ctr").html(course.ctr);
+				getLessonList();
+			}
+			
+			function getLessonList(){
+				signData = {
+					"lcid" : cid,
+					"token" : token,
+					"timeInMillis" : getTimestamp()
+				};
+				signature = getSignature(signData);
+				signature_md5 = md5(md5(signature));
+				mui.post(lessonAddress,{
+					method:"lesson",
+					lcid:cid,
+					token:token,
+					timeInMillis:getTimestamp(),
+					signature:signature_md5
+				},function(data){
+					if(data.result){
+						drawLesson(data.data);
+					}else{
+						//服务器繁忙
+					}
+				},'json');
+			}
+			
+			function drawLesson(lessonlist){
+				var lessonDiv = $('#lessonDiv');
+				mui.each(lessonlist,function(index,item){
+					var hot_course_ul = $("<ul/>").addClass("mui-table-view mui-scroll").click(function(){
+						if(item.ltype == 3){
+							mui.openWindow({
+								url: 'show_ppt_content.html',
+								id: 'show_ppt_content.html',
+								extras:{
+					      		  lid:item.id,
+					      		  cover:cover,
+					      		  cid:cid,
+					      		  csynopsis:csynopsis,
+					      		  shareTitle:shareTitle
+					   			},
+					   			waiting:{
+				      				autoShow:true,//自动显示等待框，默认为true
+					      			title:'正在加载...'//等待对话框上显示的提示内容
+					    		}
+							});
+						}else if(item.ltype == 2){
+							mui.openWindow({
+								url: 'show_lesson_audio.html',
+								id: 'show_lesson_audio.html',
+								extras:{
+					      		  lid:item.id,
+					      		  cover:cover,
+					      		  cid:cid,
+					      		  csynopsis:csynopsis,
+					      		  shareTitle:shareTitle
+					   			},
+					   			waiting:{
+				      				autoShow:true,//自动显示等待框，默认为true
+					      			title:'正在加载...'//等待对话框上显示的提示内容
+					    		}
+							});
+						}else{							
+							mui.openWindow({
+								url: 'show_lesson_content.html',
+								id: 'show_lesson_content.html',
+								extras:{
+					      		  lid:item.id,
+					      		  cover:cover,
+					      		  cid:cid,
+					      		  csynopsis:csynopsis,
+					      		  shareTitle:shareTitle
+					   			},
+					   			waiting:{
+				      				autoShow:true,//自动显示等待框，默认为true
+					      			title:'正在加载...'//等待对话框上显示的提示内容
+					    		}
+							});
+						}
+						
+					});
+					var hot_course_li = $("<li/>").addClass("mui-table-view-cell mui-media");
+					var hot_course_a = $("<a/>").addClass("hot_course");
+					/*img与2个div同级*/
+					 var hot_course_Img = $("<img/>")
+					 	.addClass('mui-media-object mui-pull-left')
+					 	.attr("src","../img/hot_course/icon_play.png")
+					 	.css({
+					 		height:"19.5px",
+					 		marginTop:"12px",
+					 	});
+					 	/*第一个div下包含一个div和一个p*/
+					 	var hot_course_rDiv = $("<div/>").addClass('mui-media-body');
+						var hot_course_pTitle = $("<div/>").addClass('retail_firDiV').html(item.ltitle);
+					 	var hot_course_secP = $("<p/>").addClass('hot_course_firP');
+					 	hot_course_rDiv.append(hot_course_pTitle).append(hot_course_secP);
+					 	/*(hot_course_tt.Format("yyyy-MM ")时长:" getMillisecondToDate(item.ltime) + 3.55MB);*/
+					 	var hot_course_tt = new Date(item.lcreateTime);
+					 	var hot_course_secPfirP = $("<div/>").addClass('retail_firTime').html(hot_course_tt.Format("MM-dd"));
+					 	if(item.ltype != 3){
+					 		var hot_course_secPsecP = $("<div/>").addClass('retail_secTime').html("时长:"+getMillisecondToDate(item.ltime));
+					 		var hot_course_secPsecP = $("<div/>").addClass('retail_secTime').html("时长:"+getMillisecondToDate(item.ltime));
+					 		var hot_course_flow = $("<div/>").addClass('retail_flow').html(parseInt((item.lsize / 1024) / 1024) + "M");
+					 		
+					 	}
+					 	hot_course_secP.append(hot_course_secPfirP).append(hot_course_secPsecP).append(hot_course_flow);
+						/*第二个div包含一个img*/
+						var imgname = null;
+						if(item.ltype == 3){
+							imgname = "123.png";
+						}else if(item.ltype == 1){
+							imgname = "icon_video.png";
+						}else{
+							imgname = "icon_audio.png";
+						}
+						var hot_course_sDiv = $("<div/>").addClass('hot_course_secDiv');
+						var hot_course_sImg = $("<img/>")
+					 	.addClass('mui-media-body mui-pull-right')
+					 	.attr("src","../img/hot_course/"+imgname)
+					 	.css({
+					 		marginTop: "10px",
+					 		height: "20px",
+					 		float:"right",
+					 		/*marginRight: "-2px",*/
+					 	});
+					 hot_course_sDiv.append(hot_course_sImg);
+					 hot_course_a.append(hot_course_Img);
+					 hot_course_a.append(hot_course_sDiv);
+					 hot_course_a.append(hot_course_rDiv);
+					 hot_course_li.append(hot_course_a);
+					 hot_course_ul.append(hot_course_li);
+					lessonDiv.append(hot_course_ul);
+					document.getElementsByClassName("hot_course")[0].getElementsByTagName("img")[0].onload = function() {
+						$(".LoadMask").css("display","none");
+						$(".loadWeb").css("display","none");
+						$("body,html").css({"position":"absolute","overflow":"visible"});
+						var top_height=$(".mui-slider").height();
+						$(".mui-scroll-wrapper").css("margin-top",top_height);
+					}
+				});
+			}
+			
+		});
+//		图片加载提示的高度
+		$(document).ready(function(){
+			var screenWidth=$(window).width();
+			var screenHeight=$(window).height();
+			var loadWidth=$(".loadWeb").width();
+			var loadHeight=$(".loadWeb").height();
+			var width_Gap=(screenWidth-loadWidth)/2-20;
+			var height_Gap=(screenHeight-loadHeight)/2;
+			$(".loadWeb").css({"left":width_Gap,"top":height_Gap});
+		})
+		</script>
+	</body>
+
+</html>

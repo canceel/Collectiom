@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>考核记录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/zc_utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/retail_operation.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+		<script type="text/javascript" src="../js/dateFormat.js"></script>
+		<script type="text/javascript" src="../js/md5.js" ></script>
+		<style type="text/css">
+			.medal{
+				border: 1px solid #DDDDDD;
+				padding-top: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-bottom: 3.5px;
+				border-radius: 5px;
+				margin: 3%;
+				margin-bottom: 2%;
+				margin-top: 2%;
+				width: 93%;
+				float: left;
+			}
+			.number{
+				margin-top:55px ;
+				width: 100%;
+				height: auto;
+			}
+			.top_list{
+				border-bottom: 1px solid #d3d3d3;
+				height: 38px!important;
+			}
+			.top_list a{
+				margin-right: 0!important;
+				margin-top: 0!important;
+				width: 33vw!important;
+				font-size:14px;
+				font-weight: 500;
+				line-height: 27px!important;
+    			padding-top: 5px!important;
+			}
+			.lesTitleDiv{
+				margin-top: 40px;
+			}
+			.check_2,.check_3{
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height:55px;margin-top: 0px;" >
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " style="margin-top: 18px;padding-right: 30px;"></a>
+	    	<h1 class="mui-title" style="margin-top: 15px;" >考核记录</h1>
+		</header>
+		<div class="number mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+	    	<div class="mui-scroll top_list">
+	    		<a class="mui-control-item list_1 mui-active">课程考核记录</a>
+	    		<a class="mui-control-item list_2">特殊课程考核记录</a>
+	    		<a class="mui-control-item list_3">当下故事考核记录</a>
+	    	</div>	
+	    	<div class="lesTitleDiv" id="lesTitleDiv">
+	    	 	<div class="check_1" id="lessonDiv"></div>
+	    		<div class="check_2" id="externalDiv"></div>
+	    		<div class="check_3" id="storyDiv"></div>
+	    	</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+
+		<script type="text/javascript">	
+		$(".list_1").on("tap",function(){
+			$(".check_2,.check_3").css("display","none");
+			$(".check_1").css("display","block");
+		})
+		$(".list_2").on("tap",function(){
+			$(".check_1,.check_3").css("display","none");
+			$(".check_2").css("display","block");
+		})
+		$(".list_3").on("tap",function(){
+			$(".check_2,.check_1").css("display","none");
+			$(".check_3").css("display","block");
+		})
+		mui.plusReady(function() {
+			var per = JSON.parse(plus.storage.getItem("person"));
+			var tuid = per.pernr;
+			var signData = {
+				"tuid" : tuid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(testRecordAddress,{
+				method:"query",
+				tuid:tuid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawRecord(data.data.recordlist);				
+						}
+			},'json');
+			
+			var signData = {
+				"tuid" : tuid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(externalExamineAddress,{
+				method:"query",
+				tuid:tuid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawExterna(data.data.recordlist);				
+						}
+			},'json');
+			
+			var signData = {
+				"tuid" : tuid,
+				"token" : token,
+				"timeInMillis" : getTimestamp()
+			};
+			var signature = getSignature(signData);
+			var signature_md5 = md5(md5(signature));
+			mui.post(storyExamineAddress,{
+				method:"query",
+				tuid:tuid,
+				token:token,
+				timeInMillis:getTimestamp(),
+				signature:signature_md5
+			},function(data){
+				if(data.result){
+					drawStory(data.data.recordlist);				
+						}
+			},'json');
+		});
+		
+		function drawRecord(recordlist){			
+			var lesTitleDiv= $("#lessonDiv");		
+			if(recordlist.length>0){
+				mui.each(recordlist,function(index,item){
+				var unixTimestamp = new Date(item.tdateTime);
+				lesTitleDiv.append("<div class=\"medal\">"+
+								"<span style=\"float: left;width: 100%;margin-left: 10px;\">"+
+								"<div id=\"lesTitleDiv\"   style=\"color:#323232;font-size: 80%;\">"+item.tlid+		
+								"</div>"+
+								"<div id=\"scoreDiv\"  style=\"color:#7e7e7e;font-size: 75%;margin-top: 10px;\">"+
+								"<span style=\"float: left;\">"+
+								"成绩："+item.tscore+"分"+
+								"</span>"+
+						"<span id=\"timeDiv\" style=\"margin-right: 10px;float:right\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+
+						"</span></div></span></div>");
+				})
+			}				
+		}
+		function drawExterna(recordlist){
+			var externalDiv= $("#externalDiv");		
+			if(recordlist.length>0){
+				mui.each(recordlist,function(index,item){
+				var unixTimestamp = new Date(item.tdateTime);
+				externalDiv.append("<div class=\"medal\">"+
+								"<span style=\"float: left;width: 100%;margin-left: 10px;\">"+
+								"<div id=\"external\"   style=\"color:#323232;font-size: 80%;\">"+item.tlid+		
+								"</div>"+
+								"<div id=\"scoreDiv\"  style=\"color:#7e7e7e;font-size: 75%;margin-top: 10px;\">"+
+								"<span style=\"float: left;\">"+
+								"成绩："+item.tscore+"分"+
+								"</span>"+
+						"<span id=\"timeDiv\" style=\"margin-right: 10px;float:right\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+
+						"</span></div></span></div>");
+				})
+			}	
+		}
+		
+		function drawStory(recordlist){
+			var storyDiv= $("#storyDiv");		
+			if(recordlist.length>0){
+				mui.each(recordlist,function(index,item){
+				var unixTimestamp = new Date(item.tdateTime);
+				storyDiv.append("<div class=\"medal\">"+
+								"<span style=\"float: left;width: 100%;margin-left: 10px;\">"+
+								"<div id=\"story\"   style=\"color:#323232;font-size: 80%;\">"+item.tlid+		
+								"</div>"+
+								"<div id=\"scoreDiv\"  style=\"color:#7e7e7e;font-size: 75%;margin-top: 10px;\">"+
+								"<span style=\"float: left;\">"+
+								"成绩："+item.tscore+"分"+
+								"</span>"+
+						"<span id=\"timeDiv\" style=\"margin-right: 10px;float:right\">"+unixTimestamp.Format("yyyy-MM-dd hh:mm:ss")+
+						"</span></div></span></div>");
+				})
+			}	
+		}
+		</script>
+	</body>
+</html>
